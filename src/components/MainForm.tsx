@@ -18,12 +18,12 @@ export default function MainForm({
 	chosenMaterial,
 	onReset,
 }: MainFormProps) {
-	function handleSubmit(e: any) {
+	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		// Prevent the browser from reloading the page
 		e.preventDefault();
 
 		// Read the form data
-		const form = e.target;
+		const form = e.target as HTMLFormElement;
 		const formData = new FormData(form);
 
 		// You can pass formData as a fetch body directly:
@@ -32,6 +32,22 @@ export default function MainForm({
 		// Or you can work with it as a plain object:
 		const formJson = Object.fromEntries(formData.entries());
 		console.log(formJson);
+
+		try {
+			const backendUrl = `${import.meta.env.VITE_BACKEND_URL}/submit`;
+			const response = await fetch(backendUrl, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(formJson),
+			});
+
+			const result = await response.json();
+			console.log('Server response: ', result);
+		} catch (error) {
+			console.error('Server error: ', error);
+		}
 	}
 
 	return (
