@@ -1,0 +1,13 @@
+/* Container div for the input field */
+.input {
+	width: 100%;
+	max-width: 100px;
+	box-sizing: border-box;
+}
+
+/* Label styling for better readability */
+.label {
+	display: block;
+	margin-bottom: 0px;
+	/* font-weight: bold; */
+}

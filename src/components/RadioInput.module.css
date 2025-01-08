@@ -1,0 +1,14 @@
+.radioContainer {
+	margin-bottom: 20px;
+}
+
+.label {
+	display: inline-block;
+	margin-bottom: 8px;
+	font-weight: normal;
+}
+
+.radioInput {
+	margin-right: 2px;
+	margin-left: 7px;
+}
