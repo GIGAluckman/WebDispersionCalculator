@@ -38,39 +38,49 @@ export default function MainForm({
 		<form method="post" onSubmit={handleSubmit} onReset={onReset}>
 			<div className="row">
 				<div className="col">
-					{Object.values(GeometryParameterNames).map((key) => {
-						if (
-							geometryParameters[chosenGeometry][key] !==
-							undefined
-						) {
-							if (key !== GeometryParameterNames.picture) {
-								return (
-									<TextInput
-										key={key}
-										name={key}
-										label={
-											geometryParameters[chosenGeometry][
-												key
-											]
+					<div className="row">
+						<div className="col">
+							{Object.values(GeometryParameterNames).map(
+								(key) => {
+									if (
+										geometryParameters[chosenGeometry][
+											key
+										] !== undefined
+									) {
+										if (
+											key !==
+											GeometryParameterNames.picture
+										) {
+											return (
+												<TextInput
+													key={key}
+													name={key}
+													label={
+														geometryParameters[
+															chosenGeometry
+														][key]
+													}
+													defaultValue="100"
+													unit="nm"
+												/>
+											);
 										}
-										defaultValue="100"
-										unit="nm"
-									/>
-								);
-							}
-						}
-					})}
-				</div>
-				<div className="col">
-					<img
-						className={styles.img}
-						src={
-							geometryParameters[chosenGeometry][
-								GeometryParameterNames.picture
-							]
-						}
-						alt={chosenGeometry}
-					/>
+									}
+								}
+							)}
+						</div>
+						<div className="col">
+							<img
+								className={styles.img}
+								src={
+									geometryParameters[chosenGeometry][
+										GeometryParameterNames.picture
+									]
+								}
+								alt={chosenGeometry}
+							/>
+						</div>
+					</div>
 				</div>
 
 				<div className="col">
