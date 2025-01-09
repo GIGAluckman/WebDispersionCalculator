@@ -17,7 +17,7 @@ export const inputMaterialLoopParams: Record<
 	[MaterialParameterNames.ku]: {
 		name: 'anisotropyConstant',
 		label: 'Anisotropy constant: ',
-		unit: 'J/m^3',
+		unit: 'J/m³',
 	},
 	[MaterialParameterNames.kuAxis]: {
 		name: 'anisotropyAxis',
