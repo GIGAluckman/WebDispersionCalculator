@@ -23,7 +23,7 @@ export const geometryParameters: Record<
 		[GeometryParameterNames.picture]: monolayerLineTrace,
 	},
 	[Geometries.Wire]: {
-		[GeometryParameterNames.diameter]: 'Diameter: ',
+		[GeometryParameterNames.radius]: 'Radius: ',
 		[GeometryParameterNames.picture]: wireCrossSection,
 	},
 };

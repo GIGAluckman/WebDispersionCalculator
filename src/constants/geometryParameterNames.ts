@@ -1,6 +1,6 @@
 export enum GeometryParameterNames {
 	width = 'width',
 	thickness = 'thickness',
-	diameter = 'diameter',
+	radius = 'radius',
 	picture = 'picture',
 }
