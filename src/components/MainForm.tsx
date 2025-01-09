@@ -52,16 +52,11 @@ export default function MainForm({
 		<form method="post" onSubmit={handleSubmit} onReset={onReset}>
 			<div className="row">
 				<div className="col">
-					<div className="row">
-						<div className="col">
-							<GeometryForm chosenGeometry={chosenGeometry} />
-						</div>
-						<div className="col">
-							<ExpSetupForm chosenGeometry={chosenGeometry} />
-						</div>
-					</div>
+					<GeometryForm chosenGeometry={chosenGeometry} />
 				</div>
-
+				<div className="col">
+					<ExpSetupForm chosenGeometry={chosenGeometry} />
+				</div>
 				<div className="col">
 					<MaterialForm chosenMaterial={chosenMaterial} />
 				</div>
