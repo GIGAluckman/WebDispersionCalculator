@@ -19,7 +19,10 @@ export default function RadioInput({
 				{label}{' '}
 				{availableAxisNames.map((key) => {
 					return (
-						<label key={`label-${key}`} className={styles.label}>
+						<label
+							key={`label-${key}-${name}`}
+							className={styles.label}
+						>
 							<input
 								type="radio"
 								name={name}
