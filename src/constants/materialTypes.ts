@@ -20,7 +20,7 @@ export const materialParameters: Record<
 		[MaterialParameterNames.ms]: 21724.65,
 		[MaterialParameterNames.A]: 1.37e-12,
 		[MaterialParameterNames.ku]: 857.04,
-		[MaterialParameterNames.kuAxis]: AxisNames.z,
+		[MaterialParameterNames.kuAxis]: AxisNames.y,
 	},
 	[Materials.py]: {
 		[MaterialParameterNames.ms]: 800000,
