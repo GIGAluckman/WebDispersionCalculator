@@ -1,11 +1,8 @@
-import TextInput from './TextInput';
-import RadioInput from './RadioInput';
-import { materialParameters, Materials } from '../constants/materialTypes';
-import { Geometries, geometryParameters } from '../constants/geometryTypes';
-import { inputMaterialLoopParams } from '../constants/inputMaterialLoopParams';
-import { MaterialParameterNames } from '../constants/materialParameterNames';
-import { GeometryParameterNames } from '../constants/geometryParameterNames';
-import styles from './MainForm.module.css';
+import { Materials } from '../constants/materialTypes';
+import { Geometries } from '../constants/geometryTypes';
+import ExpSetupForm from './ExpSetupForm';
+import MaterialForm from './MaterialForm';
+import GeometryForm from './GeometryForm';
 
 interface MainFormProps {
 	chosenGeometry: Geometries;
@@ -31,6 +28,7 @@ export default function MainForm({
 
 		// Or you can work with it as a plain object:
 		const formJson = Object.fromEntries(formData.entries());
+		formJson['chosenGeometry'] = chosenGeometry;
 		console.log(formJson);
 
 		try {
@@ -56,84 +54,16 @@ export default function MainForm({
 				<div className="col">
 					<div className="row">
 						<div className="col">
-							{Object.values(GeometryParameterNames).map(
-								(key) => {
-									if (
-										geometryParameters[chosenGeometry][
-											key
-										] !== undefined
-									) {
-										if (
-											key !==
-											GeometryParameterNames.picture
-										) {
-											return (
-												<TextInput
-													key={key}
-													name={key}
-													label={
-														geometryParameters[
-															chosenGeometry
-														][key]
-													}
-													defaultValue="100"
-													unit="nm"
-												/>
-											);
-										}
-									}
-								}
-							)}
+							<GeometryForm chosenGeometry={chosenGeometry} />
 						</div>
 						<div className="col">
-							<img
-								className={styles.img}
-								src={
-									geometryParameters[chosenGeometry][
-										GeometryParameterNames.picture
-									]
-								}
-								alt={chosenGeometry}
-							/>
+							<ExpSetupForm chosenGeometry={chosenGeometry} />
 						</div>
 					</div>
 				</div>
 
 				<div className="col">
-					{Object.values(MaterialParameterNames).map((key) => {
-						if (
-							materialParameters[chosenMaterial][key] !==
-							undefined
-						) {
-							if (key === MaterialParameterNames.kuAxis) {
-								return (
-									<RadioInput
-										key={key}
-										name={inputMaterialLoopParams[key].name}
-										label={
-											inputMaterialLoopParams[key].label
-										}
-										defaultValue={materialParameters[
-											chosenMaterial
-										][key].toString()}
-									/>
-								);
-							}
-							return (
-								<TextInput
-									key={key}
-									name={inputMaterialLoopParams[key].name}
-									label={inputMaterialLoopParams[key].label}
-									defaultValue={materialParameters[
-										chosenMaterial
-									][key].toString()}
-									unit={inputMaterialLoopParams[key].unit}
-								/>
-							);
-						} else {
-							return null;
-						}
-					})}
+					<MaterialForm chosenMaterial={chosenMaterial} />
 				</div>
 			</div>
 			<button type="reset">Reset form</button>
