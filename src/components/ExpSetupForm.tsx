@@ -1,25 +1,14 @@
-import { Geometries, geometryParameters } from '../constants/geometryTypes';
-import { GeometryParameterNames } from '../constants/geometryParameterNames';
-import styles from './ExpSetupForm.module.css';
+import { Experiment } from '../constants/experimentTypes';
 import TextInput from './TextInput';
 import RadioInput from './RadioInput';
 
 interface ExpSetupFormProps {
-	chosenGeometry: Geometries;
+	chosenExperiment: Experiment;
 }
 
-export default function ExpSetupForm({ chosenGeometry }: ExpSetupFormProps) {
+export default function ExpSetupForm({ chosenExperiment }: ExpSetupFormProps) {
 	return (
 		<div>
-			<img
-				className={styles.img}
-				src={
-					geometryParameters[chosenGeometry][
-						GeometryParameterNames.picture
-					]
-				}
-				alt={chosenGeometry}
-			/>
 			<TextInput
 				key={'extField'}
 				name={'extField'}
@@ -32,6 +21,27 @@ export default function ExpSetupForm({ chosenGeometry }: ExpSetupFormProps) {
 				name={'fieldAxis'}
 				label={'Field Axis: '}
 				defaultValue={'x'}
+			/>
+			<TextInput
+				key={'kMin'}
+				name={'kMin'}
+				label={'Lowest k: '}
+				defaultValue="0"
+				unit="rad/um"
+			/>
+			<TextInput
+				key={'kMax'}
+				name={'kMax'}
+				label={'Highest k: '}
+				defaultValue="20"
+				unit="rad/um"
+			/>
+			<TextInput
+				key={'nModes'}
+				name={'nModes'}
+				label={'Number of modes: '}
+				defaultValue="3"
+				unit=""
 			/>
 		</div>
 	);

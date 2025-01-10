@@ -1,18 +1,22 @@
 import { Materials } from '../constants/materialTypes';
 import { Geometries } from '../constants/geometryTypes';
+import { Experiment } from '../constants/experimentTypes';
 import ExpSetupForm from './ExpSetupForm';
 import MaterialForm from './MaterialForm';
 import GeometryForm from './GeometryForm';
+import styles from './MainForm.module.css';
 
 interface MainFormProps {
 	chosenGeometry: Geometries;
 	chosenMaterial: Materials;
+	chosenExperiment: Experiment;
 	onReset: () => void;
 }
 
 export default function MainForm({
 	chosenGeometry,
 	chosenMaterial,
+	chosenExperiment,
 	onReset,
 }: MainFormProps) {
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -50,19 +54,25 @@ export default function MainForm({
 
 	return (
 		<form method="post" onSubmit={handleSubmit} onReset={onReset}>
-			<div className="row">
-				<div className="col">
+			<div className="d-flex justify-content-center">
+				<div className={styles.col + ' p-2'}>
 					<GeometryForm chosenGeometry={chosenGeometry} />
 				</div>
-				<div className="col">
-					<ExpSetupForm chosenGeometry={chosenGeometry} />
-				</div>
-				<div className="col">
+				<div className={styles.col + ' p-2'}>
 					<MaterialForm chosenMaterial={chosenMaterial} />
 				</div>
+				<div className={styles.col + ' p-2'}>
+					<ExpSetupForm chosenExperiment={chosenExperiment} />
+				</div>
 			</div>
-			<button type="reset">Reset form</button>
-			<button type="submit">Submit form</button>
+			<div className="d-flex justify-content-center">
+				<div className={styles.col + ' p-2 align-self-start'}>
+					<button type="reset" className={styles.button + ' me-2'}>
+						Reset form
+					</button>
+					<button type="submit">Submit form</button>
+				</div>
+			</div>
 		</form>
 	);
 }
