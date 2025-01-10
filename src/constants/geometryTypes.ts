@@ -14,12 +14,12 @@ export const geometryParameters: Record<
 	Partial<Record<GeometryParameterNames, string>>
 > = {
 	[Geometries.Waveguide]: {
-		[GeometryParameterNames.width]: 'Width: ',
-		[GeometryParameterNames.thickness]: 'Thickness: ',
+		[GeometryParameterNames.width]: 'Width (a): ',
+		[GeometryParameterNames.thickness]: 'Thickness (b): ',
 		[GeometryParameterNames.picture]: waveguideCrossSection,
 	},
 	[Geometries.PlaneFilm]: {
-		[GeometryParameterNames.thickness]: 'Thickness: ',
+		[GeometryParameterNames.thickness]: 'Thickness (d): ',
 		[GeometryParameterNames.picture]: monolayerLineTrace,
 	},
 	[Geometries.Wire]: {
@@ -27,10 +27,6 @@ export const geometryParameters: Record<
 		[GeometryParameterNames.picture]: wireCrossSection,
 	},
 };
-
-Object.keys(geometryParameters[Geometries.Waveguide]).map((key) => {
-	console.log(key);
-});
 
 const availableGeometries = Object.values(Geometries);
 
