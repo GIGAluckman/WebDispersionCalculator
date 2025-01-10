@@ -12,29 +12,29 @@ export default function ExpSetupForm({ chosenExperiment }: ExpSetupFormProps) {
 			<TextInput
 				key={'extField'}
 				name={'extField'}
-				label={'External Field strength: '}
+				label={'External field strength: '}
 				defaultValue="200"
 				unit="mT"
 			/>
 			<RadioInput
 				key={'fieldAxis'}
 				name={'fieldAxis'}
-				label={'Field Axis: '}
+				label={'External field axis: '}
 				defaultValue={'x'}
 			/>
 			<TextInput
 				key={'kMin'}
 				name={'kMin'}
-				label={'Lowest k: '}
+				label={'Lowest 𝑘: '}
 				defaultValue="0"
-				unit="rad/um"
+				unit="rad/μm"
 			/>
 			<TextInput
 				key={'kMax'}
 				name={'kMax'}
-				label={'Highest k: '}
+				label={'Highest 𝑘: '}
 				defaultValue="20"
-				unit="rad/um"
+				unit="rad/μm"
 			/>
 			<TextInput
 				key={'nModes'}
