@@ -1,0 +1,9 @@
+.col {
+	width: 340px;
+	height: 260px;
+	/* border: 1px solid black; */
+}
+
+.button {
+	margin-left: -300px;
+}
