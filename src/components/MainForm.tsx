@@ -4,7 +4,9 @@ import { Experiment } from '../constants/experimentTypes';
 import ExpSetupForm from './ExpSetupForm';
 import MaterialForm from './MaterialForm';
 import GeometryForm from './GeometryForm';
+import SimulationResult from './SimulationResult';
 import styles from './MainForm.module.css';
+import { useState } from 'react';
 
 interface MainFormProps {
 	chosenGeometry: Geometries;
@@ -19,8 +21,12 @@ export default function MainForm({
 	chosenExperiment,
 	onReset,
 }: MainFormProps) {
+	const [loading, setLoading] = useState(false);
+	const [result, setResult] = useState(null);
+
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		// Prevent the browser from reloading the page
+		setLoading(true);
 		e.preventDefault();
 
 		// Read the form data
@@ -31,7 +37,6 @@ export default function MainForm({
 		const formJson = Object.fromEntries(formData.entries());
 		formJson['chosenGeometry'] = chosenGeometry;
 		formJson['chosenExperiment'] = chosenExperiment;
-		console.log(formJson);
 
 		try {
 			const backendUrl = `${import.meta.env.VITE_BACKEND_URL}/submit`;
@@ -43,10 +48,12 @@ export default function MainForm({
 				body: JSON.stringify(formJson),
 			});
 
-			const result = await response.json();
-			console.log('Server response: ', result);
+			const recievedData = await response.json();
+			setResult(recievedData);
 		} catch (error) {
 			console.error('Server error: ', error);
+		} finally {
+			setLoading(false);
 		}
 	}
 
@@ -64,13 +71,21 @@ export default function MainForm({
 				</div>
 			</div>
 			<div className="d-flex justify-content-center">
-				<div className={styles.col + ' p-2 align-self-start'}>
+				<div className={styles.colbut + ' p-2 align-self-start'}>
 					<button type="reset" className={styles.button + ' me-2'}>
-						Reset form
+						Reset data
 					</button>
-					<button type="submit">Submit form</button>
+					<button type="submit" disabled={loading}>
+						{loading
+							? 'Simulation in progress...'
+							: 'Start Simulation'}
+					</button>
 				</div>
 			</div>
+			<SimulationResult
+				result={result}
+				chosenExperiment={chosenExperiment}
+			/>
 		</form>
 	);
 }
