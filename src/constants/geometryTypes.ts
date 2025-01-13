@@ -1,33 +1,118 @@
 import monolayerLineTrace from '../assets/monolayerLineTrace.png';
 import waveguideCrossSection from '../assets/waveguideCrossSection.png';
 import wireCrossSection from '../assets/wireCrossSection.png';
-import { GeometryParameterNames } from './geometryParameterNames';
 
-export enum Geometries {
+export enum GeometryType {
 	Waveguide = 'Waveguide',
 	PlaneFilm = 'Plane Film',
 	Wire = 'Wire',
 }
 
-export const geometryParameters: Record<
-	Geometries,
-	Partial<Record<GeometryParameterNames, string>>
-> = {
-	[Geometries.Waveguide]: {
-		[GeometryParameterNames.width]: 'Width (a): ',
-		[GeometryParameterNames.thickness]: 'Thickness (b): ',
-		[GeometryParameterNames.picture]: waveguideCrossSection,
+interface Property {
+	name: string;
+	label: string;
+	required: boolean;
+	unit: string;
+	defaultValue?: number;
+}
+
+interface Picture {
+	file: string;
+}
+
+interface WaveguideProperties {
+	thickness: Property;
+	width: Property;
+	dx: Property;
+	dy: Property;
+}
+
+interface ThinFilmProperties {
+	thickness: Property;
+	dx: Property;
+}
+
+interface WireProperties {
+	radius: Property;
+	dr: Property;
+}
+
+interface Geometry<T> {
+	type: GeometryType;
+	properties: T;
+	picture: Picture;
+}
+
+const waveguide: Geometry<WaveguideProperties> = {
+	type: GeometryType.Waveguide,
+	properties: {
+		width: {
+			name: 'width',
+			required: true,
+			label: 'Width (a): ',
+			unit: ' nm',
+			defaultValue: 300,
+		},
+		thickness: {
+			name: 'thickness',
+			required: true,
+			label: 'Thickness (b): ',
+			unit: ' nm',
+			defaultValue: 100,
+		},
+		dx: { name: 'dWidth', required: false, label: 'dx: ', unit: ' nm' },
+		dy: { name: 'dThick', required: false, label: 'dy: ', unit: ' nm' },
 	},
-	[Geometries.PlaneFilm]: {
-		[GeometryParameterNames.thickness]: 'Thickness (d): ',
-		[GeometryParameterNames.picture]: monolayerLineTrace,
-	},
-	[Geometries.Wire]: {
-		[GeometryParameterNames.radius]: 'Radius: ',
-		[GeometryParameterNames.picture]: wireCrossSection,
+	picture: {
+		file: waveguideCrossSection,
 	},
 };
 
-const availableGeometries = Object.values(Geometries);
+const thinFilm: Geometry<ThinFilmProperties> = {
+	type: GeometryType.PlaneFilm,
+	properties: {
+		thickness: {
+			name: 'thickness',
+			required: true,
+			label: 'Thickness: ',
+			unit: ' nm',
+			defaultValue: 100,
+		},
+		dx: { name: 'dThick', required: false, label: 'dy: ', unit: ' nm' },
+	},
+	picture: {
+		file: monolayerLineTrace,
+	},
+};
+
+const wire: Geometry<WireProperties> = {
+	type: GeometryType.Wire,
+	properties: {
+		radius: {
+			name: 'radius',
+			required: true,
+			label: 'Radius: ',
+			unit: ' nm',
+			defaultValue: 100,
+		},
+		dr: { name: 'dRadius', required: false, label: 'dr: ', unit: ' nm' },
+	},
+	picture: {
+		file: wireCrossSection,
+	},
+};
+
+export type AllGeometries =
+	| Geometry<WaveguideProperties>
+	| Geometry<ThinFilmProperties>
+	| Geometry<WireProperties>;
+
+export const geometryParameters: Record<GeometryType, AllGeometries> = {
+	[GeometryType.Waveguide]: waveguide,
+	[GeometryType.PlaneFilm]: thinFilm,
+	[GeometryType.Wire]: wire,
+};
+
+const availableGeometries = Object.values(GeometryType);
 
 export default availableGeometries;

@@ -1,11 +1,9 @@
-import { GeometryParameterNames } from '../constants/geometryParameterNames';
-import { Geometries } from '../constants/geometryTypes';
-import { geometryParameters } from '../constants/geometryTypes';
+import { GeometryType, geometryParameters } from '../constants/geometryTypes';
 import TextInput from './TextInput';
 import styles from './GeometryForm.module.css';
 
 interface GeometryFormProps {
-	chosenGeometry: Geometries;
+	chosenGeometry: GeometryType;
 }
 
 export default function GeometryForm({ chosenGeometry }: GeometryFormProps) {
@@ -13,29 +11,23 @@ export default function GeometryForm({ chosenGeometry }: GeometryFormProps) {
 		<div className="d-grid" style={{ gridTemplateRows: '150px auto' }}>
 			<img
 				className={styles.img}
-				src={
-					geometryParameters[chosenGeometry][
-						GeometryParameterNames.picture
-					]
-				}
+				src={geometryParameters[chosenGeometry].picture.file}
 				alt={chosenGeometry}
 			/>
 			<div className="mt-3">
-				{Object.values(GeometryParameterNames).map((key) => {
-					if (geometryParameters[chosenGeometry][key] !== undefined) {
-						if (key !== GeometryParameterNames.picture) {
-							return (
-								<TextInput
-									key={key}
-									name={key}
-									label={
-										geometryParameters[chosenGeometry][key]
-									}
-									defaultValue="100"
-									unit="nm"
-								/>
-							);
-						}
+				{Object.values(
+					geometryParameters[chosenGeometry].properties
+				).map((property) => {
+					if (property.required) {
+						return (
+							<TextInput
+								key={property.name}
+								name={property.name}
+								label={property.label}
+								unit={property.unit}
+								defaultValue={property.defaultValue.toString()}
+							/>
+						);
 					}
 				})}
 			</div>
