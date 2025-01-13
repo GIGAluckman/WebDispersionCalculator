@@ -4,7 +4,7 @@ export enum MaterialParameterNames {
 	Ms = 'Ms',
 	A = 'A',
 	Ku = 'Ku',
-	Ku_a = 'Ku_a',
+	Ku_a = 'KuAxis',
 }
 
 export enum MaterialType {
@@ -44,25 +44,25 @@ const YIG: Material = {
 	type: MaterialType.YIG,
 	parameters: {
 		[MaterialParameterNames.Ms]: {
-			name: 'Ms',
+			name: MaterialParameterNames.Ms,
 			label: MaterialParameterLabels.Ms,
 			unit: MaterialParameterUnits.Ms,
 			defaultValue: 140000,
 		},
 		[MaterialParameterNames.A]: {
-			name: 'A',
+			name: MaterialParameterNames.A,
 			label: MaterialParameterLabels.A,
 			unit: MaterialParameterUnits.A,
 			defaultValue: 3.4e-12,
 		},
 		[MaterialParameterNames.Ku]: {
-			name: 'Ku',
+			name: MaterialParameterNames.Ku,
 			label: MaterialParameterLabels.Ku,
 			unit: MaterialParameterUnits.Ku,
 			defaultValue: 0,
 		},
 		[MaterialParameterNames.Ku_a]: {
-			name: 'Ku_a',
+			name: MaterialParameterNames.Ku_a,
 			label: MaterialParameterLabels.Ku_a,
 			unit: 'deg',
 			defaultValue: AxisNames.x,
@@ -74,25 +74,25 @@ const GaYIG: Material = {
 	type: MaterialType.GaYIG,
 	parameters: {
 		[MaterialParameterNames.Ms]: {
-			name: 'Ms',
+			name: MaterialParameterNames.Ms,
 			label: MaterialParameterLabels.Ms,
 			unit: MaterialParameterUnits.Ms,
 			defaultValue: 21724.65,
 		},
 		[MaterialParameterNames.A]: {
-			name: 'A',
+			name: MaterialParameterNames.A,
 			label: MaterialParameterLabels.A,
 			unit: MaterialParameterUnits.A,
 			defaultValue: 1.37e-12,
 		},
 		[MaterialParameterNames.Ku]: {
-			name: 'Ku',
+			name: MaterialParameterNames.Ku,
 			label: MaterialParameterLabels.Ku,
 			unit: MaterialParameterUnits.Ku,
 			defaultValue: 857.04,
 		},
 		[MaterialParameterNames.Ku_a]: {
-			name: 'Ku_a',
+			name: MaterialParameterNames.Ku_a,
 			label: MaterialParameterLabels.Ku_a,
 			unit: 'deg',
 			defaultValue: AxisNames.y,
@@ -104,25 +104,25 @@ const Py: Material = {
 	type: MaterialType.Py,
 	parameters: {
 		[MaterialParameterNames.Ms]: {
-			name: 'Ms',
+			name: MaterialParameterNames.Ms,
 			label: MaterialParameterLabels.Ms,
 			unit: MaterialParameterUnits.Ms,
 			defaultValue: 800000,
 		},
 		[MaterialParameterNames.A]: {
-			name: 'A',
+			name: MaterialParameterNames.A,
 			label: MaterialParameterLabels.A,
 			unit: MaterialParameterUnits.A,
 			defaultValue: 13e-12,
 		},
 		[MaterialParameterNames.Ku]: {
-			name: 'Ku',
+			name: MaterialParameterNames.Ku,
 			label: MaterialParameterLabels.Ku,
 			unit: MaterialParameterUnits.Ku,
 			defaultValue: 0,
 		},
 		[MaterialParameterNames.Ku_a]: {
-			name: 'Ku_a',
+			name: MaterialParameterNames.Ku_a,
 			label: MaterialParameterLabels.Ku_a,
 			unit: 'deg',
 			defaultValue: AxisNames.x,
@@ -134,25 +134,25 @@ const Custom: Material = {
 	type: MaterialType.Custom,
 	parameters: {
 		[MaterialParameterNames.Ms]: {
-			name: 'Ms',
+			name: MaterialParameterNames.Ms,
 			label: MaterialParameterLabels.Ms,
 			unit: MaterialParameterUnits.Ms,
 			defaultValue: 0,
 		},
 		[MaterialParameterNames.A]: {
-			name: 'A',
+			name: MaterialParameterNames.A,
 			label: MaterialParameterLabels.A,
 			unit: MaterialParameterUnits.A,
 			defaultValue: 0,
 		},
 		[MaterialParameterNames.Ku]: {
-			name: 'Ku',
+			name: MaterialParameterNames.Ku,
 			label: MaterialParameterLabels.Ku,
 			unit: MaterialParameterUnits.Ku,
 			defaultValue: 0,
 		},
 		[MaterialParameterNames.Ku_a]: {
-			name: 'Ku_a',
+			name: MaterialParameterNames.Ku_a,
 			label: MaterialParameterLabels.Ku_a,
 			unit: 'deg',
 			defaultValue: AxisNames.x,
