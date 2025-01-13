@@ -1,44 +1,38 @@
-import { MaterialParameterNames } from '../constants/materialParameterNames';
-import { materialParameters, Materials } from '../constants/materialTypes';
+import {
+	materials,
+	MaterialType,
+	MaterialParameterNames,
+} from '../constants/materialTypes';
 import RadioInput from './RadioInput';
 import TextInput from './TextInput';
-import { inputMaterialLoopParams } from '../constants/inputMaterialLoopParams';
 
 interface MaterialFormProps {
-	chosenMaterial: Materials;
+	chosenMaterial: MaterialType;
 }
 
 export default function MaterialForm({ chosenMaterial }: MaterialFormProps) {
 	return (
 		<div>
-			{Object.values(MaterialParameterNames).map((key) => {
-				if (materialParameters[chosenMaterial][key] !== undefined) {
-					if (key === MaterialParameterNames.kuAxis) {
-						return (
-							<RadioInput
-								key={key}
-								name={inputMaterialLoopParams[key].name}
-								label={inputMaterialLoopParams[key].label}
-								defaultValue={materialParameters[
-									chosenMaterial
-								][key].toString()}
-							/>
-						);
-					}
+			{Object.values(materials[chosenMaterial].parameters).map((key) => {
+				if (key.name === MaterialParameterNames.Ku_a) {
 					return (
-						<TextInput
-							key={key}
-							name={inputMaterialLoopParams[key].name}
-							label={inputMaterialLoopParams[key].label}
-							defaultValue={materialParameters[chosenMaterial][
-								key
-							].toString()}
-							unit={inputMaterialLoopParams[key].unit}
+						<RadioInput
+							key={key.name}
+							name={key.name}
+							label={key.label}
+							defaultValue={key.defaultValue.toString()}
 						/>
 					);
-				} else {
-					return null;
 				}
+				return (
+					<TextInput
+						key={key.name}
+						name={key.name}
+						label={key.label}
+						defaultValue={key.defaultValue.toString()}
+						unit={key.unit}
+					/>
+				);
 			})}
 		</div>
 	);
