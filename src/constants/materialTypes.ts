@@ -10,11 +10,13 @@ export enum Materials {
 
 export const materialParameters: Record<
 	Materials,
-	Partial<Record<MaterialParameterNames, number | string | AxisNames>>
+	Record<MaterialParameterNames, number | string | AxisNames>
 > = {
 	[Materials.yig]: {
 		[MaterialParameterNames.ms]: 140000,
 		[MaterialParameterNames.A]: 3.4e-12,
+		[MaterialParameterNames.ku]: 0,
+		[MaterialParameterNames.kuAxis]: AxisNames.x,
 	},
 	[Materials.gayig]: {
 		[MaterialParameterNames.ms]: 21724.65,
@@ -25,6 +27,8 @@ export const materialParameters: Record<
 	[Materials.py]: {
 		[MaterialParameterNames.ms]: 800000,
 		[MaterialParameterNames.A]: 13e-12,
+		[MaterialParameterNames.ku]: 0,
+		[MaterialParameterNames.kuAxis]: AxisNames.x,
 	},
 	[Materials.custom]: {
 		[MaterialParameterNames.ms]: 0,
