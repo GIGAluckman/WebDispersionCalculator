@@ -1,5 +1,5 @@
-import availableMaterials, { Materials } from './constants/materialTypes';
-import availableGeometries, { Geometries } from './constants/geometryTypes';
+import availableMaterials, { MaterialType } from './constants/materialTypes';
+import availableGeometries, { GeometryType } from './constants/geometryTypes';
 import availableExperiments, { Experiment } from './constants/experimentTypes';
 import Header from './components/Header';
 import Select from './components/Select';
@@ -8,11 +8,11 @@ import styles from './App.module.css';
 import { useState } from 'react';
 
 function App() {
-	const [chosenGeometry, setChosenGeometry] = useState<Geometries>(
-		Geometries.Waveguide
+	const [chosenGeometry, setChosenGeometry] = useState<GeometryType>(
+		GeometryType.Waveguide
 	);
-	const [chosenMaterial, setChosenMaterial] = useState<Materials>(
-		Materials.custom
+	const [chosenMaterial, setChosenMaterial] = useState<MaterialType>(
+		MaterialType.Custom
 	);
 	const [chosenExperiment, setChosenExperiment] = useState<Experiment>(
 		Experiment.dispersion
@@ -60,8 +60,8 @@ function App() {
 				chosenMaterial={chosenMaterial}
 				chosenExperiment={chosenExperiment}
 				onReset={() => {
-					setChosenMaterial(Materials.custom);
-					setChosenGeometry(Geometries.Waveguide);
+					setChosenMaterial(MaterialType.Custom);
+					setChosenGeometry(GeometryType.Waveguide);
 				}}
 			/>
 		</div>

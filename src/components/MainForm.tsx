@@ -1,5 +1,5 @@
-import { Materials } from '../constants/materialTypes';
-import { Geometries } from '../constants/geometryTypes';
+import { MaterialType } from '../constants/materialTypes';
+import { GeometryType } from '../constants/geometryTypes';
 import { Experiment } from '../constants/experimentTypes';
 import ExpSetupForm from './ExpSetupForm';
 import MaterialForm from './MaterialForm';
@@ -9,8 +9,8 @@ import styles from './MainForm.module.css';
 import { useState } from 'react';
 
 interface MainFormProps {
-	chosenGeometry: Geometries;
-	chosenMaterial: Materials;
+	chosenGeometry: GeometryType;
+	chosenMaterial: MaterialType;
 	chosenExperiment: Experiment;
 	onReset: () => void;
 }
@@ -35,8 +35,10 @@ export default function MainForm({
 
 		// Or you can work with it as a plain object:
 		const formJson = Object.fromEntries(formData.entries());
+
 		formJson['chosenGeometry'] = chosenGeometry;
 		formJson['chosenExperiment'] = chosenExperiment;
+		formJson['chosenMaterial'] = chosenMaterial;
 
 		try {
 			const backendUrl = `${import.meta.env.VITE_BACKEND_URL}/submit`;
@@ -49,6 +51,7 @@ export default function MainForm({
 			});
 
 			const recievedData = await response.json();
+			console.log('Recieved data: ', recievedData);
 			setResult(recievedData);
 		} catch (error) {
 			console.error('Server error: ', error);
