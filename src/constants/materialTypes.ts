@@ -1,10 +1,10 @@
 import { AxisNames } from './axisNames';
 
 export enum MaterialParameterNames {
-	Ms = 'Ms',
-	A = 'A',
-	Ku = 'Ku',
-	Ku_a = 'KuAxis',
+	Ms = 'saturationMagnetization',
+	A = 'exchangeStiffness',
+	Ku = 'anisotropyConstant',
+	Ku_a = 'anisotropyAxis',
 }
 
 export enum MaterialType {
@@ -64,7 +64,7 @@ const YIG: Material = {
 		[MaterialParameterNames.Ku_a]: {
 			name: MaterialParameterNames.Ku_a,
 			label: MaterialParameterLabels.Ku_a,
-			unit: 'deg',
+			unit: '',
 			defaultValue: AxisNames.x,
 		},
 	},
@@ -94,7 +94,7 @@ const GaYIG: Material = {
 		[MaterialParameterNames.Ku_a]: {
 			name: MaterialParameterNames.Ku_a,
 			label: MaterialParameterLabels.Ku_a,
-			unit: 'deg',
+			unit: '',
 			defaultValue: AxisNames.y,
 		},
 	},
@@ -124,7 +124,7 @@ const Py: Material = {
 		[MaterialParameterNames.Ku_a]: {
 			name: MaterialParameterNames.Ku_a,
 			label: MaterialParameterLabels.Ku_a,
-			unit: 'deg',
+			unit: '',
 			defaultValue: AxisNames.x,
 		},
 	},
@@ -154,7 +154,7 @@ const Custom: Material = {
 		[MaterialParameterNames.Ku_a]: {
 			name: MaterialParameterNames.Ku_a,
 			label: MaterialParameterLabels.Ku_a,
-			unit: 'deg',
+			unit: '',
 			defaultValue: AxisNames.x,
 		},
 	},

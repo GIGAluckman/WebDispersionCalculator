@@ -102,7 +102,7 @@ const wire: Geometry<WireProperties> = {
 	},
 };
 
-export type AllGeometries =
+type AllGeometries =
 	| Geometry<WaveguideProperties>
 	| Geometry<ThinFilmProperties>
 	| Geometry<WireProperties>;
