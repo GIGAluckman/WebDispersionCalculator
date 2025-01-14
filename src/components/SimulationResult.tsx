@@ -1,9 +1,9 @@
-import { Experiment } from '../constants/experimentTypes';
+import { ExperimentType } from '../constants/experimentTypes';
 import DispersionResult from './DispersionResult';
 
 interface SimulationResultProps {
 	result: string | null;
-	chosenExperiment: Experiment;
+	chosenExperiment: ExperimentType;
 }
 
 export default function SimulationResult({
@@ -14,7 +14,7 @@ export default function SimulationResult({
 		return null;
 	} else {
 		switch (chosenExperiment) {
-			case Experiment.dispersion:
+			case ExperimentType.dispersion:
 				return <DispersionResult result={result} />;
 			default:
 				return null;

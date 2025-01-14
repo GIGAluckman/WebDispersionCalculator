@@ -1,6 +1,8 @@
 import availableMaterials, { MaterialType } from './constants/materialTypes';
 import availableGeometries, { GeometryType } from './constants/geometryTypes';
-import availableExperiments, { Experiment } from './constants/experimentTypes';
+import availableExperiments, {
+	ExperimentType,
+} from './constants/experimentTypes';
 import Header from './components/Header';
 import Select from './components/Select';
 import MainForm from './components/MainForm';
@@ -14,8 +16,8 @@ function App() {
 	const [chosenMaterial, setChosenMaterial] = useState<MaterialType>(
 		MaterialType.Custom
 	);
-	const [chosenExperiment, setChosenExperiment] = useState<Experiment>(
-		Experiment.dispersion
+	const [chosenExperiment, setChosenExperiment] = useState<ExperimentType>(
+		ExperimentType.dispersion
 	);
 
 	return (

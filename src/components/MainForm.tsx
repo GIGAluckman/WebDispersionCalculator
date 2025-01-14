@@ -1,6 +1,6 @@
 import { MaterialType } from '../constants/materialTypes';
 import { GeometryType } from '../constants/geometryTypes';
-import { Experiment } from '../constants/experimentTypes';
+import { ExperimentType } from '../constants/experimentTypes';
 import ExpSetupForm from './ExpSetupForm';
 import MaterialForm from './MaterialForm';
 import GeometryForm from './GeometryForm';
@@ -11,7 +11,7 @@ import { useState } from 'react';
 interface MainFormProps {
 	chosenGeometry: GeometryType;
 	chosenMaterial: MaterialType;
-	chosenExperiment: Experiment;
+	chosenExperiment: ExperimentType;
 	onReset: () => void;
 }
 
@@ -23,6 +23,8 @@ export default function MainForm({
 }: MainFormProps) {
 	const [loading, setLoading] = useState(false);
 	const [result, setResult] = useState(null);
+
+	// const [hiddenFormData, setHiddenFormData] = useState({});
 
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		// Prevent the browser from reloading the page
@@ -39,6 +41,8 @@ export default function MainForm({
 		formJson['chosenGeometry'] = chosenGeometry;
 		formJson['chosenExperiment'] = chosenExperiment;
 		formJson['chosenMaterial'] = chosenMaterial;
+
+		console.log('Form data: ', formJson);
 
 		try {
 			const backendUrl = `${import.meta.env.VITE_BACKEND_URL}/submit`;
