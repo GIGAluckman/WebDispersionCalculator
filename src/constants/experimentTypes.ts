@@ -66,7 +66,7 @@ const dispersion: Experiment<DispersionProperties> = {
 			name: 'numberOfK',
 			label: 'Number of 𝑘 values: ',
 			unit: '',
-			defaultValue: 10,
+			defaultValue: 11,
 			required: false,
 			radio: false,
 		},
