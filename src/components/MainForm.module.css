@@ -1,15 +1,11 @@
 .col {
 	width: 340px;
-	height: 260px;
+	/* height: 260px; */
 	/* border: 1px solid black; */
 }
 
 .colbut {
-	width: 340px;
+	width: 1000px;
 	height: 50px;
 	/* border: 1px solid black; */
-}
-
-.button {
-	margin-left: -300px;
 }

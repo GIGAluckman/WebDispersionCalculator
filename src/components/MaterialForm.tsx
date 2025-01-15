@@ -29,6 +29,7 @@ export default function MaterialForm({ chosenMaterial }: MaterialFormProps) {
 						key={key.name}
 						name={key.name}
 						label={key.label}
+						optional={false}
 						defaultValue={key.defaultValue.toString()}
 						unit={key.unit}
 					/>

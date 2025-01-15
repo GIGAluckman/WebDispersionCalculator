@@ -4,6 +4,7 @@ import styles from './TextInput.module.css';
 interface TextInputProps {
 	name: string;
 	label: string;
+	optional: boolean;
 	defaultValue: string;
 	unit: string;
 }
@@ -11,19 +12,20 @@ interface TextInputProps {
 export default function TextInput({
 	name,
 	label,
+	optional,
 	defaultValue,
 	unit,
 }: TextInputProps) {
 	return (
-		<p>
-			<label className={styles.label}></label>
+		<p className={optional ? styles.labelOptional : styles.labelMain}>
+			<label></label>
 			{label}{' '}
 			<input
 				required={true}
 				name={name}
 				defaultValue={defaultValue || ''}
 				key={`${name}-${defaultValue}`}
-				className={styles.input}
+				className={optional ? styles.inputOptional : styles.inputMain}
 				inputMode="decimal"
 				pattern={
 					name === MaterialParameterNames.Ms

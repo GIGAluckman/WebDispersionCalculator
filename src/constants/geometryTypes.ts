@@ -60,8 +60,20 @@ const waveguide: Geometry<WaveguideProperties> = {
 			unit: ' nm',
 			defaultValue: 100,
 		},
-		dx: { name: 'dWidth', required: false, label: 'dx: ', unit: ' nm' },
-		dy: { name: 'dThick', required: false, label: 'dy: ', unit: ' nm' },
+		dx: {
+			name: 'dWidth',
+			required: false,
+			label: 'dx: ',
+			unit: ' nm',
+			defaultValue: 5,
+		},
+		dy: {
+			name: 'dThick',
+			required: false,
+			label: 'dy: ',
+			unit: ' nm',
+			defaultValue: 5,
+		},
 	},
 	picture: {
 		file: waveguideCrossSection,
@@ -78,7 +90,13 @@ const thinFilm: Geometry<ThinFilmProperties> = {
 			unit: ' nm',
 			defaultValue: 100,
 		},
-		dx: { name: 'dThick', required: false, label: 'dy: ', unit: ' nm' },
+		dx: {
+			name: 'dThick',
+			required: false,
+			label: 'dy: ',
+			unit: ' nm',
+			defaultValue: 5,
+		},
 	},
 	picture: {
 		file: monolayerLineTrace,
@@ -95,7 +113,13 @@ const wire: Geometry<WireProperties> = {
 			unit: ' nm',
 			defaultValue: 100,
 		},
-		dr: { name: 'dRadius', required: false, label: 'dr: ', unit: ' nm' },
+		dr: {
+			name: 'dRadius',
+			required: false,
+			label: 'dr: ',
+			unit: ' nm',
+			defaultValue: 5,
+		},
 	},
 	picture: {
 		file: wireCrossSection,

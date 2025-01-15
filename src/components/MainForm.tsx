@@ -23,8 +23,7 @@ export default function MainForm({
 }: MainFormProps) {
 	const [loading, setLoading] = useState(false);
 	const [result, setResult] = useState(null);
-
-	// const [hiddenFormData, setHiddenFormData] = useState({});
+	const [showAdvanced, setShowAdvanced] = useState(false);
 
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		// Prevent the browser from reloading the page
@@ -68,24 +67,39 @@ export default function MainForm({
 		<form method="post" onSubmit={handleSubmit} onReset={onReset}>
 			<div className="d-flex justify-content-center">
 				<div className={styles.col + ' p-2'}>
-					<GeometryForm chosenGeometry={chosenGeometry} />
+					<GeometryForm
+						chosenGeometry={chosenGeometry}
+						showAdvanced={showAdvanced}
+					/>
 				</div>
 				<div className={styles.col + ' p-2'}>
 					<MaterialForm chosenMaterial={chosenMaterial} />
 				</div>
 				<div className={styles.col + ' p-2'}>
-					<ExpSetupForm chosenExperiment={chosenExperiment} />
+					<ExpSetupForm
+						chosenExperiment={chosenExperiment}
+						showAdvanced={showAdvanced}
+					/>
 				</div>
 			</div>
 			<div className="d-flex justify-content-center">
 				<div className={styles.colbut + ' p-2 align-self-start'}>
-					<button type="reset" className={styles.button + ' me-2'}>
+					<button type="reset" className="me-2">
 						Reset data
 					</button>
-					<button type="submit" disabled={loading}>
+					<button type="submit" disabled={loading} className="me-2">
 						{loading
 							? 'Simulation in progress...'
 							: 'Start Simulation'}
+					</button>
+					<button
+						type="button"
+						onClick={() => setShowAdvanced(!showAdvanced)}
+						className="me-2"
+					>
+						{showAdvanced
+							? 'Delete Advanced Settings'
+							: 'Use Advanced Settings'}
 					</button>
 				</div>
 			</div>

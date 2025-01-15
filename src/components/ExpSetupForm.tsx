@@ -7,15 +7,19 @@ import RadioInput from './RadioInput';
 
 interface ExpSetupFormProps {
 	chosenExperiment: ExperimentType;
+	showAdvanced: boolean;
 }
 
-export default function ExpSetupForm({ chosenExperiment }: ExpSetupFormProps) {
+export default function ExpSetupForm({
+	chosenExperiment,
+	showAdvanced,
+}: ExpSetupFormProps) {
 	return (
 		<div>
 			{Object.values(
 				experimentParameters[chosenExperiment].parameters
 			).map((parameter) => {
-				if (parameter.required) {
+				if (parameter.required || showAdvanced) {
 					if (parameter.radio) {
 						return (
 							<RadioInput
@@ -31,6 +35,7 @@ export default function ExpSetupForm({ chosenExperiment }: ExpSetupFormProps) {
 							key={parameter.name}
 							name={parameter.name}
 							label={parameter.label}
+							optional={!parameter.required}
 							defaultValue={parameter.defaultValue.toString()}
 							unit={parameter.unit}
 						/>

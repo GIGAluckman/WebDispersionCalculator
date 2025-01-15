@@ -4,9 +4,13 @@ import styles from './GeometryForm.module.css';
 
 interface GeometryFormProps {
 	chosenGeometry: GeometryType;
+	showAdvanced: boolean;
 }
 
-export default function GeometryForm({ chosenGeometry }: GeometryFormProps) {
+export default function GeometryForm({
+	chosenGeometry,
+	showAdvanced,
+}: GeometryFormProps) {
 	return (
 		<div className="d-grid" style={{ gridTemplateRows: '150px auto' }}>
 			<img
@@ -18,13 +22,14 @@ export default function GeometryForm({ chosenGeometry }: GeometryFormProps) {
 				{Object.values(
 					geometryParameters[chosenGeometry].properties
 				).map((property) => {
-					if (property.required) {
+					if (property.required || showAdvanced) {
 						return (
 							<TextInput
 								key={property.name}
 								name={property.name}
 								label={property.label}
 								unit={property.unit}
+								optional={!property.required}
 								defaultValue={property.defaultValue.toString()}
 							/>
 						);

@@ -1,13 +1,29 @@
 /* Container div for the input field */
-.input {
+.inputOptional {
 	width: 100%;
 	max-width: 100px;
 	box-sizing: border-box;
+	color: grey;
+}
+
+.inputMain {
+	width: 100%;
+	max-width: 100px;
+	box-sizing: border-box;
+	color: black;
 }
 
 /* Label styling for better readability */
-.label {
+.labelOptional {
+	color: grey;
 	display: block;
-	margin-bottom: 0px;
+	margin-bottom: 5px;
+	/* font-weight: bold; */
+}
+
+.labelMain {
+	color: black;
+	display: block;
+	margin-bottom: 5px;
 	/* font-weight: bold; */
 }
