@@ -27,8 +27,8 @@ export default function TextInput({
 				inputMode="decimal"
 				pattern={
 					name === MaterialParameterNames.Ms
-						? '[+-]?(?:[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?'
-						: '[+-]?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?'
+						? '[\\+\\-]?([1-9]\\d*)(\\.\\d+)?([eE][\\+\\-]?\\d+)?'
+						: '[\\+\\-]?(\\d+)(\\.\\d+)?([eE][\\+\\-]?\\d+)?'
 				}
 				placeholder="e.g., 2.6e-12"
 				title={
