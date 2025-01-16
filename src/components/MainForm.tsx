@@ -8,11 +8,17 @@ import SimulationResult from './SimulationResult';
 import styles from './MainForm.module.css';
 import { useState } from 'react';
 
+interface AlertObject {
+	message: string;
+	show: boolean;
+}
+
 interface MainFormProps {
 	chosenGeometry: GeometryType;
 	chosenMaterial: MaterialType;
 	chosenExperiment: ExperimentType;
 	onReset: () => void;
+	setAlert: (input: AlertObject) => void;
 }
 
 export default function MainForm({
@@ -20,6 +26,7 @@ export default function MainForm({
 	chosenMaterial,
 	chosenExperiment,
 	onReset,
+	setAlert,
 }: MainFormProps) {
 	const [loading, setLoading] = useState(false);
 	const [result, setResult] = useState(null);
@@ -57,6 +64,10 @@ export default function MainForm({
 			console.log('Recieved data: ', recievedData);
 			setResult(recievedData);
 		} catch (error) {
+			setAlert({
+				message: 'Simulation time is too long! Reduce the cellsize.',
+				show: true,
+			});
 			console.error('Server error: ', error);
 		} finally {
 			setLoading(false);

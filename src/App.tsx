@@ -6,6 +6,8 @@ import availableExperiments, {
 import Header from './components/Header';
 import Select from './components/Select';
 import MainForm from './components/MainForm';
+import Credits from './components/Credits';
+import Alert from './components/Alert';
 import styles from './App.module.css';
 import { useState } from 'react';
 
@@ -19,6 +21,11 @@ function App() {
 	const [chosenExperiment, setChosenExperiment] = useState<ExperimentType>(
 		ExperimentType.dispersion
 	);
+
+	const [alertObject, setAlertObject] = useState({
+		message: '',
+		show: false,
+	});
 
 	return (
 		<div>
@@ -65,7 +72,14 @@ function App() {
 					setChosenMaterial(MaterialType.Custom);
 					setChosenGeometry(GeometryType.Waveguide);
 				}}
+				setAlert={setAlertObject}
 			/>
+			<Alert
+				message={alertObject.message}
+				show={alertObject.show}
+				onClose={() => setAlertObject({ message: '', show: false })}
+			/>
+			<Credits />
 		</div>
 	);
 }
