@@ -68,6 +68,7 @@ export default function MainForm({
 			<div className="d-flex justify-content-center">
 				<div className={styles.col + ' p-2'}>
 					<GeometryForm
+						chosenMaterial={chosenMaterial}
 						chosenGeometry={chosenGeometry}
 						showAdvanced={showAdvanced}
 					/>

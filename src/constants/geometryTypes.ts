@@ -1,6 +1,7 @@
 import monolayerLineTrace from '../assets/monolayerLineTrace.png';
 import waveguideCrossSection from '../assets/waveguideCrossSection.png';
 import wireCrossSection from '../assets/wireCrossSection.png';
+import { MaterialType } from './materialTypes';
 
 export enum GeometryType {
 	Waveguide = 'Waveguide',
@@ -13,7 +14,7 @@ interface Property {
 	label: string;
 	required: boolean;
 	unit: string;
-	defaultValue?: number;
+	defaultValue?: Record<MaterialType, number> | number;
 }
 
 interface Picture {
@@ -65,14 +66,24 @@ const waveguide: Geometry<WaveguideProperties> = {
 			required: false,
 			label: 'dx: ',
 			unit: ' nm',
-			defaultValue: 5,
+			defaultValue: {
+				[MaterialType.YIG]: 10,
+				[MaterialType.GaYIG]: 10,
+				[MaterialType.Py]: 5,
+				[MaterialType.Custom]: 10,
+			},
 		},
 		dy: {
 			name: 'dThick',
 			required: false,
 			label: 'dy: ',
 			unit: ' nm',
-			defaultValue: 5,
+			defaultValue: {
+				[MaterialType.YIG]: 10,
+				[MaterialType.GaYIG]: 10,
+				[MaterialType.Py]: 5,
+				[MaterialType.Custom]: 10,
+			},
 		},
 	},
 	picture: {
@@ -95,7 +106,12 @@ const thinFilm: Geometry<ThinFilmProperties> = {
 			required: false,
 			label: 'dy: ',
 			unit: ' nm',
-			defaultValue: 5,
+			defaultValue: {
+				[MaterialType.YIG]: 10,
+				[MaterialType.GaYIG]: 10,
+				[MaterialType.Py]: 5,
+				[MaterialType.Custom]: 10,
+			},
 		},
 	},
 	picture: {
@@ -118,7 +134,12 @@ const wire: Geometry<WireProperties> = {
 			required: false,
 			label: 'dr: ',
 			unit: ' nm',
-			defaultValue: 5,
+			defaultValue: {
+				[MaterialType.YIG]: 10,
+				[MaterialType.GaYIG]: 10,
+				[MaterialType.Py]: 5,
+				[MaterialType.Custom]: 10,
+			},
 		},
 	},
 	picture: {

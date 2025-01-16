@@ -1,13 +1,16 @@
 import { GeometryType, geometryParameters } from '../constants/geometryTypes';
+import { MaterialType } from '../constants/materialTypes';
 import TextInput from './TextInput';
 import styles from './GeometryForm.module.css';
 
 interface GeometryFormProps {
+	chosenMaterial: MaterialType;
 	chosenGeometry: GeometryType;
 	showAdvanced: boolean;
 }
 
 export default function GeometryForm({
+	chosenMaterial,
 	chosenGeometry,
 	showAdvanced,
 }: GeometryFormProps) {
@@ -30,7 +33,11 @@ export default function GeometryForm({
 								label={property.label}
 								unit={property.unit}
 								optional={!property.required}
-								defaultValue={property.defaultValue.toString()}
+								defaultValue={
+									property.required
+										? property.defaultValue
+										: property.defaultValue[chosenMaterial]
+								}
 							/>
 						);
 					}
