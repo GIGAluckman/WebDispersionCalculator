@@ -68,7 +68,7 @@ const waveguide: Geometry<WaveguideProperties> = {
 			unit: ' nm',
 			defaultValue: {
 				[MaterialType.YIG]: 10,
-				[MaterialType.GaYIG]: 10,
+				[MaterialType.GaYIG]: 30,
 				[MaterialType.Py]: 5,
 				[MaterialType.Custom]: 10,
 			},
@@ -80,7 +80,7 @@ const waveguide: Geometry<WaveguideProperties> = {
 			unit: ' nm',
 			defaultValue: {
 				[MaterialType.YIG]: 10,
-				[MaterialType.GaYIG]: 10,
+				[MaterialType.GaYIG]: 30,
 				[MaterialType.Py]: 5,
 				[MaterialType.Custom]: 10,
 			},
@@ -108,7 +108,7 @@ const thinFilm: Geometry<ThinFilmProperties> = {
 			unit: ' nm',
 			defaultValue: {
 				[MaterialType.YIG]: 10,
-				[MaterialType.GaYIG]: 10,
+				[MaterialType.GaYIG]: 30,
 				[MaterialType.Py]: 5,
 				[MaterialType.Custom]: 10,
 			},
@@ -136,7 +136,7 @@ const wire: Geometry<WireProperties> = {
 			unit: ' nm',
 			defaultValue: {
 				[MaterialType.YIG]: 10,
-				[MaterialType.GaYIG]: 10,
+				[MaterialType.GaYIG]: 30,
 				[MaterialType.Py]: 5,
 				[MaterialType.Custom]: 10,
 			},
