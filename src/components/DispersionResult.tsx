@@ -1,4 +1,5 @@
 import { LineChart } from '@mui/x-charts/LineChart';
+import DownloadCSV from './DownloadCSV';
 import './DispersionResult.css';
 
 interface DispersionResultProps {
@@ -22,21 +23,26 @@ export default function DispersionResult({ result }: DispersionResultProps) {
 
 		return (
 			<div className="d-flex justify-content-center">
-				<LineChart
-					className="custom"
-					width={600}
-					height={400}
-					series={plotData}
-					xAxis={[
-						{
-							scaleType: 'linear',
-							data: xData,
-							label: 'k (rad/μm)',
-						},
-					]}
-					yAxis={[{ label: 'Frequency (GHz)' }]}
-					grid={{ horizontal: true, vertical: true }}
-				/>
+				<div className="button p-2">
+					<DownloadCSV data={result} />
+				</div>
+				<div className="image p-2">
+					<LineChart
+						className="custom"
+						width={600}
+						height={400}
+						series={plotData}
+						xAxis={[
+							{
+								scaleType: 'linear',
+								data: xData,
+								label: 'k (rad/μm)',
+							},
+						]}
+						yAxis={[{ label: 'Frequency (GHz)' }]}
+						grid={{ horizontal: true, vertical: true }}
+					/>
+				</div>
 			</div>
 		);
 	}
