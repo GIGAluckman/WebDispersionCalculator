@@ -19,20 +19,22 @@ export default function RadioInput({
 				{label}{' '}
 				{availableAxisNames.map((key) => {
 					return (
-						<label
-							key={`label-${key}-${name}`}
-							className={styles.label}
-						>
+						<div className="form-check form-check-inline" key={key}>
 							<input
 								type="radio"
 								name={name}
 								value={key}
 								defaultChecked={defaultValue === key}
 								key={`${name}-${key}-${defaultValue}`}
-								className={styles.radioInput}
+								className={'form-check-input'}
 							/>{' '}
-							{key}
-						</label>
+							<label
+								key={`label-${key}-${name}`}
+								className={'form-check-label'}
+							>
+								{key}
+							</label>
+						</div>
 					);
 				})}
 			</p>

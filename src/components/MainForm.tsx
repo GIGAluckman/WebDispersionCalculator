@@ -96,10 +96,14 @@ export default function MainForm({
 			</div>
 			<div className="d-flex justify-content-center">
 				<div className={styles.colbut + ' p-2 align-self-start'}>
-					<button type="reset" className="me-2">
+					<button type="reset" className="btn btn-primary me-2">
 						Reset data
 					</button>
-					<button type="submit" disabled={loading} className="me-2">
+					<button
+						type="submit"
+						disabled={loading}
+						className="btn btn-primary me-2"
+					>
 						{loading
 							? 'Simulation in progress...'
 							: 'Start Simulation'}
@@ -107,7 +111,7 @@ export default function MainForm({
 					<button
 						type="button"
 						onClick={() => setShowAdvanced(!showAdvanced)}
-						className="me-2"
+						className="btn btn-secondary me-2"
 					>
 						{showAdvanced
 							? 'Delete Advanced Settings'

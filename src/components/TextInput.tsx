@@ -18,7 +18,6 @@ export default function TextInput({
 }: TextInputProps) {
 	return (
 		<p className={optional ? styles.labelOptional : styles.labelMain}>
-			<label></label>
 			{label}{' '}
 			<input
 				required={true}

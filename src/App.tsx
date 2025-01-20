@@ -33,7 +33,7 @@ function App() {
 			<hr />
 
 			<div className="d-flex justify-content-center">
-				<div className={styles.col + ' p-2'}>
+				<div className={styles.col}>
 					<Select
 						name="selectGeometry"
 						allOptions={availableGeometries}
@@ -42,7 +42,7 @@ function App() {
 						label="Select a geometry: "
 					/>
 				</div>
-				<div className={styles.col + ' p-2'}>
+				<div className={styles.col}>
 					<Select
 						name="selectMaterial"
 						allOptions={availableMaterials}
@@ -51,13 +51,13 @@ function App() {
 						label="Select a material: "
 					/>
 				</div>
-				<div className={styles.col + ' p-2'}>
+				<div className={styles.col}>
 					<Select
 						name="selectExperiment"
 						allOptions={availableExperiments}
 						defaultValue={chosenExperiment}
 						setChosenOption={setChosenExperiment}
-						label="Select an experiment type: "
+						label="Select an experiment: "
 					/>
 
 					<div className="col"></div>

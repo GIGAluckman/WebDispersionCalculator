@@ -17,13 +17,13 @@
 .labelOptional {
 	color: grey;
 	display: block;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 	/* font-weight: bold; */
 }
 
 .labelMain {
 	color: black;
 	display: block;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 	/* font-weight: bold; */
 }

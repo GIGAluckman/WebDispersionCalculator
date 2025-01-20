@@ -21,6 +21,7 @@ export default function Select({
 				defaultValue={defaultValue}
 				onChange={(e) => setChosenOption(e.target.value)}
 				key={`${name}-${defaultValue}`}
+				className="form-select"
 			>
 				{allOptions.map((option) => (
 					<option key={option} value={option}>

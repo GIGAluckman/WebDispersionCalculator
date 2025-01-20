@@ -1,3 +1,13 @@
 .custom .MuiChartsAxis-directionY .MuiChartsAxis-label {
 	transform: translateX(-10px) !important;
 }
+
+.button {
+	width: 200px;
+	/* border: 1px solid black; */
+}
+
+.image {
+	width: 800px;
+	/* border: 1px solid black; */
+}
