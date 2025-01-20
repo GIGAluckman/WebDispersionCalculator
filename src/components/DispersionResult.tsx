@@ -12,10 +12,10 @@ export default function DispersionResult({ result }: DispersionResultProps) {
 	} else {
 		const parsedResult = JSON.parse(result);
 
-		const xData = Object.values(parsedResult['k (rad/m)']);
+		const xData = Object.values(parsedResult['k (rad/µm)']);
 
 		const plotData = Object.keys(parsedResult)
-			.filter((key) => key !== 'k (rad/m)')
+			.filter((key) => key !== 'k (rad/µm)')
 			.map((key) => ({
 				data: Object.values(parsedResult[key]) as number[],
 				label: `${key[1]} mode`,
