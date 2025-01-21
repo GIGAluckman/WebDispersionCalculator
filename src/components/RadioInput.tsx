@@ -15,7 +15,7 @@ export default function RadioInput({
 	const availableAxisNames = Object.values(AxisNames);
 	return (
 		<>
-			<p className={styles.radioContainer}>
+			<div className={styles.radioContainer}>
 				{label}{' '}
 				{availableAxisNames.map((key) => {
 					return (
@@ -37,7 +37,7 @@ export default function RadioInput({
 						</div>
 					);
 				})}
-			</p>
+			</div>
 		</>
 	);
 }
