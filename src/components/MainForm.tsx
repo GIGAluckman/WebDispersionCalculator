@@ -18,7 +18,6 @@ interface MainFormProps {
 	chosenGeometry: GeometryType;
 	chosenMaterial: MaterialType;
 	chosenExperiment: ExperimentType;
-	progress: number;
 	onReset: () => void;
 	setAlert: (input: AlertObject) => void;
 }
@@ -27,7 +26,6 @@ export default function MainForm({
 	chosenGeometry,
 	chosenMaterial,
 	chosenExperiment,
-	progress,
 	onReset,
 	setAlert,
 }: MainFormProps) {
@@ -120,7 +118,7 @@ export default function MainForm({
 							? 'Delete Advanced Settings'
 							: 'Use Advanced Settings'}
 					</button>
-					{loading ? <ProgressBar progress={progress} /> : null}
+					<ProgressBar />
 				</div>
 			</div>
 			<SimulationResult

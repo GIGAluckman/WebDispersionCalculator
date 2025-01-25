@@ -9,10 +9,10 @@ import MainForm from './components/MainForm';
 import Credits from './components/Credits';
 import Alert from './components/Alert';
 import styles from './App.module.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io(import.meta.env.VITE_BACKEND_URL);
+export const socket = io(import.meta.env.VITE_BACKEND_URL);
 
 function App() {
 	const [chosenGeometry, setChosenGeometry] = useState<GeometryType>(
@@ -29,20 +29,6 @@ function App() {
 		message: '',
 		show: false,
 	});
-
-	const [progress, setProgress] = useState(0);
-
-	useEffect(() => {
-		socket.on('progress_update', (data) => {
-			console.log('Progress: ', data.progress);
-			setProgress(parseFloat(data.progress));
-		});
-
-		return () => {
-			socket.off('progress_update');
-			setProgress(0);
-		};
-	}, []);
 
 	return (
 		<div>
@@ -85,7 +71,6 @@ function App() {
 				chosenGeometry={chosenGeometry}
 				chosenMaterial={chosenMaterial}
 				chosenExperiment={chosenExperiment}
-				progress={progress}
 				onReset={() => {
 					setChosenMaterial(MaterialType.Custom);
 					setChosenGeometry(GeometryType.Waveguide);
