@@ -5,6 +5,7 @@ import ExpSetupForm from './ExpSetupForm';
 import MaterialForm from './MaterialForm';
 import GeometryForm from './GeometryForm';
 import SimulationResult from './SimulationResult';
+import ProgressBar from './ProgressBar';
 import styles from './MainForm.module.css';
 import { useState } from 'react';
 
@@ -17,6 +18,7 @@ interface MainFormProps {
 	chosenGeometry: GeometryType;
 	chosenMaterial: MaterialType;
 	chosenExperiment: ExperimentType;
+	progress: number;
 	onReset: () => void;
 	setAlert: (input: AlertObject) => void;
 }
@@ -25,6 +27,7 @@ export default function MainForm({
 	chosenGeometry,
 	chosenMaterial,
 	chosenExperiment,
+	progress,
 	onReset,
 	setAlert,
 }: MainFormProps) {
@@ -117,6 +120,7 @@ export default function MainForm({
 							? 'Delete Advanced Settings'
 							: 'Use Advanced Settings'}
 					</button>
+					{loading ? <ProgressBar progress={progress} /> : null}
 				</div>
 			</div>
 			<SimulationResult
