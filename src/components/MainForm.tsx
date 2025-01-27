@@ -6,6 +6,7 @@ import MaterialForm from './MaterialForm';
 import GeometryForm from './GeometryForm';
 import SimulationResult from './SimulationResult';
 import styles from './MainForm.module.css';
+import ProgressBar from './ProgressBar';
 import { useState } from 'react';
 
 interface AlertObject {
@@ -31,6 +32,7 @@ export default function MainForm({
 	const [loading, setLoading] = useState(false);
 	const [result, setResult] = useState(null);
 	const [showAdvanced, setShowAdvanced] = useState(false);
+	const simulationId = 'id' + Math.random().toString(16).slice(2);
 
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		// Prevent the browser from reloading the page
@@ -47,6 +49,7 @@ export default function MainForm({
 		formJson['chosenGeometry'] = chosenGeometry;
 		formJson['chosenExperiment'] = chosenExperiment;
 		formJson['chosenMaterial'] = chosenMaterial;
+		formJson['id'] = simulationId;
 
 		console.log('Form data: ', formJson);
 
@@ -117,6 +120,9 @@ export default function MainForm({
 							? 'Delete Advanced Settings'
 							: 'Use Advanced Settings'}
 					</button>
+					{loading ? (
+						<ProgressBar simulationId={simulationId} />
+					) : null}
 				</div>
 			</div>
 			<SimulationResult
