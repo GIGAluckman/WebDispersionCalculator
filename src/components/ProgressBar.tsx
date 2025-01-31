@@ -6,6 +6,7 @@ interface ProgressBarProps {
 
 export default function ProgressBar({ simulationId }: ProgressBarProps) {
 	const [progress, setProgress] = useState(0);
+	console.log('Simulation ID: ', simulationId);
 
 	useEffect(() => {
 		const interval = setInterval(async () => {
@@ -18,8 +19,7 @@ export default function ProgressBar({ simulationId }: ProgressBarProps) {
 				clearInterval(interval);
 				alert('Simulation not found!');
 			} else {
-				console.log(data.status);
-				// setProgress(data.progress);
+				setProgress(data.status);
 			}
 		}, 1000);
 

@@ -4,9 +4,7 @@ import { ExperimentType } from '../constants/experimentTypes';
 import ExpSetupForm from './ExpSetupForm';
 import MaterialForm from './MaterialForm';
 import GeometryForm from './GeometryForm';
-import SimulationResult from './SimulationResult';
 import styles from './MainForm.module.css';
-import ProgressBar from './ProgressBar';
 import { useState } from 'react';
 
 interface AlertObject {
@@ -15,24 +13,30 @@ interface AlertObject {
 }
 
 interface MainFormProps {
+	simulationId: string;
+	loading: boolean;
 	chosenGeometry: GeometryType;
 	chosenMaterial: MaterialType;
 	chosenExperiment: ExperimentType;
+	setLoading: (loading: boolean) => void;
+	setResult: (result: any) => void;
 	onReset: () => void;
 	setAlert: (input: AlertObject) => void;
 }
 
 export default function MainForm({
+	simulationId,
+	loading,
 	chosenGeometry,
 	chosenMaterial,
 	chosenExperiment,
+	setLoading,
+	setResult,
 	onReset,
 	setAlert,
 }: MainFormProps) {
-	const [loading, setLoading] = useState(false);
-	const [result, setResult] = useState(null);
 	const [showAdvanced, setShowAdvanced] = useState(false);
-	const simulationId = 'id' + Math.random().toString(16).slice(2);
+	console.log('Simulation ID: ', simulationId);
 
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		// Prevent the browser from reloading the page
@@ -120,15 +124,8 @@ export default function MainForm({
 							? 'Delete Advanced Settings'
 							: 'Use Advanced Settings'}
 					</button>
-					{loading ? (
-						<ProgressBar simulationId={simulationId} />
-					) : null}
 				</div>
 			</div>
-			<SimulationResult
-				result={result}
-				chosenExperiment={chosenExperiment}
-			/>
 		</form>
 	);
 }
