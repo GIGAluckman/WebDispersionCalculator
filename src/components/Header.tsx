@@ -1,4 +1,5 @@
-import logo from '../assets/logo.jpg';
+import logoNanoMag from '../assets/logoNanoMag.jpg';
+import logoDispCalc from '../assets/logoDispCalc.png';
 import styles from './Header.module.css';
 
 interface HeaderProps {
@@ -8,8 +9,9 @@ interface HeaderProps {
 export default function Header({ title }: HeaderProps) {
 	return (
 		<header className={styles.header + ' d-flex justify-content-center'}>
-			<img src={logo} alt="logo" className={styles.img} />
+			<img src={logoDispCalc} alt="logoDispCalc" className={styles.img} />
 			<h1>{title}</h1>
+			<img src={logoNanoMag} alt="logoNanoMag" className={styles.img} />
 		</header>
 	);
 }
