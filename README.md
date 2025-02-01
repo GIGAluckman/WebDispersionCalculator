@@ -116,7 +116,7 @@ If you use the dispersion calculator for your publication, make sure to cite the
 
 ## 📬 **Contact**
 
-For support or inquiries, please contact **[andrey.voronov@univie.ac.at]**.
+For support or inquiries, please contact me **andrey.voronov@univie.ac.at**.
 
 ---
 
