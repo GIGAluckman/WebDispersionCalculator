@@ -39,65 +39,66 @@ function App() {
 			<Header title="Dispersion calculator" />
 			<hr />
 
-			<div className="d-flex justify-content-center">
-				<div className={styles.col}>
-					<Select
-						name="selectGeometry"
-						allOptions={availableGeometries}
-						defaultValue={chosenGeometry}
-						setChosenOption={setChosenGeometry}
-						label="Select a geometry: "
-					/>
+			<div className={styles.font}>
+				<div className="d-flex justify-content-center">
+					<div className={styles.col}>
+						<Select
+							name="selectGeometry"
+							allOptions={availableGeometries}
+							defaultValue={chosenGeometry}
+							setChosenOption={setChosenGeometry}
+							label="Select a geometry: "
+						/>
+					</div>
+					<div className={styles.col}>
+						<Select
+							name="selectMaterial"
+							allOptions={availableMaterials}
+							defaultValue={chosenMaterial}
+							setChosenOption={setChosenMaterial}
+							label="Select a material: "
+						/>
+					</div>
+					<div className={styles.col}>
+						<Select
+							name="selectExperiment"
+							allOptions={availableExperiments}
+							defaultValue={chosenExperiment}
+							setChosenOption={setChosenExperiment}
+							label="Select an experiment: "
+						/>
+						<div className="col"></div>
+					</div>
 				</div>
-				<div className={styles.col}>
-					<Select
-						name="selectMaterial"
-						allOptions={availableMaterials}
-						defaultValue={chosenMaterial}
-						setChosenOption={setChosenMaterial}
-						label="Select a material: "
-					/>
-				</div>
-				<div className={styles.col}>
-					<Select
-						name="selectExperiment"
-						allOptions={availableExperiments}
-						defaultValue={chosenExperiment}
-						setChosenOption={setChosenExperiment}
-						label="Select an experiment: "
-					/>
-
-					<div className="col"></div>
-				</div>
+				<hr />
+				<MainForm
+					simulationId={simulationId.current}
+					loading={loading}
+					chosenGeometry={chosenGeometry}
+					chosenMaterial={chosenMaterial}
+					chosenExperiment={chosenExperiment}
+					setLoading={setLoading}
+					setResult={setResult}
+					onReset={() => {
+						setChosenMaterial(MaterialType.Custom);
+						setChosenGeometry(GeometryType.Waveguide);
+					}}
+					setAlert={setAlertObject}
+				/>
+				{loading ? (
+					<ProgressBar simulationId={simulationId.current} />
+				) : null}
+				<SimulationResult
+					result={result}
+					chosenExperiment={chosenExperiment}
+				/>
+				<Alert
+					message={alertObject.message}
+					show={alertObject.show}
+					onClose={() => setAlertObject({ message: '', show: false })}
+				/>
+				<Credits />
 			</div>
-			<hr />
-			<MainForm
-				simulationId={simulationId.current}
-				loading={loading}
-				chosenGeometry={chosenGeometry}
-				chosenMaterial={chosenMaterial}
-				chosenExperiment={chosenExperiment}
-				setLoading={setLoading}
-				setResult={setResult}
-				onReset={() => {
-					setChosenMaterial(MaterialType.Custom);
-					setChosenGeometry(GeometryType.Waveguide);
-				}}
-				setAlert={setAlertObject}
-			/>
-			{loading ? (
-				<ProgressBar simulationId={simulationId.current} />
-			) : null}
-			<SimulationResult
-				result={result}
-				chosenExperiment={chosenExperiment}
-			/>
-			<Alert
-				message={alertObject.message}
-				show={alertObject.show}
-				onClose={() => setAlertObject({ message: '', show: false })}
-			/>
-			<Credits />
 		</div>
 	);
 }

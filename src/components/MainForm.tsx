@@ -83,7 +83,7 @@ export default function MainForm({
 
 	return (
 		<form method="post" onSubmit={handleSubmit} onReset={onReset}>
-			<div className="d-flex justify-content-center">
+			<div className={styles.colcontainer}>
 				<div className={styles.col + ' p-2'}>
 					<GeometryForm
 						chosenMaterial={chosenMaterial}
@@ -103,13 +103,20 @@ export default function MainForm({
 			</div>
 			<div className="d-flex justify-content-center">
 				<div className={styles.colbut + ' p-2 align-self-start'}>
-					<button type="reset" className="btn btn-primary me-2">
+					<button
+						type="reset"
+						className={
+							'btn btn-primary me-2 ' + styles.custombutton
+						}
+					>
 						Reset data
 					</button>
 					<button
 						type="submit"
 						disabled={loading}
-						className="btn btn-primary me-2"
+						className={
+							'btn btn-primary me-2 ' + styles.custombutton
+						}
 					>
 						{loading
 							? 'Simulation in progress...'
@@ -118,7 +125,9 @@ export default function MainForm({
 					<button
 						type="button"
 						onClick={() => setShowAdvanced(!showAdvanced)}
-						className="btn btn-secondary me-2"
+						className={
+							'btn btn-secondary me-2 ' + styles.custombutton
+						}
 					>
 						{showAdvanced
 							? 'Delete Advanced Settings'
