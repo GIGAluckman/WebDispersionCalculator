@@ -1,12 +1,25 @@
+.colcontainer {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
 .col {
-	width: 360px;
-	margin-left: 10px;
-	/* height: 260px; */
+	width: 1fr;
+	max-width: 400px;
+	margin-left: 5px;
+	margin-right: 5px;
 	/* border: 1px solid black; */
+	/* height: 260px; */
 }
 
 .colbut {
-	width: 1000px;
+	width: 100%;
+	max-width: 1000px;
 	height: 50px;
 	/* border: 1px solid black; */
+}
+
+.custombutton {
+	font-size: clamp(1rem, 2vw + 0.1rem, 1.2rem);
 }
