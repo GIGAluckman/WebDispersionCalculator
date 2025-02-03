@@ -36,7 +36,6 @@ export default function MainForm({
 	setAlert,
 }: MainFormProps) {
 	const [showAdvanced, setShowAdvanced] = useState(false);
-	console.log('Simulation ID: ', simulationId);
 
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		// Prevent the browser from reloading the page
