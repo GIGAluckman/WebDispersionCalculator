@@ -1,18 +1,16 @@
-import availableMaterials, { MaterialType } from './constants/materialTypes';
-import availableGeometries, { GeometryType } from './constants/geometryTypes';
-import availableExperiments, {
-	ExperimentType,
-} from './constants/experimentTypes';
+import { MaterialType } from './constants/materialTypes';
+import { GeometryType } from './constants/geometryTypes';
+import { ExperimentType } from './constants/experimentTypes';
 import ProgressBar from './components/ProgressBar';
 import SimulationResult from './components/SimulationResult';
 import Header from './components/Header';
-import Select from './components/Select';
 import MainForm from './components/MainForm';
 import Credits from './components/Credits';
 import Alert from './components/Alert';
 import styles from './App.module.css';
 import { useState, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { MainSelect } from './components/MainSelect';
 
 function App() {
 	const [chosenGeometry, setChosenGeometry] = useState<GeometryType>(
@@ -38,38 +36,15 @@ function App() {
 		<div>
 			<Header title="Dispersion calculator" />
 			<hr />
-
+			<MainSelect
+				chosenExperiment={chosenExperiment}
+				chosenGeometry={chosenGeometry}
+				chosenMaterial={chosenMaterial}
+				setChosenExperiment={setChosenExperiment}
+				setChosenGeometry={setChosenGeometry}
+				setChosenMaterial={setChosenMaterial}
+			/>
 			<div className={styles.font}>
-				<div className="d-flex justify-content-center">
-					<div className={styles.col}>
-						<Select
-							name="selectGeometry"
-							allOptions={availableGeometries}
-							defaultValue={chosenGeometry}
-							setChosenOption={setChosenGeometry}
-							label="Select a geometry: "
-						/>
-					</div>
-					<div className={styles.col}>
-						<Select
-							name="selectMaterial"
-							allOptions={availableMaterials}
-							defaultValue={chosenMaterial}
-							setChosenOption={setChosenMaterial}
-							label="Select a material: "
-						/>
-					</div>
-					<div className={styles.col}>
-						<Select
-							name="selectExperiment"
-							allOptions={availableExperiments}
-							defaultValue={chosenExperiment}
-							setChosenOption={setChosenExperiment}
-							label="Select an experiment: "
-						/>
-						<div className="col"></div>
-					</div>
-				</div>
 				<hr />
 				<MainForm
 					simulationId={simulationId.current}
