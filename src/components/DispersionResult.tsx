@@ -1,5 +1,5 @@
 import { LineChart } from '@mui/x-charts/LineChart';
-import DownloadCSV from './DownloadCSV';
+import DownloadCSVButton from './DownloadCSVButton';
 import './styles/DispersionResult.css';
 
 interface DispersionResultProps {
@@ -24,7 +24,7 @@ export default function DispersionResult({ result }: DispersionResultProps) {
 		return (
 			<div className="d-flex justify-content-center">
 				<div className="button p-2">
-					<DownloadCSV data={result} />
+					<DownloadCSVButton data={result} />
 				</div>
 				<div className="image p-2">
 					<LineChart
