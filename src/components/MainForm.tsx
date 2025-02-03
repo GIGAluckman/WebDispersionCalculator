@@ -4,7 +4,7 @@ import { ExperimentType } from '../constants/experimentTypes';
 import ExpSetupForm from './ExpSetupForm';
 import MaterialForm from './MaterialForm';
 import GeometryForm from './GeometryForm';
-import styles from './MainForm.module.css';
+import styles from './styles/MainForm.module.css';
 import { useState } from 'react';
 
 interface AlertObject {

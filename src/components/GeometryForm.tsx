@@ -1,7 +1,7 @@
 import { GeometryType, geometryParameters } from '../constants/geometryTypes';
 import { MaterialType } from '../constants/materialTypes';
 import TextInput from './TextInput';
-import styles from './GeometryForm.module.css';
+import styles from './styles/GeometryForm.module.css';
 
 interface GeometryFormProps {
 	chosenMaterial: MaterialType;

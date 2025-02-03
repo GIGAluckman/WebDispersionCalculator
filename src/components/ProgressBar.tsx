@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styles from './ProgressBar.module.css';
+import styles from './styles/ProgressBar.module.css';
 
 interface ProgressBarProps {
 	simulationId: string;

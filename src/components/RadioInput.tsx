@@ -1,5 +1,5 @@
 import { AxisNames } from '../constants/axisNames';
-import styles from './RadioInput.module.css';
+import styles from './styles/RadioInput.module.css';
 
 interface RadioInputProps {
 	name: string;

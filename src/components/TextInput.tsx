@@ -1,5 +1,5 @@
 import { MaterialParameterNames } from '../constants/materialTypes';
-import styles from './TextInput.module.css';
+import styles from './styles/TextInput.module.css';
 
 interface TextInputProps {
 	name: string;

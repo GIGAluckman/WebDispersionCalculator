@@ -1,6 +1,6 @@
 import logoNanoMag from '../assets/logoNanoMag.jpg';
 import logoDispCalc from '../assets/logoDispCalc.png';
-import styles from './Header.module.css';
+import styles from './styles/Header.module.css';
 
 interface HeaderProps {
 	title: string;

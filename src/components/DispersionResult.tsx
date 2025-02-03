@@ -1,6 +1,6 @@
 import { LineChart } from '@mui/x-charts/LineChart';
 import DownloadCSV from './DownloadCSV';
-import './DispersionResult.css';
+import './styles/DispersionResult.css';
 
 interface DispersionResultProps {
 	result: string | null;
