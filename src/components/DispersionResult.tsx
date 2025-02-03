@@ -1,4 +1,4 @@
-import { LineChart } from '@mui/x-charts/LineChart';
+import SimplePlot from './SimplePlot';
 import DownloadCSVButton from './DownloadCSVButton';
 import './styles/DispersionResult.css';
 
@@ -12,36 +12,46 @@ export default function DispersionResult({ result }: DispersionResultProps) {
 	} else {
 		const parsedResult = JSON.parse(result);
 
-		const xData = Object.values(parsedResult['k (rad/µm)']);
+		const xData = Object.values(parsedResult['k (rad/µm)'] as number[]);
 
-		const plotData = Object.keys(parsedResult)
-			.filter((key) => key !== 'k (rad/µm)')
+		const dispersionData = Object.keys(parsedResult)
+			.filter((key) => key.includes('GHz'))
+			.map((key) => ({
+				data: Object.values(parsedResult[key]) as number[],
+				label: `${key[1]} mode`,
+			}));
+
+		const groupVelocityData = Object.keys(parsedResult)
+			.filter((key) => key.includes('m/s'))
 			.map((key) => ({
 				data: Object.values(parsedResult[key]) as number[],
 				label: `${key[1]} mode`,
 			}));
 
 		return (
-			<div className="d-flex justify-content-center">
-				<div className="button p-2">
-					<DownloadCSVButton data={result} />
+			<div>
+				<div className="d-flex justify-content-center">
+					<div className="button p-2">
+						<DownloadCSVButton data={result} />
+					</div>
 				</div>
-				<div className="image p-2">
-					<LineChart
-						className="custom"
-						width={600}
-						height={400}
-						series={plotData}
-						xAxis={[
-							{
-								scaleType: 'linear',
-								data: xData,
-								label: 'k (rad/μm)',
-							},
-						]}
-						yAxis={[{ label: 'Frequency (GHz)' }]}
-						grid={{ horizontal: true, vertical: true }}
-					/>
+				<div className="imagecontainer">
+					<div className="image" style={{ width: '1fr' }}>
+						<SimplePlot
+							xData={xData}
+							yData={dispersionData}
+							xLabel="k (rad/µm)"
+							yLabel="f (GHz)"
+						/>
+					</div>
+					<div className="image" style={{ width: '1fr' }}>
+						<SimplePlot
+							xData={xData}
+							yData={groupVelocityData}
+							xLabel="k (rad/µm)"
+							yLabel="v (m/s)"
+						/>
+					</div>
 				</div>
 			</div>
 		);
