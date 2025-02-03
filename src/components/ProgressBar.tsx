@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { fetchProgressData } from '../hooks/fetchProgressData';
 import styles from './styles/ProgressBar.module.css';
 
 interface ProgressBarProps {
@@ -6,28 +6,9 @@ interface ProgressBarProps {
 }
 
 export default function ProgressBar({ simulationId }: ProgressBarProps) {
-	const [progress, setProgress] = useState<number>(0);
-	const [status, setStatus] = useState<string>('Beginning simulation');
-	console.log('Simulation ID: ', simulationId);
-
-	useEffect(() => {
-		const interval = setInterval(async () => {
-			const response = await fetch(
-				`${import.meta.env.VITE_BACKEND_URL}/status/${simulationId}`
-			);
-			const data = await response.json();
-
-			if (data.error) {
-				clearInterval(interval);
-				alert('Simulation not found!');
-			} else {
-				setProgress(data.progress);
-				setStatus(data.status);
-			}
-		}, 1000);
-
-		return () => clearInterval(interval);
-	}, []);
+	const { progress, status } = fetchProgressData(
+		`${import.meta.env.VITE_BACKEND_URL}/status/${simulationId}`
+	);
 
 	return (
 		<div className="d-flex justify-content-center">
