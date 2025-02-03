@@ -1,13 +1,17 @@
-.custom .MuiChartsAxis-directionY .MuiChartsAxis-label {
-	transform: translateX(-10px) !important;
-}
-
 .button {
-	width: 200px;
-	/* border: 1px solid black; */
+	width: 100%;
+	max-width: 1000px;
+	border: 1px solid black;
 }
 
 .image {
-	width: 800px;
-	/* border: 1px solid black; */
+	min-width: 200px;
+	max-width: 500px;
+	border: 1px solid black;
+}
+
+.imagecontainer {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
