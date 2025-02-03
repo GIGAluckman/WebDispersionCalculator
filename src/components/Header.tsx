@@ -6,12 +6,21 @@ interface HeaderProps {
 	title: string;
 }
 
+interface ImageProps {
+	src: string;
+	alt: string;
+}
+
+function Image({ src, alt }: ImageProps) {
+	return <img src={src} alt={alt} className={styles.img} />;
+}
+
 export default function Header({ title }: HeaderProps) {
 	return (
 		<header className={styles.header + ' d-flex justify-content-center'}>
-			<img src={logoDispCalc} alt="logoDispCalc" className={styles.img} />
+			<Image src={logoDispCalc} alt="logoDispCalc" />
 			<h1>{title}</h1>
-			<img src={logoNanoMag} alt="logoNanoMag" className={styles.img} />
+			<Image src={logoNanoMag} alt="logoNanoMag" />
 		</header>
 	);
 }
