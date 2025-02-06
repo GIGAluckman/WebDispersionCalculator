@@ -6,6 +6,7 @@ interface SimplePlotProps {
 	yData: { data: number[]; label: string }[];
 	xLabel: string;
 	yLabel: string;
+	plotTitle?: string;
 }
 
 export default function SimplePlot({
@@ -13,21 +14,25 @@ export default function SimplePlot({
 	yData,
 	xLabel,
 	yLabel,
+	plotTitle,
 }: SimplePlotProps) {
 	return (
-		<LineChart
-			height={400}
-			series={yData}
-			xAxis={[
-				{
-					scaleType: 'linear',
-					data: xData,
-					label: xLabel,
-				},
-			]}
-			yAxis={[{ label: yLabel }]}
-			grid={{ horizontal: true, vertical: true }}
-			className="custom"
-		/>
+		<div>
+			<h5 className="text-center">{plotTitle ? plotTitle : ''}</h5>
+			<LineChart
+				height={400}
+				series={yData}
+				xAxis={[
+					{
+						scaleType: 'linear',
+						data: xData,
+						label: xLabel,
+					},
+				]}
+				yAxis={[{ label: yLabel }]}
+				grid={{ horizontal: true, vertical: true }}
+				className="custom"
+			/>
+		</div>
 	);
 }

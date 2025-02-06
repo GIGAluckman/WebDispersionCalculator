@@ -35,21 +35,24 @@ export default function DispersionResult({ result }: DispersionResultProps) {
 						<DownloadCSVButton data={result} />
 					</div>
 				</div>
+				<hr />
 				<div className="imagecontainer">
-					<div className="image" style={{ width: '1fr' }}>
+					<div className="image">
 						<SimplePlot
 							xData={xData}
 							yData={dispersionData}
 							xLabel="k (rad/µm)"
 							yLabel="f (GHz)"
+							plotTitle="Dispersion relation"
 						/>
 					</div>
-					<div className="image" style={{ width: '1fr' }}>
+					<div className="image">
 						<SimplePlot
 							xData={xData}
 							yData={groupVelocityData}
 							xLabel="k (rad/µm)"
 							yLabel="v (m/s)"
+							plotTitle="Group velocity"
 						/>
 					</div>
 				</div>
