@@ -1,5 +1,3 @@
-import styles from './styles/Select.module.css';
-
 interface SelectProps {
 	name: string;
 	allOptions: string[];
@@ -23,7 +21,7 @@ export default function Select({
 				defaultValue={defaultValue}
 				onChange={(e) => setChosenOption(e.target.value)}
 				key={`${name}-${defaultValue}`}
-				className={'form-select ' + styles.font}
+				className="form-select"
 			>
 				{allOptions.map((option) => (
 					<option key={option} value={option}>

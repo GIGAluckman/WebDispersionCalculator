@@ -19,7 +19,3 @@
 	height: 50px;
 	/* border: 1px solid black; */
 }
-
-.custombutton {
-	font-size: clamp(1rem, 2vw + 0.1rem, 1.2rem);
-}

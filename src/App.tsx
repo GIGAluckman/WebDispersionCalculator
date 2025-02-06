@@ -7,7 +7,6 @@ import Header from './components/Header';
 import MainForm from './components/MainForm';
 import Credits from './components/Credits';
 import Alert from './components/Alert';
-import styles from './App.module.css';
 import { useState, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { MainSelect } from './components/MainSelect';
@@ -17,7 +16,7 @@ function App() {
 		GeometryType.Waveguide
 	);
 	const [chosenMaterial, setChosenMaterial] = useState<MaterialType>(
-		MaterialType.Custom
+		MaterialType.YIG
 	);
 	const [chosenExperiment, setChosenExperiment] = useState<ExperimentType>(
 		ExperimentType.dispersion
@@ -44,36 +43,35 @@ function App() {
 				setChosenGeometry={setChosenGeometry}
 				setChosenMaterial={setChosenMaterial}
 			/>
-			<div className={styles.font}>
-				<hr />
-				<MainForm
-					simulationId={simulationId.current}
-					loading={loading}
-					chosenGeometry={chosenGeometry}
-					chosenMaterial={chosenMaterial}
-					chosenExperiment={chosenExperiment}
-					setLoading={setLoading}
-					setResult={setResult}
-					onReset={() => {
-						setChosenMaterial(MaterialType.Custom);
-						setChosenGeometry(GeometryType.Waveguide);
-					}}
-					setAlert={setAlertObject}
-				/>
-				{loading ? (
-					<ProgressBar simulationId={simulationId.current} />
-				) : null}
-				<SimulationResult
-					result={result}
-					chosenExperiment={chosenExperiment}
-				/>
-				<Alert
-					message={alertObject.message}
-					show={alertObject.show}
-					onClose={() => setAlertObject({ message: '', show: false })}
-				/>
-				<Credits />
-			</div>
+			<hr />
+			<MainForm
+				simulationId={simulationId.current}
+				loading={loading}
+				chosenGeometry={chosenGeometry}
+				chosenMaterial={chosenMaterial}
+				chosenExperiment={chosenExperiment}
+				setLoading={setLoading}
+				setResult={setResult}
+				onReset={() => {
+					setChosenMaterial(MaterialType.Custom);
+					setChosenGeometry(GeometryType.Waveguide);
+				}}
+				setAlert={setAlertObject}
+			/>
+			{loading ? (
+				<ProgressBar simulationId={simulationId.current} />
+			) : null}
+			<SimulationResult
+				result={result}
+				chosenExperiment={chosenExperiment}
+			/>
+			<Alert
+				message={alertObject.message}
+				show={alertObject.show}
+				onClose={() => setAlertObject({ message: '', show: false })}
+			/>
+			<hr />
+			<Credits />
 		</div>
 	);
 }
