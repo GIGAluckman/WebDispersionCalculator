@@ -30,11 +30,6 @@ export default function DispersionResult({ result }: DispersionResultProps) {
 
 		return (
 			<div>
-				<div className="d-flex justify-content-center">
-					<div className="button p-2">
-						<DownloadCSVButton data={result} />
-					</div>
-				</div>
 				<hr />
 				<div className="imagecontainer">
 					<div className="image">
@@ -54,6 +49,11 @@ export default function DispersionResult({ result }: DispersionResultProps) {
 							yLabel="v (m/s)"
 							plotTitle="Group velocity"
 						/>
+					</div>
+				</div>
+				<div className="d-flex justify-content-center">
+					<div className="button p-2">
+						<DownloadCSVButton data={result} />
 					</div>
 				</div>
 			</div>
