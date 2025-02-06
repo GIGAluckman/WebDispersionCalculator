@@ -34,7 +34,7 @@ const dispersion: Experiment<DispersionProperties> = {
 			name: 'externalField',
 			label: 'External field strength: ',
 			unit: 'mT',
-			defaultValue: 200,
+			defaultValue: 400,
 			required: true,
 			radio: false,
 		},
