@@ -31,7 +31,7 @@ export default function DownloadCSVButton({ data }: DownloadCSVButtonProps) {
 			className="btn btn-success"
 			onClick={() => downloadCSV(csvContent)}
 		>
-			Download Results
+			Download Results CSV
 		</button>
 	);
 }
