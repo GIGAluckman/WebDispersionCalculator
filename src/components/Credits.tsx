@@ -1,16 +1,41 @@
 export default function Credits() {
 	return (
 		<div className="d-flex justify-content-center">
-			<div className="text-left mt-3">
-				Powered by{' '}
+			<div className="text-left mt-3" style={{ fontSize: '0.9rem' }}>
+				<h4>Acknowledgements</h4>
+				Created by{' '}
+				<a
+					href="https://github.com/GIGAluckman/WebDispersionCalculator"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Andrey Voronov
+				</a>{' '}
+				[University of Vienna, NanoMag] with the help of{' '}
+				<a
+					href="https://github.com/SofieSattarova"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Sofiia Sattarova
+				</a>{' '}
+				and{' '}
+				<a
+					href="https://www.linkedin.com/in/pedrodelrealwien/"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Pedro del Real
+				</a>
+				, powered by{' '}
 				<a
 					href="https://www.tetrax.software"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					{' '}
-					<strong>TetraX</strong>
+					TetraX
 				</a>
+				<br />
 				<br />
 				If you are using this program for your research, please cite:
 				<br />
