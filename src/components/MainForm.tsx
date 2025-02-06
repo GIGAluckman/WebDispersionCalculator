@@ -103,7 +103,7 @@ export default function MainForm({
 			<div className="d-flex justify-content-center">
 				<div className={styles.colbut + ' p-2 align-self-start'}>
 					<button type="reset" className="btn btn-primary me-2">
-						Reset data
+						Reset Data
 					</button>
 					<button
 						type="submit"
