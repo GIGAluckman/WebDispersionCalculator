@@ -54,8 +54,6 @@ export default function MainForm({
 		formJson['chosenMaterial'] = chosenMaterial;
 		formJson['id'] = simulationId;
 
-		console.log('Form data: ', formJson);
-
 		try {
 			const backendUrl = `${import.meta.env.VITE_BACKEND_URL}/submit`;
 			const response = await fetch(backendUrl, {
@@ -67,7 +65,6 @@ export default function MainForm({
 			});
 
 			const recievedData = await response.json();
-			console.log('Recieved data: ', recievedData);
 			setResult(recievedData);
 		} catch (error) {
 			setAlert({
