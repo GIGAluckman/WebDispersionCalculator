@@ -4,7 +4,7 @@ import { useRef } from 'react';
 
 interface SimplePlotProps {
 	xData: number[];
-	yData: { data: number[]; label: string }[];
+	yData: { data: (number | null)[]; label: string }[];
 	xLabel: string;
 	yLabel: string;
 	plotTitle?: string;

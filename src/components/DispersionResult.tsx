@@ -23,10 +23,17 @@ export default function DispersionResult({ result }: DispersionResultProps) {
 
 		const groupVelocityData = Object.keys(parsedResult)
 			.filter((key) => key.includes('m/s'))
-			.map((key) => ({
-				data: Object.values(parsedResult[key]) as number[],
-				label: `${key[1]} mode`,
-			}));
+			.map((key) => {
+				let data = Object.values(parsedResult[key]) as (
+					| number
+					| null
+				)[];
+				if (data[0] === 0) {
+					data[0] = null;
+				}
+				const label = `${key[1]} mode`;
+				return { data, label };
+			});
 
 		return (
 			<div>
