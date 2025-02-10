@@ -27,14 +27,18 @@ export default function TextInput({
 				className={optional ? styles.inputOptional : styles.inputMain}
 				inputMode="decimal"
 				pattern={
-					name === MaterialParameterNames.Ms
+					name === MaterialParameterNames.Ms ||
+					name === MaterialParameterNames.alpha
 						? '[\\+\\-]?([1-9]\\d*)(\\.\\d+)?([eE][\\+\\-]?\\d+)?'
 						: '[\\+\\-]?(\\d+)(\\.\\d+)?([eE][\\+\\-]?\\d+)?'
 				}
 				placeholder="e.g., 2.6e-12"
 				title={
 					'Please enter a valid' +
-					(name === MaterialParameterNames.Ms ? ' nonzero' : '') +
+					(name === MaterialParameterNames.Ms ||
+					name === MaterialParameterNames.alpha
+						? ' nonzero'
+						: '') +
 					' decimal number or scientific notation (e.g., 84, 3.4, -2.56, or 1.2e-10).'
 				}
 			/>{' '}
