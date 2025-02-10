@@ -182,7 +182,7 @@ const Custom: Material = {
 			name: MaterialParameterNames.alpha,
 			label: MaterialParameterLabels.alpha,
 			unit: MaterialParameterUnits.alpha,
-			defaultValue: 0.0,
+			defaultValue: 0.01,
 		},
 	},
 };
