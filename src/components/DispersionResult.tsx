@@ -35,6 +35,22 @@ export default function DispersionResult({ result }: DispersionResultProps) {
 				return { data, label };
 			});
 
+		const lifetimeData = Object.keys(parsedResult)
+			.filter((key) => key.includes('lt'))
+			.map((key) => {
+				const data = Object.values(parsedResult[key]) as number[];
+				const label = `${key[2]} mode`;
+				return { data, label };
+			});
+
+		const propagationLengthData = Object.keys(parsedResult)
+			.filter((key) => key.includes('pl'))
+			.map((key) => {
+				const data = Object.values(parsedResult[key]) as number[];
+				const label = `${key[2]} mode`;
+				return { data, label };
+			});
+
 		return (
 			<div>
 				<hr />
@@ -55,6 +71,24 @@ export default function DispersionResult({ result }: DispersionResultProps) {
 							xLabel="k (rad/µm)"
 							yLabel="v (m/s)"
 							plotTitle="Group velocity"
+						/>
+					</div>
+					<div className="image">
+						<SimplePlot
+							xData={xData}
+							yData={lifetimeData}
+							xLabel="k (rad/µm)"
+							yLabel="t (ns)"
+							plotTitle="Lifetime"
+						/>
+					</div>
+					<div className="image">
+						<SimplePlot
+							xData={xData}
+							yData={propagationLengthData}
+							xLabel="k (rad/µm)"
+							yLabel="L (µm)"
+							plotTitle="Propagation length"
 						/>
 					</div>
 				</div>
