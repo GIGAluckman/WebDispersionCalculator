@@ -5,6 +5,7 @@ export enum MaterialParameterNames {
 	A = 'exchangeStiffness',
 	Ku = 'anisotropyConstant',
 	Ku_a = 'anisotropyAxis',
+	alpha = 'GilbertDamping',
 }
 
 export enum MaterialType {
@@ -19,6 +20,7 @@ enum MaterialParameterLabels {
 	A = 'Exchange constant: ',
 	Ku = 'Uniaxial anisotropy: ',
 	Ku_a = 'Uniaxial anisotropy axis: ',
+	alpha = 'Gilbert damping: ',
 }
 
 enum MaterialParameterUnits {
@@ -26,6 +28,7 @@ enum MaterialParameterUnits {
 	A = 'J/m',
 	Ku = 'J/m³',
 	Ku_a = '',
+	alpha = '',
 }
 
 interface MaterialParameter {
@@ -67,6 +70,12 @@ const YIG: Material = {
 			unit: '',
 			defaultValue: AxisNames.x,
 		},
+		[MaterialParameterNames.alpha]: {
+			name: MaterialParameterNames.alpha,
+			label: MaterialParameterLabels.alpha,
+			unit: MaterialParameterUnits.alpha,
+			defaultValue: 0.0002,
+		},
 	},
 };
 
@@ -96,6 +105,12 @@ const GaYIG: Material = {
 			label: MaterialParameterLabels.Ku_a,
 			unit: '',
 			defaultValue: AxisNames.y,
+		},
+		[MaterialParameterNames.alpha]: {
+			name: MaterialParameterNames.alpha,
+			label: MaterialParameterLabels.alpha,
+			unit: MaterialParameterUnits.alpha,
+			defaultValue: 0.0007,
 		},
 	},
 };
@@ -127,6 +142,12 @@ const Py: Material = {
 			unit: '',
 			defaultValue: AxisNames.x,
 		},
+		[MaterialParameterNames.alpha]: {
+			name: MaterialParameterNames.alpha,
+			label: MaterialParameterLabels.alpha,
+			unit: MaterialParameterUnits.alpha,
+			defaultValue: 0.01,
+		},
 	},
 };
 
@@ -156,6 +177,12 @@ const Custom: Material = {
 			label: MaterialParameterLabels.Ku_a,
 			unit: '',
 			defaultValue: AxisNames.x,
+		},
+		[MaterialParameterNames.alpha]: {
+			name: MaterialParameterNames.alpha,
+			label: MaterialParameterLabels.alpha,
+			unit: MaterialParameterUnits.alpha,
+			defaultValue: 0.0,
 		},
 	},
 };
