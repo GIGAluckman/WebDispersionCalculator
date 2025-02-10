@@ -13,6 +13,9 @@ export default function DispersionResult({ result }: DispersionResultProps) {
 		const parsedResult = JSON.parse(result);
 
 		const xData = Object.values(parsedResult['k (rad/µm)'] as number[]);
+		const xDataShifted = Object.values(
+			parsedResult['kshift (rad/µm)'] as number[]
+		);
 
 		const dispersionData = Object.keys(parsedResult)
 			.filter((key) => key.includes('GHz'))
@@ -28,9 +31,6 @@ export default function DispersionResult({ result }: DispersionResultProps) {
 					| number
 					| null
 				)[];
-				if (data[0] === 0) {
-					data[0] = null;
-				}
 				const label = `${key[1]} mode`;
 				return { data, label };
 			});
@@ -46,7 +46,10 @@ export default function DispersionResult({ result }: DispersionResultProps) {
 		const propagationLengthData = Object.keys(parsedResult)
 			.filter((key) => key.includes('pl'))
 			.map((key) => {
-				const data = Object.values(parsedResult[key]) as number[];
+				let data = Object.values(parsedResult[key]) as (
+					| number
+					| null
+				)[];
 				const label = `${key[2]} mode`;
 				return { data, label };
 			});
@@ -66,7 +69,7 @@ export default function DispersionResult({ result }: DispersionResultProps) {
 					</div>
 					<div className="image">
 						<SimplePlot
-							xData={xData}
+							xData={xDataShifted}
 							yData={groupVelocityData}
 							xLabel="k (rad/µm)"
 							yLabel="v (m/s)"
@@ -84,7 +87,7 @@ export default function DispersionResult({ result }: DispersionResultProps) {
 					</div>
 					<div className="image">
 						<SimplePlot
-							xData={xData}
+							xData={xDataShifted}
 							yData={propagationLengthData}
 							xLabel="k (rad/µm)"
 							yLabel="L (µm)"
