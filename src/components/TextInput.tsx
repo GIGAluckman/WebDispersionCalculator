@@ -29,7 +29,7 @@ export default function TextInput({
 				pattern={
 					name === MaterialParameterNames.Ms ||
 					name === MaterialParameterNames.alpha
-						? '[\\+\\-]?([1-9]\\d*)(\\.\\d+)?([eE][\\+\\-]?\\d+)?'
+						? '[\\+\\-]?(\\d*)?(\\.\\d+)?([1-9]\\d*)([eE][\\+\\-]?\\d+)?'
 						: '[\\+\\-]?(\\d+)(\\.\\d+)?([eE][\\+\\-]?\\d+)?'
 				}
 				placeholder="e.g., 2.6e-12"
