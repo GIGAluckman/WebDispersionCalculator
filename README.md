@@ -102,9 +102,9 @@ If you use the dispersion calculator for your publication, make sure to cite the
 
 ## 🏗 **Technology Stack**
 
--   **Frontend**: React (TypeScript, Bootstrap for styling)
+-   **Frontend**: React (TypeScript, Bootstrap for styling, MUI for plotting)
 -   **Backend**: Flask (Gunicorn for deployment, Flask-CORS for cross-origin requests)
--   **Computation Engine**: TetraX package
+-   **Computation Engine**: TetraX package (Python)
 -   **Hosting**: Flask backend hosted on an external machine with Gunicorn, frontend served via Nginx
 
 ---
@@ -113,7 +113,7 @@ If you use the dispersion calculator for your publication, make sure to cite the
 
 -   Adding more geometries.
 -   Support for additional experiment types.
--   Improved result visualization.
+-   Eigen modes visualization.
 -   User authentication for secure access.
 
 ---
