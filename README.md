@@ -56,8 +56,12 @@ If you use the dispersion calculator for your publication, make sure to cite the
 -   **Material presets** for quick selection: **YIG, GaYIG, and Py**.
 -   **Experiment configuration** panel (currently supports **dispersion curve calculation**).
 -   **Backend processing** with Flask, powered by the **TetraX package**.
--   **Visualization of results** in the form of a plot.
--   **Download results** as CSV for further analysis.
+-   **Comprehensive result visualization** including:
+    -   Dispersion relation (f vs k)
+    -   Group velocity (v vs k)
+    -   Lifetime (t vs k)
+    -   Propagation length (L vs k)
+-   **Download results** as PNG figures or as CSV for further analysis.
 
 ---
 
