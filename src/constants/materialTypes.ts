@@ -25,7 +25,7 @@ enum MaterialParameterLabels {
 
 enum MaterialParameterUnits {
 	Ms = 'A/m',
-	A = 'J/m',
+	A = 'pJ/m',
 	Ku = 'J/m³',
 	Ku_a = '',
 	alpha = '',
@@ -56,7 +56,7 @@ const YIG: Material = {
 			name: MaterialParameterNames.A,
 			label: MaterialParameterLabels.A,
 			unit: MaterialParameterUnits.A,
-			defaultValue: 3.4e-12,
+			defaultValue: 3.4,
 		},
 		[MaterialParameterNames.Ku]: {
 			name: MaterialParameterNames.Ku,
@@ -92,7 +92,7 @@ const GaYIG: Material = {
 			name: MaterialParameterNames.A,
 			label: MaterialParameterLabels.A,
 			unit: MaterialParameterUnits.A,
-			defaultValue: 1.37e-12,
+			defaultValue: 1.37,
 		},
 		[MaterialParameterNames.Ku]: {
 			name: MaterialParameterNames.Ku,
@@ -128,7 +128,7 @@ const Py: Material = {
 			name: MaterialParameterNames.A,
 			label: MaterialParameterLabels.A,
 			unit: MaterialParameterUnits.A,
-			defaultValue: 13e-12,
+			defaultValue: 13,
 		},
 		[MaterialParameterNames.Ku]: {
 			name: MaterialParameterNames.Ku,
