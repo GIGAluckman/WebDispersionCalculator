@@ -23,6 +23,14 @@ enum MaterialParameterLabels {
 	alpha = 'Gilbert damping: ',
 }
 
+export enum MaterialParameterPatterns {
+	Ms = '[\\+\\-]?(\\d*)?(\\.\\d+)?([1-9]\\d*)',
+	A = '[\\+\\-]?(\\d+)(\\.\\d+)?',
+	Ku = '[\\+\\-]?(\\d+)(\\.\\d+)?',
+	Ku_a = '',
+	alpha = '[\\+\\-]?(\\d*)?(\\.\\d+)?([1-9]\\d*)',
+}
+
 enum MaterialParameterUnits {
 	Ms = 'A/m',
 	A = 'pJ/m',
@@ -31,7 +39,7 @@ enum MaterialParameterUnits {
 	alpha = '',
 }
 
-interface MaterialParameter {
+export interface MaterialParameter {
 	name: string;
 	label: string;
 	unit: string;
