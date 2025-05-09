@@ -55,6 +55,7 @@ export default function MainForm({
 		formJson['id'] = simulationId;
 
 		try {
+			// Sending the data to the backend
 			const backendUrl = `${import.meta.env.VITE_BACKEND_URL}/submit`;
 			const response = await fetch(backendUrl, {
 				method: 'POST',
