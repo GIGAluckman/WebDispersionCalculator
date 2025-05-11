@@ -11,21 +11,31 @@ export default function Credits() {
 				>
 					Andrey Voronov
 				</a>{' '}
-				[University of Vienna, NanoMag] with the help of{' '}
+				[University of Vienna, NanoMag]
+				<br />
+				with the help of{' '}
 				<a
 					href="https://github.com/SofieSattarova"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
 					Sofiia Sattarova
-				</a>{' '}
-				and{' '}
+				</a>
+				,{' '}
 				<a
 					href="https://www.linkedin.com/in/pedrodelrealwien/"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
 					Pedro del Real
+				</a>
+				, and{' '}
+				<a
+					href="https://www.linkedin.com/in/sebastian-lamb-camarena/"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Sebastian Lamb-Camarena
 				</a>
 				, powered by{' '}
 				<a
