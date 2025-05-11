@@ -7,7 +7,7 @@ This program is designed for the **numerical calculation of dispersion curves** 
 ### 🌍 **Access the Program**
 
 The program is available online at:
-👉 **[Magnon Dispersion Calculator](http://magnondispersion.univie.ac.at/)**
+👉 **[Magnon Dispersion Calculator](https://www.madivie.at/)**
 
 ### 🔑 **TetraX Package and Citation**
 
