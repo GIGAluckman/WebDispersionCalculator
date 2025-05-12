@@ -9,6 +9,8 @@ This program is designed for the **numerical calculation of dispersion curves** 
 The program is available online at:
 👉 **[Magnon Dispersion Calculator](https://www.madivie.at/)**
 
+The frontend is deployed using Azure Static Web App, providing a fast and reliable hosting solution.
+
 ### 🔑 **TetraX Package and Citation**
 
 This program utilizes the **TetraX** package for numerical calculations. Learn more about it here:
@@ -103,7 +105,7 @@ If you use the dispersion calculator for your publication, make sure to cite the
 ## 🏗 **Technology Stack**
 
 -   **Frontend**: React (TypeScript, Bootstrap for styling, MUI for plotting)
--   **Backend**: Flask (Gunicorn for deployment, Flask-CORS for cross-origin requests)
+-   **Backend**: Flask (Gunicorn for deployment, Flask-CORS for cross-origin requests) - [Backend Repository](https://github.com/GIGAluckman/WebDispersionCalculator-backend/tree/mulltiprocessing)
 -   **Computation Engine**: TetraX package (Python)
 -   **Hosting**: Flask backend hosted on an external machine with Gunicorn, frontend served via Nginx
 
