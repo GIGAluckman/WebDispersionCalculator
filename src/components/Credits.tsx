@@ -11,7 +11,15 @@ export default function Credits() {
 				>
 					Andrey Voronov
 				</a>{' '}
-				[University of Vienna, NanoMag]
+				[University of Vienna,{' '}
+				<a
+					href="https://nanomag.univie.ac.at"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					NanoMag
+				</a>
+				]
 				<br />
 				with the help of{' '}
 				<a
