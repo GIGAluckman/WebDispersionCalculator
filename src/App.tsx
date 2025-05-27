@@ -61,14 +61,14 @@ function App() {
 			{loading ? (
 				<ProgressBar simulationId={simulationId.current} />
 			) : null}
-			<SimulationResult
-				result={result}
-				chosenExperiment={chosenExperiment}
-			/>
 			<Alert
 				message={alertObject.message}
 				show={alertObject.show}
 				onClose={() => setAlertObject({ message: '', show: false })}
+			/>
+			<SimulationResult
+				result={result}
+				chosenExperiment={chosenExperiment}
 			/>
 			<hr />
 			<Credits />
