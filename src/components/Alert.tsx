@@ -1,3 +1,5 @@
+import styles from './styles/Alert.module.css';
+
 interface AlertProps {
 	show: boolean;
 	message: string;
@@ -7,7 +9,9 @@ interface AlertProps {
 export default function Alert({ show, message, onClose }: AlertProps) {
 	if (show) {
 		return (
-			<div className="alert alert-warning alert-dismissible fade show">
+			<div
+				className={`alert alert-warning alert-dismissible fade show ${styles.alert}`}
+			>
 				<strong>Server error!</strong> {message}
 				<button
 					type="button"
