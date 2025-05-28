@@ -8,11 +8,6 @@ import styles from './styles/MainForm.module.css';
 import { useState } from 'react';
 import { useFormSubmit } from '../hooks/useFormSubmit';
 
-interface AlertObject {
-	message: string;
-	show: boolean;
-}
-
 interface MainFormProps {
 	simulationId: string;
 	loading: boolean;
@@ -21,8 +16,9 @@ interface MainFormProps {
 	chosenExperiment: ExperimentType;
 	setLoading: (loading: boolean) => void;
 	setResult: (result: any) => void;
+	setErrorId: (errorId: number | null) => void;
 	onReset: () => void;
-	setAlert: (input: AlertObject) => void;
+	setAlertToggle: (input: boolean) => void;
 }
 
 export default function MainForm({
@@ -33,8 +29,9 @@ export default function MainForm({
 	chosenExperiment,
 	setLoading,
 	setResult,
+	setErrorId,
 	onReset,
-	setAlert,
+	setAlertToggle,
 }: MainFormProps) {
 	const [showAdvanced, setShowAdvanced] = useState(false);
 	const { handleSubmit } = useFormSubmit({
@@ -44,7 +41,8 @@ export default function MainForm({
 		chosenExperiment,
 		setLoading,
 		setResult,
-		setAlert,
+		setAlertToggle,
+		setErrorId,
 	});
 
 	return (

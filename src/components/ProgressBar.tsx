@@ -3,11 +3,19 @@ import styles from './styles/ProgressBar.module.css';
 
 interface ProgressBarProps {
 	simulationId: string;
+	setAlertToggle: (input: boolean) => void;
+	setErrorId: (input: number | null) => void;
 }
 
-export default function ProgressBar({ simulationId }: ProgressBarProps) {
+export default function ProgressBar({
+	simulationId,
+	setAlertToggle,
+	setErrorId,
+}: ProgressBarProps) {
 	const { progress, status } = fetchProgressData(
-		`${import.meta.env.VITE_BACKEND_URL}/status/${simulationId}`
+		`${import.meta.env.VITE_BACKEND_URL}/status/${simulationId}`,
+		setAlertToggle,
+		setErrorId
 	);
 
 	return (

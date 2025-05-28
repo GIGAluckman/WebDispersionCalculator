@@ -2,11 +2,6 @@ import { MaterialType } from '../constants/materialTypes';
 import { GeometryType } from '../constants/geometryTypes';
 import { ExperimentType } from '../constants/experimentTypes';
 
-interface AlertObject {
-	message: string;
-	show: boolean;
-}
-
 interface UseFormSubmitProps {
 	simulationId: string;
 	chosenGeometry: GeometryType;
@@ -14,7 +9,8 @@ interface UseFormSubmitProps {
 	chosenExperiment: ExperimentType;
 	setLoading: (loading: boolean) => void;
 	setResult: (result: any) => void;
-	setAlert: (input: AlertObject) => void;
+	setAlertToggle: (input: boolean) => void;
+	setErrorId: (errorId: number | null) => void;
 }
 
 export const useFormSubmit = ({
@@ -24,7 +20,8 @@ export const useFormSubmit = ({
 	chosenExperiment,
 	setLoading,
 	setResult,
-	setAlert,
+	setAlertToggle,
+	setErrorId,
 }: UseFormSubmitProps) => {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		// Prevent the browser from reloading the page
@@ -55,13 +52,15 @@ export const useFormSubmit = ({
 			});
 
 			const recievedData = await response.json();
-			setResult(recievedData);
+			setResult(recievedData['dispersion']);
+			setErrorId(recievedData['errorId']);
+			console.log(recievedData['errorId']);
+			if (recievedData['errorId'] !== 0) {
+				setAlertToggle(true);
+			}
 		} catch (error) {
-			setAlert({
-				message:
-					'An unexpected error occurred. Please contact the developer.',
-				show: true,
-			});
+			setAlertToggle(true);
+			setErrorId(100);
 			console.error('Server error: ', error);
 		} finally {
 			setLoading(false);

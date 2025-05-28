@@ -4,18 +4,19 @@ import './styles/DispersionResult.css';
 
 interface DispersionResultProps {
 	result: string | null;
+	errorId: number | null;
 }
 
-export default function DispersionResult({ result }: DispersionResultProps) {
+export default function DispersionResult({
+	result,
+	errorId,
+}: DispersionResultProps) {
 	if (!result) {
 		return null;
 	} else {
 		const parsedResult = JSON.parse(result);
 
 		const xData = Object.values(parsedResult['k (rad/µm)'] as number[]);
-		const xDataShifted = Object.values(
-			parsedResult['kshift (rad/µm)'] as number[]
-		);
 
 		const dispersionData = Object.keys(parsedResult)
 			.filter((key) => key.includes('GHz'))
@@ -24,35 +25,33 @@ export default function DispersionResult({ result }: DispersionResultProps) {
 				label: `${key[1]} mode`,
 			}));
 
-		const groupVelocityData = Object.keys(parsedResult)
-			.filter((key) => key.includes('m/s'))
-			.map((key) => {
-				let data = Object.values(parsedResult[key]) as (
-					| number
-					| null
-				)[];
-				const label = `${key[1]} mode`;
-				return { data, label };
-			});
-
-		const lifetimeData = Object.keys(parsedResult)
-			.filter((key) => key.includes('lt'))
-			.map((key) => {
-				const data = Object.values(parsedResult[key]) as number[];
-				const label = `${key[2]} mode`;
-				return { data, label };
-			});
-
-		const propagationLengthData = Object.keys(parsedResult)
-			.filter((key) => key.includes('pl'))
-			.map((key) => {
-				let data = Object.values(parsedResult[key]) as (
-					| number
-					| null
-				)[];
-				const label = `${key[2]} mode`;
-				return { data, label };
-			});
+		let xDataShifted: number[] = [];
+		let groupVelocityData: { data: number[]; label: string }[] = [];
+		let lifetimeData: { data: number[]; label: string }[] = [];
+		let propagationLengthData: { data: number[]; label: string }[] = [];
+		if (errorId !== 1) {
+			xDataShifted = Object.values(
+				parsedResult['kshift (rad/µm)'] as number[]
+			);
+			groupVelocityData = Object.keys(parsedResult)
+				.filter((key) => key.includes('m/s'))
+				.map((key) => ({
+					data: Object.values(parsedResult[key]) as number[],
+					label: `${key[1]} mode`,
+				}));
+			lifetimeData = Object.keys(parsedResult)
+				.filter((key) => key.includes('lt'))
+				.map((key) => ({
+					data: Object.values(parsedResult[key]) as number[],
+					label: `${key[2]} mode`,
+				}));
+			propagationLengthData = Object.keys(parsedResult)
+				.filter((key) => key.includes('pl'))
+				.map((key) => ({
+					data: Object.values(parsedResult[key]) as number[],
+					label: `${key[2]} mode`,
+				}));
+		}
 
 		return (
 			<div>

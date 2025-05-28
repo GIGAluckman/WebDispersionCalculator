@@ -25,11 +25,9 @@ function App() {
 	const [loading, setLoading] = useState(false);
 	const simulationId = useRef(uuidv4());
 	const [result, setResult] = useState(null);
+	const [errorId, setErrorId] = useState<number | null>(null);
 
-	const [alertObject, setAlertObject] = useState({
-		message: '',
-		show: false,
-	});
+	const [alertToggle, setAlertToggle] = useState(false);
 
 	return (
 		<div>
@@ -52,23 +50,29 @@ function App() {
 				chosenExperiment={chosenExperiment}
 				setLoading={setLoading}
 				setResult={setResult}
+				setErrorId={setErrorId}
 				onReset={() => {
 					setChosenMaterial(MaterialType.Custom);
 					setChosenGeometry(GeometryType.Waveguide);
 				}}
-				setAlert={setAlertObject}
+				setAlertToggle={setAlertToggle}
 			/>
 			{loading ? (
-				<ProgressBar simulationId={simulationId.current} />
+				<ProgressBar
+					simulationId={simulationId.current}
+					setAlertToggle={setAlertToggle}
+					setErrorId={setErrorId}
+				/>
 			) : null}
 			<Alert
-				message={alertObject.message}
-				show={alertObject.show}
-				onClose={() => setAlertObject({ message: '', show: false })}
+				errorId={errorId}
+				show={alertToggle}
+				onClose={() => setAlertToggle(false)}
 			/>
 			<SimulationResult
 				result={result}
 				chosenExperiment={chosenExperiment}
+				errorId={errorId}
 			/>
 			<hr />
 			<Credits />
