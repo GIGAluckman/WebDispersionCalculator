@@ -12,7 +12,7 @@ export default function SimulationResult({
 	chosenExperiment,
 	errorId,
 }: SimulationResultProps) {
-	if (!result || errorId !== 0) {
+	if (!result || errorId === 99 || errorId === 100) {
 		return null;
 	} else {
 		switch (chosenExperiment) {

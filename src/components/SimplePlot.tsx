@@ -18,6 +18,9 @@ export default function SimplePlot({
 	plotTitle,
 }: SimplePlotProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
+	const ifYDataIsEmpty = yData.every((item) =>
+		item.data.every((data) => data === null)
+	);
 
 	const downloadAsPNG = () => {
 		if (containerRef.current) {
@@ -50,7 +53,7 @@ export default function SimplePlot({
 					xAxis={[
 						{
 							scaleType: 'linear',
-							data: xData,
+							data: ifYDataIsEmpty ? [] : xData,
 							label: xLabel,
 						},
 					]}
