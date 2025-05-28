@@ -54,7 +54,6 @@ export const useFormSubmit = ({
 			const recievedData = await response.json();
 			setResult(recievedData['dispersion']);
 			setErrorId(recievedData['errorId']);
-			console.log(recievedData['errorId']);
 			if (recievedData['errorId'] !== 0) {
 				setAlertToggle(true);
 			}

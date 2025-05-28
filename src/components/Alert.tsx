@@ -14,8 +14,6 @@ const errorMessages: { [key: number]: string } = {
 };
 
 export default function Alert({ show, errorId, onClose }: AlertProps) {
-	console.log(errorId);
-	console.log(show);
 	if (show && errorId !== null) {
 		return (
 			<div
