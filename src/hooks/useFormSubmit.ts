@@ -51,7 +51,12 @@ export const useFormSubmit = ({
 				body: JSON.stringify(formJson),
 			});
 
+			console.log('Response sent to backend');
+
 			const recievedData = await response.json();
+
+			console.log(recievedData);
+
 			setResult(recievedData['dispersion']);
 			setErrorId(recievedData['errorId']);
 			if (recievedData['errorId'] !== 0) {
