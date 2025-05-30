@@ -18,13 +18,13 @@ export function fetchProgressData(
 				if (data.error === 99) {
 					setAlertToggle(true);
 					setErrorId(99);
-					console.log('Error 99: Server unexpected error');
+					console.error('Error 99: Server unexpected error');
 					clearInterval(interval);
 					clearTimeout(initialDelay);
 				} else if (data.error === 100) {
 					setAlertToggle(true);
 					setErrorId(100);
-					console.log('Error 100: Server is not responding');
+					console.error('Error 100: Server is not responding');
 					clearInterval(interval);
 					clearTimeout(initialDelay);
 				} else {
