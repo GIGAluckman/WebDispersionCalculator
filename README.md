@@ -20,33 +20,36 @@ If you use the dispersion calculator for your publication, make sure to cite the
 
 ```
 @misc{TetraX,
-  author = {Körber, Lukas and
-            Quasebarth, Gwendolyn and
-            Hempel, Alexander and
-            Zahn, Friedrich and
-            Otto, Andreas and
-            Westphal, Elmar and
-            Hertel, Riccardo and
-            Kakay, Attila},
-     title = {{TetraX: Finite-Element Micromagnetic-Modeling
-               Package}},
-     month = jan,
-     year = 2022,
-     doi = {10.14278/rodare.1418},
-     url = {https://doi.org/10.14278/rodare.1418}
- }
+    title = {TetraX: Finite-Element Micromagnetic-Modeling Package},
+    author = {Körber, Lukas and Quasebarth, Gwendolyn and Hempel, Alexander and
+              Zahn, Friedrich and Otto, Andreas and Westphal, Elmar and Hertel, Riccardo and Kakay, Attila},
+    month = jan,
+    year = 2022,
+    doi = {10.14278/rodare.1418},
+    url = {https://doi.org/10.14278/rodare.1418}
+}
 
 @article{korberFiniteelementDynamicmatrixApproach2021a,
-             title = {Finite-element dynamic-matrix approach for spin-wave dispersions
-                      in magnonic waveguides with arbitrary cross section},
-             volume = {11},
-             doi = {10.1063/5.0054169},
-             language = {en},
-             journal = {AIP Advances},
-             author = {Körber, L and Quasebarth, G and Otto, A and Kákay, A},
-             year = {2021},
-             pages = {095006},
-     }
+    title = {Finite-element dynamic-matrix approach for spin-wave dispersions
+             in magnonic waveguides with arbitrary cross section},
+    author = {Körber, L and Quasebarth, G and Otto, A and Kákay, A},
+    year = {2021},
+    language = {en},
+    journal = {AIP Advances},
+    volume = {11},
+    pages = {095006},
+    doi = {10.1063/5.0054169},
+}
+
+@article{korberFiniteelementDynamicmatrixApproach2022,
+    title = {Finite-Element Dynamic-Matrix Approach for Propagating Spin Waves: {{Extension}} to Mono- and Multi-Layers of Arbitrary Spacing and Thickness},
+    author = {K{\"o}rber, L and Hempel, A and Otto, A and K{\'a}kay, Attila},
+    year = {2022},
+    journal = {AIP Advances},
+    volume = {12},
+    pages = {115206},
+    doi = {10.1063/5.0107457},
+}
 ```
 
 ---
