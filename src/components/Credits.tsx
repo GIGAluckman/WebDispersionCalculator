@@ -81,6 +81,20 @@ export default function Credits() {
 				>
 					DOI
 				</a>
+				<br />
+				<strong>[3]</strong> L. Körber, A. Hempel, A. Otto, R.A.
+				Gallardo, Y. Henry, J. Lindner, and A. Kákay (2022),
+				<br />
+				“Finite-element dynamic-matrix approach for propagating spin
+				waves: Extension to mono-and multi-layers of arbitrary spacing
+				and thickness”{' '}
+				<a
+					href="https://doi.org/10.1063/5.0107457"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					DOI
+				</a>
 			</div>
 		</div>
 	);
