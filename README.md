@@ -42,7 +42,8 @@ If you use the dispersion calculator for your publication, make sure to cite the
 }
 
 @article{korberFiniteelementDynamicmatrixApproach2022,
-    title = {Finite-Element Dynamic-Matrix Approach for Propagating Spin Waves: {{Extension}} to Mono- and Multi-Layers of Arbitrary Spacing and Thickness},
+    title = {Finite-Element Dynamic-Matrix Approach for Propagating Spin Waves:
+    {{Extension}} to Mono- and Multi-Layers of Arbitrary Spacing and Thickness},
     author = {K{\"o}rber, L and Hempel, A and Otto, A and K{\'a}kay, Attila},
     year = {2022},
     journal = {AIP Advances},
