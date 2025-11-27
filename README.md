@@ -101,17 +101,16 @@ If you use the dispersion calculator for your publication, make sure to cite the
 1. **User fills out the form** with desired geometry, material, and experiment parameters.
 2. **Form submission sends data to the Flask backend**.
 3. **Flask backend starts the TetraX simulation** based on user input.
-4. **Simulation results are returned** in the form of a **plot**.
+4. **Simulation results are returned** in the form of **plots**.
 5. **Users can download results as a CSV file**.
 
 ---
 
 ## 🏗 **Technology Stack**
 
--   **Frontend**: React (TypeScript, Bootstrap for styling, MUI for plotting)
--   **Backend**: Flask (Gunicorn for deployment, Flask-CORS for cross-origin requests) - [Backend Repository](https://github.com/GIGAluckman/WebDispersionCalculator-backend)
+-   **Frontend**: React (TypeScript, Bootstrap for styling, MUI for plotting), hosted on **Azure Static Web Apps**
+-   **Backend**: Flask (Gunicorn for deployment, Flask-CORS for cross-origin requests) - [Backend Repository](https://github.com/GIGAluckman/WebDispersionCalculator-backend), hosted on **Azure Container Apps**
 -   **Computation Engine**: TetraX package (Python)
--   **Hosting**: Flask backend hosted on an external machine with Gunicorn, frontend served via Nginx
 
 ---
 
