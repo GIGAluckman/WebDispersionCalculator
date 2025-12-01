@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 
-export function fetchProgressData(
+export function useFetchProgressData(
 	fetchUrl: string,
 	setAlertToggle: (input: boolean) => void,
 	setErrorId: (input: number | null) => void

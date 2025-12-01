@@ -1,4 +1,4 @@
-import { fetchProgressData } from '../hooks/fetchProgressData';
+import { useFetchProgressData } from '../hooks/useFetchProgressData';
 import styles from './styles/ProgressBar.module.css';
 
 interface ProgressBarProps {
@@ -12,7 +12,7 @@ export default function ProgressBar({
 	setAlertToggle,
 	setErrorId,
 }: ProgressBarProps) {
-	const { progress, status } = fetchProgressData(
+	const { progress, status } = useFetchProgressData(
 		`${import.meta.env.VITE_BACKEND_URL}/status/${simulationId}`,
 		setAlertToggle,
 		setErrorId
