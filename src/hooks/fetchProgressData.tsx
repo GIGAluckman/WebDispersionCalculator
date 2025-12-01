@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export function fetchProgressData(
 	fetchUrl: string,
@@ -7,11 +7,12 @@ export function fetchProgressData(
 ) {
 	const [progress, setProgress] = useState<number>(0);
 	const [status, setStatus] = useState<string>('Beginning simulation');
+	const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
 	useEffect(() => {
 		// Initial delay before starting polling
 		const initialDelay = setTimeout(() => {
-			const interval = setInterval(async () => {
+			intervalRef.current = setInterval(async () => {
 				const response = await fetch(fetchUrl);
 				const data = await response.json();
 
@@ -19,31 +20,35 @@ export function fetchProgressData(
 					setAlertToggle(true);
 					setErrorId(99);
 					console.error('Error 99: Server unexpected error');
-					clearInterval(interval);
-					clearTimeout(initialDelay);
+					if (intervalRef.current) {
+						clearInterval(intervalRef.current);
+						intervalRef.current = null;
+					}
 				} else if (data.error === 100) {
 					setAlertToggle(true);
 					setErrorId(100);
 					console.error('Error 100: Server is not responding');
-					clearInterval(interval);
-					clearTimeout(initialDelay);
+					if (intervalRef.current) {
+						clearInterval(intervalRef.current);
+						intervalRef.current = null;
+					}
 				} else {
+					console.log('Status checked, progress: ', data.progress);
 					setProgress(data.progress);
 					setStatus(data.status);
 				}
 			}, 2000);
-
-			// Cleanup function
-			return () => {
-				clearInterval(interval);
-			};
 		}, 3000);
 
-		// Cleanup for the initial delay
+		// Cleanup function
 		return () => {
 			clearTimeout(initialDelay);
+			if (intervalRef.current) {
+				clearInterval(intervalRef.current);
+				intervalRef.current = null;
+			}
 		};
-	}, []);
+	}, [fetchUrl]);
 
 	return { progress, status };
 }
