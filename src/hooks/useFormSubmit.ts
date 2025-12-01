@@ -25,8 +25,8 @@ export const useFormSubmit = ({
 }: UseFormSubmitProps) => {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		// Prevent the browser from reloading the page
-		setLoading(true);
 		e.preventDefault();
+		setLoading(true);
 
 		// Read the form data
 		const form = e.target as HTMLFormElement;
