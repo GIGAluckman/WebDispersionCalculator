@@ -8,6 +8,7 @@ interface TextInputProps {
 	defaultValue: string;
 	unit: string;
 	placeholder?: string;
+	pattern?: string;
 }
 
 export default function TextInput({
@@ -17,6 +18,7 @@ export default function TextInput({
 	defaultValue,
 	unit,
 	placeholder,
+	pattern,
 }: TextInputProps) {
 	return (
 		<p className={optional ? styles.labelOptional : styles.labelMain}>
@@ -28,20 +30,15 @@ export default function TextInput({
 				key={`${name}-${defaultValue}`}
 				className={optional ? styles.inputOptional : styles.inputMain}
 				inputMode="decimal"
-				pattern={
-					name === MaterialParameterNames.Ms ||
-					name === MaterialParameterNames.alpha
-						? '[\\+\\-]?(\\d*)?(\\.\\d+)?([1-9]\\d*)([eE][\\+\\-]?\\d+)?'
-						: '[\\+\\-]?(\\d+)(\\.\\d+)?([eE][\\+\\-]?\\d+)?'
-				}
-				placeholder={placeholder || 'e.g., 2.6e-12'}
+				pattern={pattern}
+				placeholder={placeholder || 'e.g., 84, 3.4, -2.56'}
 				title={
 					'Please enter a valid' +
 					(name === MaterialParameterNames.Ms ||
 					name === MaterialParameterNames.alpha
 						? ' nonzero'
 						: '') +
-					' decimal number or scientific notation (e.g., 84, 3.4, -2.56, or 1.2e-10).'
+					' decimal number (e.g., 84, 3.4, -2.56).'
 				}
 			/>{' '}
 			{unit}

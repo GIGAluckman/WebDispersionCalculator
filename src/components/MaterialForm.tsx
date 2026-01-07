@@ -33,6 +33,7 @@ export default function MaterialForm({ chosenMaterial }: MaterialFormProps) {
 						defaultValue={key.defaultValue.toString()}
 						unit={key.unit}
 						placeholder={key.placeholder}
+						pattern={key.pattern}
 					/>
 				);
 			})}

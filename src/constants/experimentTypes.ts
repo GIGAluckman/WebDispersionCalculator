@@ -12,6 +12,7 @@ interface ExperimentProperties {
 	required: boolean;
 	defaultValue: AxisNames | number;
 	placeholder?: string;
+	pattern?: string;
 }
 
 enum DefaultValuesForDispersion {
@@ -20,6 +21,14 @@ enum DefaultValuesForDispersion {
 	kMax = 20,
 	numberOfK = 11,
 	numberOfModes = 3,
+}
+
+enum DispersionPatterns {
+	externalField = '[\\+\\-]?(\\d+)(\\.\\d+)?',
+	kMin = '[\\+\\-]?(\\d+)(\\.\\d+)?',
+	kMax = '[\\+\\-]?(\\d+)(\\.\\d+)?',
+	numberOfK = '[1-9]\\d*',
+	numberOfModes = '[1-9]\\d*',
 }
 
 interface DispersionProperties {
@@ -48,6 +57,7 @@ const dispersion: Experiment<DispersionProperties> = {
 				'e.g., ' + DefaultValuesForDispersion.externalField.toString(),
 			required: true,
 			radio: false,
+			pattern: DispersionPatterns.externalField,
 		},
 		fieldAxis: {
 			name: 'fieldAxis',
@@ -65,6 +75,7 @@ const dispersion: Experiment<DispersionProperties> = {
 			placeholder: 'e.g., ' + DefaultValuesForDispersion.kMin.toString(),
 			required: true,
 			radio: false,
+			pattern: DispersionPatterns.kMin,
 		},
 		kMax: {
 			name: 'kMax',
@@ -74,6 +85,7 @@ const dispersion: Experiment<DispersionProperties> = {
 			placeholder: 'e.g., ' + DefaultValuesForDispersion.kMax.toString(),
 			required: true,
 			radio: false,
+			pattern: DispersionPatterns.kMax,
 		},
 		numberOfK: {
 			name: 'numberOfK',
@@ -84,6 +96,7 @@ const dispersion: Experiment<DispersionProperties> = {
 				'e.g., ' + DefaultValuesForDispersion.numberOfK.toString(),
 			required: false,
 			radio: false,
+			pattern: DispersionPatterns.numberOfK,
 		},
 		numberOfModes: {
 			name: 'numberOfModes',
@@ -94,6 +107,7 @@ const dispersion: Experiment<DispersionProperties> = {
 				'e.g., ' + DefaultValuesForDispersion.numberOfModes.toString(),
 			required: true,
 			radio: false,
+			pattern: DispersionPatterns.numberOfModes,
 		},
 	},
 };

@@ -43,6 +43,7 @@ export default function GeometryForm({
 											  ]
 									}
 									placeholder={property.placeholder}
+									pattern={property.pattern}
 								/>
 							);
 						}

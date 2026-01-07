@@ -27,6 +27,11 @@ enum DefaultValuesForWire {
 	radius = 100,
 }
 
+enum PropertyPatterns {
+	thickness = '^(?:[2-9]\\d*|1\\d+)(?:\\.\\d+)?$|^1\\.(?:0*[1-9]\\d*)$',
+	dx = '^[+\\-]?(?!(?:0+)(?:\\.0+)?$)(?:\\d+|\\d*\\.\\d+)$',
+}
+
 interface Property {
 	name: string;
 	label: string;
@@ -34,6 +39,7 @@ interface Property {
 	unit: string;
 	defaultValue?: Record<MaterialType, number> | number;
 	placeholder?: string;
+	pattern?: string;
 }
 
 interface Picture {
@@ -73,6 +79,7 @@ const waveguide: Geometry<WaveguideProperties> = {
 			unit: ' nm',
 			defaultValue: DefaultValuesForWaveguide.width,
 			placeholder: 'e.g., ' + DefaultValuesForWaveguide.width.toString(),
+			pattern: PropertyPatterns.thickness,
 		},
 		thickness: {
 			name: 'thickness',
@@ -82,6 +89,7 @@ const waveguide: Geometry<WaveguideProperties> = {
 			defaultValue: DefaultValuesForWaveguide.thickness,
 			placeholder:
 				'e.g., ' + DefaultValuesForWaveguide.thickness.toString(),
+			pattern: PropertyPatterns.thickness,
 		},
 		dx: {
 			name: 'dWidth',
@@ -95,6 +103,7 @@ const waveguide: Geometry<WaveguideProperties> = {
 				[MaterialType.Custom]: DefaultValuesForYIG.dx,
 			},
 			placeholder: 'e.g., ' + DefaultValuesForYIG.dx.toString(),
+			pattern: PropertyPatterns.dx,
 		},
 		dy: {
 			name: 'dThick',
@@ -108,6 +117,7 @@ const waveguide: Geometry<WaveguideProperties> = {
 				[MaterialType.Custom]: DefaultValuesForYIG.dx,
 			},
 			placeholder: 'e.g., ' + DefaultValuesForYIG.dx.toString(),
+			pattern: PropertyPatterns.dx,
 		},
 	},
 	picture: {
@@ -126,6 +136,7 @@ const thinFilm: Geometry<ThinFilmProperties> = {
 			defaultValue: DefaultValuesForPlaneFilm.thickness,
 			placeholder:
 				'e.g., ' + DefaultValuesForPlaneFilm.thickness.toString(),
+			pattern: PropertyPatterns.thickness,
 		},
 		dx: {
 			name: 'dThick',
@@ -139,6 +150,7 @@ const thinFilm: Geometry<ThinFilmProperties> = {
 				[MaterialType.Custom]: DefaultValuesForYIG.dx,
 			},
 			placeholder: 'e.g., ' + DefaultValuesForYIG.dx.toString(),
+			pattern: PropertyPatterns.dx,
 		},
 	},
 	picture: {
@@ -156,6 +168,7 @@ const wire: Geometry<WireProperties> = {
 			unit: ' nm',
 			defaultValue: DefaultValuesForWire.radius,
 			placeholder: 'e.g., ' + DefaultValuesForWire.radius.toString(),
+			pattern: PropertyPatterns.thickness,
 		},
 		dr: {
 			name: 'dRadius',
@@ -169,6 +182,7 @@ const wire: Geometry<WireProperties> = {
 				[MaterialType.Custom]: DefaultValuesForYIG.dx,
 			},
 			placeholder: 'e.g., ' + DefaultValuesForYIG.dx.toString(),
+			pattern: PropertyPatterns.dx,
 		},
 	},
 	picture: {
