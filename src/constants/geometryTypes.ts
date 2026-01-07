@@ -1,7 +1,7 @@
 import monolayerLineTrace from '../assets/monolayerLineTrace.png';
 import waveguideCrossSection from '../assets/waveguideCrossSection.png';
 import wireCrossSection from '../assets/wireCrossSection.png';
-import { MaterialType } from './materialTypes';
+import { MaterialType, PatternProperties } from './materialTypes';
 import {
 	DefaultValuesForYIG,
 	DefaultValuesForGaYIG,
@@ -27,10 +27,21 @@ enum DefaultValuesForWire {
 	radius = 100,
 }
 
-enum PropertyPatterns {
-	thickness = '^(?:[2-9]\\d*|1\\d+)(?:\\.\\d+)?$|^1\\.(?:0*[1-9]\\d*)$',
-	dx = '^[+\\-]?(?!(?:0+)(?:\\.0+)?$)(?:\\d+|\\d*\\.\\d+)$',
+interface GeometryPropertyPatterns {
+	thickness: PatternProperties;
+	dx: PatternProperties;
 }
+
+const PropertyPatterns: GeometryPropertyPatterns = {
+	thickness: {
+		pattern: '^(?:[2-9]\\d*|1\\d+)(?:\\.\\d+)?$|^1\\.(?:0*[1-9]\\d*)$',
+		title: 'Please enter a number greater than 1 (e.g., 1.5, 100).',
+	},
+	dx: {
+		pattern: '^[+\\-]?(?!(?:0+)(?:\\.0+)?$)(?:\\d+|\\d*\\.\\d+)$',
+		title: 'Please enter a valid nonzero decimal number (e.g., 5, 3.4, -2.56).',
+	},
+};
 
 interface Property {
 	name: string;
@@ -39,7 +50,7 @@ interface Property {
 	unit: string;
 	defaultValue?: Record<MaterialType, number> | number;
 	placeholder?: string;
-	pattern?: string;
+	pattern?: PatternProperties;
 }
 
 interface Picture {

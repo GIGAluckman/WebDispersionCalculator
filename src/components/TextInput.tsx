@@ -1,4 +1,4 @@
-import { MaterialParameterNames } from '../constants/materialTypes';
+import { PatternProperties } from '../constants/materialTypes';
 import styles from './styles/TextInput.module.css';
 
 interface TextInputProps {
@@ -8,7 +8,7 @@ interface TextInputProps {
 	defaultValue: string;
 	unit: string;
 	placeholder?: string;
-	pattern?: string;
+	pattern?: PatternProperties;
 }
 
 export default function TextInput({
@@ -30,16 +30,9 @@ export default function TextInput({
 				key={`${name}-${defaultValue}`}
 				className={optional ? styles.inputOptional : styles.inputMain}
 				inputMode="decimal"
-				pattern={pattern}
+				pattern={pattern?.pattern}
 				placeholder={placeholder || 'e.g., 84, 3.4, -2.56'}
-				title={
-					'Please enter a valid' +
-					(name === MaterialParameterNames.Ms ||
-					name === MaterialParameterNames.alpha
-						? ' nonzero'
-						: '') +
-					' decimal number (e.g., 84, 3.4, -2.56).'
-				}
+				title={pattern?.title}
 			/>{' '}
 			{unit}
 		</p>

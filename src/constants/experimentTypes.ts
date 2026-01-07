@@ -1,4 +1,5 @@
 import { AxisNames } from './axisNames';
+import { PatternProperties } from './materialTypes';
 
 export enum ExperimentType {
 	dispersion = 'Dispersion',
@@ -12,7 +13,7 @@ interface ExperimentProperties {
 	required: boolean;
 	defaultValue: AxisNames | number;
 	placeholder?: string;
-	pattern?: string;
+	pattern?: PatternProperties;
 }
 
 enum DefaultValuesForDispersion {
@@ -23,13 +24,36 @@ enum DefaultValuesForDispersion {
 	numberOfModes = 3,
 }
 
-enum DispersionPatterns {
-	externalField = '[\\+\\-]?(\\d+)(\\.\\d+)?',
-	kMin = '[\\+\\-]?(\\d+)(\\.\\d+)?',
-	kMax = '[\\+\\-]?(\\d+)(\\.\\d+)?',
-	numberOfK = '[1-9]\\d*',
-	numberOfModes = '[1-9]\\d*',
+interface DispersionPatterns {
+	externalField: PatternProperties;
+	kMin: PatternProperties;
+	kMax: PatternProperties;
+	numberOfK: PatternProperties;
+	numberOfModes: PatternProperties;
 }
+
+const DispersionPatterns: DispersionPatterns = {
+	externalField: {
+		pattern: '[\\+\\-]?(\\d+)(\\.\\d+)?',
+		title: 'Please enter a valid decimal number (e.g., 400, 103.4, -20.56).',
+	},
+	kMin: {
+		pattern: '[\\+\\-]?(\\d+)(\\.\\d+)?',
+		title: 'Please enter a valid decimal number (e.g., 0, 3.4, -2.56).',
+	},
+	kMax: {
+		pattern: '[\\+\\-]?(\\d+)(\\.\\d+)?',
+		title: 'Please enter a valid decimal number (e.g., 20, 3.4, -2.56).',
+	},
+	numberOfK: {
+		pattern: '[1-9]\\d*',
+		title: 'Please enter a positive integer (e.g., 11, 50, 100).',
+	},
+	numberOfModes: {
+		pattern: '[1-9]\\d*',
+		title: 'Please enter a positive integer (e.g., 3, 5, 10).',
+	},
+};
 
 interface DispersionProperties {
 	externalField: ExperimentProperties;

@@ -23,12 +23,36 @@ enum MaterialParameterLabels {
 	alpha = 'Gilbert damping: ',
 }
 
-enum MaterialParameterPatterns {
-	Ms = '^[+\\-]?(?!(?:0+)(?:\\.0+)?$)(?:\\d+|\\d*\\.\\d+)$',
-	A = '[\\+\\-]?(\\d+)(\\.\\d+)?',
-	Ku = '[\\+\\-]?(\\d+)(\\.\\d+)?',
-	alpha = '^[+\\-]?(?!(?:0+)(?:\\.0+)?$)(?:\\d+|\\d*\\.\\d+)$',
+export interface PatternProperties {
+	pattern: string;
+	title: string;
 }
+
+interface MaterialParameterPatterns {
+	Ms: PatternProperties;
+	A: PatternProperties;
+	Ku: PatternProperties;
+	alpha: PatternProperties;
+}
+
+const MaterialParameterPatterns: MaterialParameterPatterns = {
+	Ms: {
+		pattern: '^[+\\-]?(?!(?:0+)(?:\\.0+)?$)(?:\\d+|\\d*\\.\\d+)$',
+		title: 'Please enter a valid nonzero decimal number (e.g., 84, 3.4, -2.56).',
+	},
+	A: {
+		pattern: '[\\+\\-]?(\\d+)(\\.\\d+)?',
+		title: 'Please enter a valid decimal number (e.g., 84, 3.4, -2.56).',
+	},
+	Ku: {
+		pattern: '[\\+\\-]?(\\d+)(\\.\\d+)?',
+		title: 'Please enter a valid decimal number (e.g., 84, 3.4, -2.56).',
+	},
+	alpha: {
+		pattern: '^[+\\-]?(?!(?:0+)(?:\\.0+)?$)(?:\\d+|\\d*\\.\\d+)$',
+		title: 'Please enter a valid nonzero decimal number (e.g., 84, 3.4, -2.56).',
+	},
+};
 
 enum MaterialParameterUnits {
 	Ms = 'A/m',
@@ -68,7 +92,10 @@ export interface MaterialParameter {
 	unit: string;
 	defaultValue: number | AxisNames;
 	placeholder?: string;
-	pattern?: string;
+	pattern?: {
+		pattern: string;
+		title: string;
+	};
 }
 
 interface Material {
