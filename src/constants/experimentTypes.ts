@@ -11,6 +11,15 @@ interface ExperimentProperties {
 	radio: boolean;
 	required: boolean;
 	defaultValue: AxisNames | number;
+	placeholder?: string;
+}
+
+enum DefaultValuesForDispersion {
+	externalField = 400,
+	kMin = 0,
+	kMax = 20,
+	numberOfK = 11,
+	numberOfModes = 3,
 }
 
 interface DispersionProperties {
@@ -34,7 +43,9 @@ const dispersion: Experiment<DispersionProperties> = {
 			name: 'externalField',
 			label: 'External field strength: ',
 			unit: 'mT',
-			defaultValue: 400,
+			defaultValue: DefaultValuesForDispersion.externalField,
+			placeholder:
+				'e.g., ' + DefaultValuesForDispersion.externalField.toString(),
 			required: true,
 			radio: false,
 		},
@@ -50,7 +61,8 @@ const dispersion: Experiment<DispersionProperties> = {
 			name: 'kMin',
 			label: 'Lowest 𝑘: ',
 			unit: 'rad/μm',
-			defaultValue: 0,
+			defaultValue: DefaultValuesForDispersion.kMin,
+			placeholder: 'e.g., ' + DefaultValuesForDispersion.kMin.toString(),
 			required: true,
 			radio: false,
 		},
@@ -58,7 +70,8 @@ const dispersion: Experiment<DispersionProperties> = {
 			name: 'kMax',
 			label: 'Highest 𝑘: ',
 			unit: 'rad/μm',
-			defaultValue: 20,
+			defaultValue: DefaultValuesForDispersion.kMax,
+			placeholder: 'e.g., ' + DefaultValuesForDispersion.kMax.toString(),
 			required: true,
 			radio: false,
 		},
@@ -66,7 +79,9 @@ const dispersion: Experiment<DispersionProperties> = {
 			name: 'numberOfK',
 			label: 'Number of 𝑘 values: ',
 			unit: '',
-			defaultValue: 11,
+			defaultValue: DefaultValuesForDispersion.numberOfK,
+			placeholder:
+				'e.g., ' + DefaultValuesForDispersion.numberOfK.toString(),
 			required: false,
 			radio: false,
 		},
@@ -74,7 +89,9 @@ const dispersion: Experiment<DispersionProperties> = {
 			name: 'numberOfModes',
 			label: 'Number of modes: ',
 			unit: '',
-			defaultValue: 3,
+			defaultValue: DefaultValuesForDispersion.numberOfModes,
+			placeholder:
+				'e.g., ' + DefaultValuesForDispersion.numberOfModes.toString(),
 			required: true,
 			radio: false,
 		},

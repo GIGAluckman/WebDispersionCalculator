@@ -38,6 +38,7 @@ export default function ExpSetupForm({
 							optional={!parameter.required}
 							defaultValue={parameter.defaultValue.toString()}
 							unit={parameter.unit}
+							placeholder={parameter.placeholder}
 						/>
 					);
 				}

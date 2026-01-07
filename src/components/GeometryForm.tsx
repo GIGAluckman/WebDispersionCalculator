@@ -42,6 +42,7 @@ export default function GeometryForm({
 													chosenMaterial
 											  ]
 									}
+									placeholder={property.placeholder}
 								/>
 							);
 						}

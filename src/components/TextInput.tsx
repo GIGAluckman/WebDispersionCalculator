@@ -7,6 +7,7 @@ interface TextInputProps {
 	optional: boolean;
 	defaultValue: string;
 	unit: string;
+	placeholder?: string;
 }
 
 export default function TextInput({
@@ -15,6 +16,7 @@ export default function TextInput({
 	optional,
 	defaultValue,
 	unit,
+	placeholder,
 }: TextInputProps) {
 	return (
 		<p className={optional ? styles.labelOptional : styles.labelMain}>
@@ -32,7 +34,7 @@ export default function TextInput({
 						? '[\\+\\-]?(\\d*)?(\\.\\d+)?([1-9]\\d*)([eE][\\+\\-]?\\d+)?'
 						: '[\\+\\-]?(\\d+)(\\.\\d+)?([eE][\\+\\-]?\\d+)?'
 				}
-				placeholder="e.g., 2.6e-12"
+				placeholder={placeholder || 'e.g., 2.6e-12'}
 				title={
 					'Please enter a valid' +
 					(name === MaterialParameterNames.Ms ||

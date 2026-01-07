@@ -2,11 +2,29 @@ import monolayerLineTrace from '../assets/monolayerLineTrace.png';
 import waveguideCrossSection from '../assets/waveguideCrossSection.png';
 import wireCrossSection from '../assets/wireCrossSection.png';
 import { MaterialType } from './materialTypes';
+import {
+	DefaultValuesForYIG,
+	DefaultValuesForGaYIG,
+	DefaultValuesForPy,
+} from './materialTypes';
 
 export enum GeometryType {
 	Waveguide = 'Waveguide',
 	PlaneFilm = 'Plane Film',
 	Wire = 'Wire',
+}
+
+enum DefaultValuesForWaveguide {
+	width = 300,
+	thickness = 100,
+}
+
+enum DefaultValuesForPlaneFilm {
+	thickness = 100,
+}
+
+enum DefaultValuesForWire {
+	radius = 100,
 }
 
 interface Property {
@@ -15,6 +33,7 @@ interface Property {
 	required: boolean;
 	unit: string;
 	defaultValue?: Record<MaterialType, number> | number;
+	placeholder?: string;
 }
 
 interface Picture {
@@ -52,14 +71,17 @@ const waveguide: Geometry<WaveguideProperties> = {
 			required: true,
 			label: 'Width (a): ',
 			unit: ' nm',
-			defaultValue: 300,
+			defaultValue: DefaultValuesForWaveguide.width,
+			placeholder: 'e.g., ' + DefaultValuesForWaveguide.width.toString(),
 		},
 		thickness: {
 			name: 'thickness',
 			required: true,
 			label: 'Thickness (b): ',
 			unit: ' nm',
-			defaultValue: 100,
+			defaultValue: DefaultValuesForWaveguide.thickness,
+			placeholder:
+				'e.g., ' + DefaultValuesForWaveguide.thickness.toString(),
 		},
 		dx: {
 			name: 'dWidth',
@@ -67,11 +89,12 @@ const waveguide: Geometry<WaveguideProperties> = {
 			label: 'dx: ',
 			unit: ' nm',
 			defaultValue: {
-				[MaterialType.YIG]: 10,
-				[MaterialType.GaYIG]: 30,
-				[MaterialType.Py]: 5,
-				[MaterialType.Custom]: 10,
+				[MaterialType.YIG]: DefaultValuesForYIG.dx,
+				[MaterialType.GaYIG]: DefaultValuesForGaYIG.dx,
+				[MaterialType.Py]: DefaultValuesForPy.dx,
+				[MaterialType.Custom]: DefaultValuesForYIG.dx,
 			},
+			placeholder: 'e.g., ' + DefaultValuesForYIG.dx.toString(),
 		},
 		dy: {
 			name: 'dThick',
@@ -79,11 +102,12 @@ const waveguide: Geometry<WaveguideProperties> = {
 			label: 'dy: ',
 			unit: ' nm',
 			defaultValue: {
-				[MaterialType.YIG]: 10,
-				[MaterialType.GaYIG]: 30,
-				[MaterialType.Py]: 5,
-				[MaterialType.Custom]: 10,
+				[MaterialType.YIG]: DefaultValuesForYIG.dx,
+				[MaterialType.GaYIG]: DefaultValuesForGaYIG.dx,
+				[MaterialType.Py]: DefaultValuesForPy.dx,
+				[MaterialType.Custom]: DefaultValuesForYIG.dx,
 			},
+			placeholder: 'e.g., ' + DefaultValuesForYIG.dx.toString(),
 		},
 	},
 	picture: {
@@ -99,7 +123,9 @@ const thinFilm: Geometry<ThinFilmProperties> = {
 			required: true,
 			label: 'Thickness: ',
 			unit: ' nm',
-			defaultValue: 100,
+			defaultValue: DefaultValuesForPlaneFilm.thickness,
+			placeholder:
+				'e.g., ' + DefaultValuesForPlaneFilm.thickness.toString(),
 		},
 		dx: {
 			name: 'dThick',
@@ -107,11 +133,12 @@ const thinFilm: Geometry<ThinFilmProperties> = {
 			label: 'dy: ',
 			unit: ' nm',
 			defaultValue: {
-				[MaterialType.YIG]: 10,
-				[MaterialType.GaYIG]: 30,
-				[MaterialType.Py]: 5,
-				[MaterialType.Custom]: 10,
+				[MaterialType.YIG]: DefaultValuesForYIG.dx,
+				[MaterialType.GaYIG]: DefaultValuesForGaYIG.dx,
+				[MaterialType.Py]: DefaultValuesForPy.dx,
+				[MaterialType.Custom]: DefaultValuesForYIG.dx,
 			},
+			placeholder: 'e.g., ' + DefaultValuesForYIG.dx.toString(),
 		},
 	},
 	picture: {
@@ -127,7 +154,8 @@ const wire: Geometry<WireProperties> = {
 			required: true,
 			label: 'Radius: ',
 			unit: ' nm',
-			defaultValue: 100,
+			defaultValue: DefaultValuesForWire.radius,
+			placeholder: 'e.g., ' + DefaultValuesForWire.radius.toString(),
 		},
 		dr: {
 			name: 'dRadius',
@@ -135,11 +163,12 @@ const wire: Geometry<WireProperties> = {
 			label: 'dr: ',
 			unit: ' nm',
 			defaultValue: {
-				[MaterialType.YIG]: 10,
-				[MaterialType.GaYIG]: 30,
-				[MaterialType.Py]: 5,
-				[MaterialType.Custom]: 10,
+				[MaterialType.YIG]: DefaultValuesForYIG.dx,
+				[MaterialType.GaYIG]: DefaultValuesForGaYIG.dx,
+				[MaterialType.Py]: DefaultValuesForPy.dx,
+				[MaterialType.Custom]: DefaultValuesForYIG.dx,
 			},
+			placeholder: 'e.g., ' + DefaultValuesForYIG.dx.toString(),
 		},
 	},
 	picture: {

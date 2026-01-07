@@ -39,11 +39,36 @@ enum MaterialParameterUnits {
 	alpha = '',
 }
 
+export enum DefaultValuesForYIG {
+	Ms = 140000,
+	A = 3.4,
+	Ku = 0,
+	alpha = 0.0002,
+	dx = 10,
+}
+
+export enum DefaultValuesForGaYIG {
+	Ms = 21724.65,
+	A = 1.37,
+	Ku = 857.04,
+	alpha = 0.0007,
+	dx = 30,
+}
+
+export enum DefaultValuesForPy {
+	Ms = 800000,
+	A = 13,
+	Ku = 0,
+	alpha = 0.01,
+	dx = 5,
+}
+
 export interface MaterialParameter {
 	name: string;
 	label: string;
 	unit: string;
 	defaultValue: number | AxisNames;
+	placeholder?: string;
 }
 
 interface Material {
@@ -58,19 +83,22 @@ const YIG: Material = {
 			name: MaterialParameterNames.Ms,
 			label: MaterialParameterLabels.Ms,
 			unit: MaterialParameterUnits.Ms,
-			defaultValue: 140000,
+			placeholder: 'e.g., ' + DefaultValuesForYIG.Ms.toString(),
+			defaultValue: DefaultValuesForYIG.Ms,
 		},
 		[MaterialParameterNames.A]: {
 			name: MaterialParameterNames.A,
 			label: MaterialParameterLabels.A,
 			unit: MaterialParameterUnits.A,
-			defaultValue: 3.4,
+			placeholder: 'e.g., ' + DefaultValuesForYIG.A.toString(),
+			defaultValue: DefaultValuesForYIG.A,
 		},
 		[MaterialParameterNames.Ku]: {
 			name: MaterialParameterNames.Ku,
 			label: MaterialParameterLabels.Ku,
 			unit: MaterialParameterUnits.Ku,
-			defaultValue: 0,
+			placeholder: 'e.g., ' + DefaultValuesForYIG.Ku.toString(),
+			defaultValue: DefaultValuesForYIG.Ku,
 		},
 		[MaterialParameterNames.Ku_a]: {
 			name: MaterialParameterNames.Ku_a,
@@ -82,7 +110,8 @@ const YIG: Material = {
 			name: MaterialParameterNames.alpha,
 			label: MaterialParameterLabels.alpha,
 			unit: MaterialParameterUnits.alpha,
-			defaultValue: 0.0002,
+			placeholder: 'e.g., ' + DefaultValuesForYIG.alpha.toString(),
+			defaultValue: DefaultValuesForYIG.alpha,
 		},
 	},
 };
@@ -94,19 +123,22 @@ const GaYIG: Material = {
 			name: MaterialParameterNames.Ms,
 			label: MaterialParameterLabels.Ms,
 			unit: MaterialParameterUnits.Ms,
-			defaultValue: 21724.65,
+			placeholder: 'e.g., ' + DefaultValuesForGaYIG.Ms.toString(),
+			defaultValue: DefaultValuesForGaYIG.Ms,
 		},
 		[MaterialParameterNames.A]: {
 			name: MaterialParameterNames.A,
 			label: MaterialParameterLabels.A,
 			unit: MaterialParameterUnits.A,
-			defaultValue: 1.37,
+			placeholder: 'e.g., ' + DefaultValuesForGaYIG.A.toString(),
+			defaultValue: DefaultValuesForGaYIG.A,
 		},
 		[MaterialParameterNames.Ku]: {
 			name: MaterialParameterNames.Ku,
 			label: MaterialParameterLabels.Ku,
 			unit: MaterialParameterUnits.Ku,
-			defaultValue: 857.04,
+			placeholder: 'e.g., ' + DefaultValuesForGaYIG.Ku.toString(),
+			defaultValue: DefaultValuesForGaYIG.Ku,
 		},
 		[MaterialParameterNames.Ku_a]: {
 			name: MaterialParameterNames.Ku_a,
@@ -118,7 +150,8 @@ const GaYIG: Material = {
 			name: MaterialParameterNames.alpha,
 			label: MaterialParameterLabels.alpha,
 			unit: MaterialParameterUnits.alpha,
-			defaultValue: 0.0007,
+			placeholder: 'e.g., ' + DefaultValuesForGaYIG.alpha.toString(),
+			defaultValue: DefaultValuesForGaYIG.alpha,
 		},
 	},
 };
@@ -130,19 +163,22 @@ const Py: Material = {
 			name: MaterialParameterNames.Ms,
 			label: MaterialParameterLabels.Ms,
 			unit: MaterialParameterUnits.Ms,
-			defaultValue: 800000,
+			placeholder: 'e.g., ' + DefaultValuesForPy.Ms.toString(),
+			defaultValue: DefaultValuesForPy.Ms,
 		},
 		[MaterialParameterNames.A]: {
 			name: MaterialParameterNames.A,
 			label: MaterialParameterLabels.A,
 			unit: MaterialParameterUnits.A,
-			defaultValue: 13,
+			placeholder: 'e.g., ' + DefaultValuesForPy.A.toString(),
+			defaultValue: DefaultValuesForPy.A,
 		},
 		[MaterialParameterNames.Ku]: {
 			name: MaterialParameterNames.Ku,
 			label: MaterialParameterLabels.Ku,
 			unit: MaterialParameterUnits.Ku,
-			defaultValue: 0,
+			placeholder: 'e.g., ' + DefaultValuesForPy.Ku.toString(),
+			defaultValue: DefaultValuesForPy.Ku,
 		},
 		[MaterialParameterNames.Ku_a]: {
 			name: MaterialParameterNames.Ku_a,
@@ -154,7 +190,8 @@ const Py: Material = {
 			name: MaterialParameterNames.alpha,
 			label: MaterialParameterLabels.alpha,
 			unit: MaterialParameterUnits.alpha,
-			defaultValue: 0.01,
+			placeholder: 'e.g., ' + DefaultValuesForPy.alpha.toString(),
+			defaultValue: DefaultValuesForPy.alpha,
 		},
 	},
 };
@@ -166,18 +203,21 @@ const Custom: Material = {
 			name: MaterialParameterNames.Ms,
 			label: MaterialParameterLabels.Ms,
 			unit: MaterialParameterUnits.Ms,
+			placeholder: 'e.g., ' + DefaultValuesForYIG.Ms.toString(),
 			defaultValue: 0,
 		},
 		[MaterialParameterNames.A]: {
 			name: MaterialParameterNames.A,
 			label: MaterialParameterLabels.A,
 			unit: MaterialParameterUnits.A,
+			placeholder: 'e.g., ' + DefaultValuesForYIG.A.toString(),
 			defaultValue: 0,
 		},
 		[MaterialParameterNames.Ku]: {
 			name: MaterialParameterNames.Ku,
 			label: MaterialParameterLabels.Ku,
 			unit: MaterialParameterUnits.Ku,
+			placeholder: 'e.g., ' + DefaultValuesForYIG.Ku.toString(),
 			defaultValue: 0,
 		},
 		[MaterialParameterNames.Ku_a]: {
@@ -190,6 +230,7 @@ const Custom: Material = {
 			name: MaterialParameterNames.alpha,
 			label: MaterialParameterLabels.alpha,
 			unit: MaterialParameterUnits.alpha,
+			placeholder: 'e.g., ' + DefaultValuesForYIG.alpha.toString(),
 			defaultValue: 0.01,
 		},
 	},
