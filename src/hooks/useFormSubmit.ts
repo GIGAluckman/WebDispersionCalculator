@@ -41,8 +41,8 @@ export const useFormSubmit = ({
 		formJson['id'] = simulationId;
 
 		try {
-			// Sending the data to the backend
-			const backendUrl = `${import.meta.env.VITE_BACKEND_URL}/submit`;
+			// Sending the data to the backend to start the simulation
+			const backendUrl = `${import.meta.env.VITE_BACKEND_URL}/start`;
 			const response = await fetch(backendUrl, {
 				method: 'POST',
 				headers: {
@@ -51,23 +51,20 @@ export const useFormSubmit = ({
 				body: JSON.stringify(formJson),
 			});
 
-			console.log('Response sent to backend');
-
-			const recievedData = await response.json();
-
-			console.log(recievedData);
-
-			setResult(recievedData['dispersion']);
-			setErrorId(recievedData['errorId']);
-			if (recievedData['errorId'] !== 0) {
-				setAlertToggle(true);
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
 			}
+
+			const receivedData = await response.json();
+			console.log('Simulation started:', receivedData);
+
+			// Don't set loading to false here - keep it true so polling can start
+			// The result will be fetched by useFetchProgressData when status shows completion
 		} catch (error) {
+			setLoading(false);
 			setAlertToggle(true);
 			setErrorId(100);
 			console.error('Server error: ', error);
-		} finally {
-			setLoading(false);
 		}
 	};
 

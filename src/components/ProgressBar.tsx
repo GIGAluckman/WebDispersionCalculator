@@ -5,17 +5,24 @@ interface ProgressBarProps {
 	simulationId: string;
 	setAlertToggle: (input: boolean) => void;
 	setErrorId: (input: number | null) => void;
+	setResult?: (result: any) => void;
+	setLoading?: (loading: boolean) => void;
 }
 
 export default function ProgressBar({
 	simulationId,
 	setAlertToggle,
 	setErrorId,
+	setResult,
+	setLoading,
 }: ProgressBarProps) {
 	const { progress, status } = useFetchProgressData(
 		`${import.meta.env.VITE_BACKEND_URL}/status/${simulationId}`,
 		setAlertToggle,
-		setErrorId
+		setErrorId,
+		setResult,
+		setLoading,
+		simulationId
 	);
 
 	return (

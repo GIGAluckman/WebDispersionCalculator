@@ -62,6 +62,8 @@ function App() {
 					simulationId={simulationId.current}
 					setAlertToggle={setAlertToggle}
 					setErrorId={setErrorId}
+					setResult={setResult}
+					setLoading={setLoading}
 				/>
 			) : null}
 			<Alert
