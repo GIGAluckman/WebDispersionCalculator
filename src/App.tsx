@@ -49,7 +49,6 @@ function App() {
 				chosenMaterial={chosenMaterial}
 				chosenExperiment={chosenExperiment}
 				setLoading={setLoading}
-				setResult={setResult}
 				setErrorId={setErrorId}
 				onReset={() => {
 					setChosenMaterial(MaterialType.Custom);

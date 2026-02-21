@@ -8,7 +8,6 @@ interface UseFormSubmitProps {
 	chosenMaterial: MaterialType;
 	chosenExperiment: ExperimentType;
 	setLoading: (loading: boolean) => void;
-	setResult: (result: any) => void;
 	setAlertToggle: (input: boolean) => void;
 	setErrorId: (errorId: number | null) => void;
 }
@@ -19,7 +18,6 @@ export const useFormSubmit = ({
 	chosenMaterial,
 	chosenExperiment,
 	setLoading,
-	setResult,
 	setAlertToggle,
 	setErrorId,
 }: UseFormSubmitProps) => {

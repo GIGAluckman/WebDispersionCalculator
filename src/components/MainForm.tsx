@@ -15,7 +15,6 @@ interface MainFormProps {
 	chosenMaterial: MaterialType;
 	chosenExperiment: ExperimentType;
 	setLoading: (loading: boolean) => void;
-	setResult: (result: any) => void;
 	setErrorId: (errorId: number | null) => void;
 	onReset: () => void;
 	setAlertToggle: (input: boolean) => void;
@@ -28,7 +27,6 @@ export default function MainForm({
 	chosenMaterial,
 	chosenExperiment,
 	setLoading,
-	setResult,
 	setErrorId,
 	onReset,
 	setAlertToggle,
@@ -40,7 +38,6 @@ export default function MainForm({
 		chosenMaterial,
 		chosenExperiment,
 		setLoading,
-		setResult,
 		setAlertToggle,
 		setErrorId,
 	});
