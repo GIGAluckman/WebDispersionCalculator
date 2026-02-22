@@ -15,14 +15,12 @@ export default function DispersionResult({
 	if (!result) {
 		return null;
 	} else {
-		const parsedResult = JSON.parse(result);
+		const xData = Object.values(result['k (rad/µm)'] as unknown as number[]);
 
-		const xData = Object.values(parsedResult['k (rad/µm)'] as number[]);
-
-		const dispersionData = Object.keys(parsedResult)
+		const dispersionData = Object.keys(result)
 			.filter((key) => key.includes('GHz'))
 			.map((key) => ({
-				data: Object.values(parsedResult[key]) as number[],
+				data: Object.values(result[key]) as unknown as number[],
 				label: `${key[1]} mode`,
 			}));
 
@@ -32,24 +30,24 @@ export default function DispersionResult({
 		let propagationLengthData: { data: number[]; label: string }[] = [];
 		if (errorId !== 1) {
 			xDataShifted = Object.values(
-				parsedResult['kshift (rad/µm)'] as number[]
-			);
-			groupVelocityData = Object.keys(parsedResult)
+				result['kshift (rad/µm)']
+			) as unknown as number[];
+			groupVelocityData = Object.keys(result)
 				.filter((key) => key.includes('m/s'))
 				.map((key) => ({
-					data: Object.values(parsedResult[key]) as number[],
+					data: Object.values(result[key]) as unknown as number[],
 					label: `${key[1]} mode`,
 				}));
-			lifetimeData = Object.keys(parsedResult)
+			lifetimeData = Object.keys(result)
 				.filter((key) => key.includes('lt'))
 				.map((key) => ({
-					data: Object.values(parsedResult[key]) as number[],
+					data: Object.values(result[key]) as unknown as number[],
 					label: `${key[2]} mode`,
 				}));
-			propagationLengthData = Object.keys(parsedResult)
+			propagationLengthData = Object.keys(result)
 				.filter((key) => key.includes('pl'))
 				.map((key) => ({
-					data: Object.values(parsedResult[key]) as number[],
+					data: Object.values(result[key]) as unknown as number[],
 					label: `${key[2]} mode`,
 				}));
 		}

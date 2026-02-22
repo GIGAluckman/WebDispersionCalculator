@@ -1,7 +1,7 @@
 import { DispersionData } from '../constants/experimentTypes';
 
 interface DownloadCSVButtonProps {
-	data: string;
+	data: DispersionData;
 }
 
 const downloadCSV = (csvContent: string) => {
@@ -16,10 +16,9 @@ const downloadCSV = (csvContent: string) => {
 };
 
 export default function DownloadCSVButton({ data }: DownloadCSVButtonProps) {
-	const dataParsed = JSON.parse(data);
-	const columnNames = Object.keys(dataParsed); // ["k (rad/m)", "f0 (GHz)", "f1 (GHz)", "f2 (GHz)"]
-	const rows = Object.keys(dataParsed[columnNames[0]]).map((rowIndex) =>
-		columnNames.map((column) => dataParsed[column][rowIndex])
+	const columnNames = Object.keys(data);
+	const rows = Object.keys(data[columnNames[0]]).map((rowIndex) =>
+		columnNames.map((column) => data[column][rowIndex])
 	);
 
 	const csvContent = [
