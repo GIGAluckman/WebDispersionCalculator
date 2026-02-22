@@ -99,17 +99,23 @@ If you use the dispersion calculator for your publication, make sure to cite the
 ## 🔄 **Workflow**
 
 1. **User fills out the form** with desired geometry, material, and experiment parameters.
-2. **Form submission sends data to the Flask backend**.
-3. **Flask backend starts the TetraX simulation** based on user input.
-4. **Simulation results are returned** in the form of **plots**.
-5. **Users can download results as a CSV file**.
+2. **Form submission sends data to the Flask receptionist backend**.
+3. **Flask backend saves task data** to Azure Files and **sends a message to Azure Service Bus**.
+4. **Frontend polls the status endpoint** to track simulation progress.
+5. **Container App Job picks up the message** from Service Bus and **runs the TetraX simulation**.
+6. **Simulation results are saved** to Azure Files.
+7. **Frontend fetches completed results** and displays them as **plots**.
+8. **Users can download results as a CSV file**.
 
 ---
 
 ## 🏗 **Technology Stack**
 
--   **Frontend**: React (TypeScript, Bootstrap for styling, MUI for plotting), hosted on **Azure Static Web Apps**
--   **Backend**: Flask (Gunicorn for deployment, Flask-CORS for cross-origin requests) - [Backend Repository](https://github.com/GIGAluckman/WebDispersionCalculator-backend), hosted on **Azure Container Apps**
+-   **Frontend**: React (TypeScript, Bootstrap for styling, MUI X Charts for plotting), hosted on **Azure Static Web Apps**
+-   **Backend API**: Flask receptionist app (Gunicorn, Flask-CORS) - [Backend Repository](https://github.com/GIGAluckman/WebDispersionCalculator-backend), hosted on **Azure Container Apps**
+-   **Simulation Runner**: Azure Container App Job triggered by Service Bus messages
+-   **Message Queue**: Azure Service Bus for asynchronous job processing
+-   **Shared Storage**: Azure Files for task data and simulation results
 -   **Computation Engine**: TetraX package (Python)
 
 ---
