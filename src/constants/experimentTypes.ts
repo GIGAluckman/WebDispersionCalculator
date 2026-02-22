@@ -5,6 +5,8 @@ export enum ExperimentType {
 	dispersion = 'Dispersion',
 }
 
+export type DispersionData = Record<string, Record<string, number>>;
+
 interface ExperimentProperties {
 	name: string;
 	label: string;

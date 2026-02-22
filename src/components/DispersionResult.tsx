@@ -1,9 +1,10 @@
 import SimplePlot from './SimplePlot';
 import DownloadCSVButton from './DownloadCSVButton';
 import './styles/DispersionResult.css';
+import { DispersionData } from '../constants/experimentTypes';
 
 interface DispersionResultProps {
-	result: string | null;
+	result: DispersionData | null;
 	errorId: number | null;
 }
 

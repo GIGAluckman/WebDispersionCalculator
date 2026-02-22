@@ -1,3 +1,5 @@
+import { DispersionData } from '../constants/experimentTypes';
+
 interface DownloadCSVButtonProps {
 	data: string;
 }
