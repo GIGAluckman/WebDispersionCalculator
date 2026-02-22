@@ -13,13 +13,13 @@ import { MainSelect } from './components/MainSelect';
 
 function App() {
 	const [chosenGeometry, setChosenGeometry] = useState<GeometryType>(
-		GeometryType.Waveguide
+		GeometryType.Waveguide,
 	);
 	const [chosenMaterial, setChosenMaterial] = useState<MaterialType>(
-		MaterialType.YIG
+		MaterialType.YIG,
 	);
 	const [chosenExperiment, setChosenExperiment] = useState<ExperimentType>(
-		ExperimentType.dispersion
+		ExperimentType.dispersion,
 	);
 
 	const [loading, setLoading] = useState(false);

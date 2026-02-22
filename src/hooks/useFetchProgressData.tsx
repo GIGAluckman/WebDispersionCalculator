@@ -6,7 +6,7 @@ export function useFetchProgressData(
 	setErrorId: (input: number | null) => void,
 	setResult?: (result: any) => void,
 	setLoading?: (loading: boolean) => void,
-	simulationId?: string
+	simulationId?: string,
 ) {
 	const [progress, setProgress] = useState<number>(0);
 	const [status, setStatus] = useState<string>('Beginning simulation');
@@ -47,14 +47,21 @@ export function useFetchProgressData(
 							setLoading(false);
 						}
 					} else {
-						console.log('Status checked, progress: ', data.progress);
+						console.log(
+							'Status checked, progress: ',
+							data.progress,
+						);
 						setProgress(data.progress);
 						setStatus(data.status);
 
 						// Check if simulation is completed
-						if (data.completed && !hasFetchedResult.current && simulationId) {
+						if (
+							data.completed &&
+							!hasFetchedResult.current &&
+							simulationId
+						) {
 							hasFetchedResult.current = true;
-							
+
 							// Stop polling
 							if (intervalRef.current) {
 								clearInterval(intervalRef.current);
@@ -63,14 +70,16 @@ export function useFetchProgressData(
 
 							// Fetch result
 							try {
-								const backendUrl = import.meta.env.VITE_BACKEND_URL;
+								const backendUrl = import.meta.env
+									.VITE_BACKEND_URL;
 								const resultResponse = await fetch(
-									`${backendUrl}/result/${simulationId}`
+									`${backendUrl}/result/${simulationId}`,
 								);
 
 								if (resultResponse.ok) {
-									const resultData = await resultResponse.json();
-									
+									const resultData =
+										await resultResponse.json();
+
 									if (setResult) {
 										setResult(resultData.dispersion);
 									}
@@ -84,16 +93,25 @@ export function useFetchProgressData(
 										setLoading(false);
 									}
 									console.log('Result fetched successfully');
+									console.log(
+										'Result:',
+										resultData.dispersion,
+									);
 								} else if (resultResponse.status === 202) {
 									// Result not ready yet, continue polling
 									hasFetchedResult.current = false;
 									if (intervalRef.current === null) {
-										intervalRef.current = setInterval(async () => {
-											// This will be handled by the next iteration
-										}, 2000);
+										intervalRef.current = setInterval(
+											async () => {
+												// This will be handled by the next iteration
+											},
+											2000,
+										);
 									}
 								} else {
-									throw new Error(`Failed to fetch result: ${resultResponse.status}`);
+									throw new Error(
+										`Failed to fetch result: ${resultResponse.status}`,
+									);
 								}
 							} catch (error) {
 								console.error('Error fetching result:', error);
@@ -103,7 +121,10 @@ export function useFetchProgressData(
 									setLoading(false);
 								}
 							}
-						} else if (data.error !== 0 && data.error !== undefined) {
+						} else if (
+							data.error !== 0 &&
+							data.error !== undefined
+						) {
 							// Simulation completed with error
 							if (intervalRef.current) {
 								clearInterval(intervalRef.current);
@@ -140,7 +161,14 @@ export function useFetchProgressData(
 				intervalRef.current = null;
 			}
 		};
-	}, [fetchUrl, simulationId, setAlertToggle, setErrorId, setResult, setLoading]);
+	}, [
+		fetchUrl,
+		simulationId,
+		setAlertToggle,
+		setErrorId,
+		setResult,
+		setLoading,
+	]);
 
 	return { progress, status };
 }
