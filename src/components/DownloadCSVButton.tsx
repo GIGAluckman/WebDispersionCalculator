@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import { DispersionData } from '../constants/experimentTypes';
 
 interface DownloadCSVButtonProps {
@@ -27,12 +28,12 @@ export default function DownloadCSVButton({ data }: DownloadCSVButtonProps) {
 	].join('\n');
 
 	return (
-		<button
-			type="button"
-			className="btn btn-success"
+		<Button
+			variant="contained"
+			color="success"
 			onClick={() => downloadCSV(csvContent)}
 		>
 			Download Results CSV
-		</button>
+		</Button>
 	);
 }

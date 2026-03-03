@@ -7,6 +7,7 @@ import GeometryForm from './GeometryForm';
 import styles from './styles/MainForm.module.css';
 import { useState } from 'react';
 import { useFormSubmit } from '../hooks/useFormSubmit';
+import { Button } from '@mui/material';
 
 interface MainFormProps {
 	simulationId: string;
@@ -63,28 +64,30 @@ export default function MainForm({
 				</div>
 			</div>
 			<div className="d-flex justify-content-center">
-				<div className={styles.colbut + ' p-2 align-self-start'}>
-					<button type="reset" className="btn btn-primary me-2">
+				<div className={styles.colbut + ' p-2 align-self-start d-flex gap-2 flex-wrap'}>
+					<Button type="reset" variant="contained" color="primary">
 						Reset Data
-					</button>
-					<button
+					</Button>
+					<Button
 						type="submit"
+						variant="contained"
+						color="primary"
 						disabled={loading}
-						className="btn btn-primary me-2"
 					>
 						{loading
 							? 'Simulation in progress...'
 							: 'Start Simulation'}
-					</button>
-					<button
+					</Button>
+					<Button
 						type="button"
+						variant="contained"
+						color="secondary"
 						onClick={() => setShowAdvanced(!showAdvanced)}
-						className="btn btn-secondary me-2"
 					>
 						{showAdvanced
 							? 'Delete Advanced Settings'
 							: 'Use Advanced Settings'}
-					</button>
+					</Button>
 				</div>
 			</div>
 		</form>
