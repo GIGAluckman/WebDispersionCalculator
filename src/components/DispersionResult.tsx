@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { TextField, Button } from '@mui/material';
 import SimplePlot from './SimplePlot';
 import DownloadCSVButton from './DownloadCSVButton';
-import ModeProfilePlot, { type ModeProfileData } from './ModeProfilePlot';
+import ModeProfilePlot from './ModeProfilePlot';
+import { useFetchModeProfile } from '../hooks/useFetchModeProfile';
 import './styles/DispersionResult.css';
 import { DispersionData } from '../constants/experimentTypes';
 
@@ -20,12 +21,12 @@ export default function DispersionResult({
 	numberOfModes,
 }: DispersionResultProps) {
 	const [modeNumber, setModeNumber] = useState('0');
-	const [modeProfileLoading, setModeProfileLoading] = useState(false);
-	const [modeProfileData, setModeProfileData] =
-		useState<ModeProfileData | null>(null);
-	const [modeProfileError, setModeProfileError] = useState<string | null>(
-		null,
-	);
+	const {
+		data: modeProfileData,
+		loading: modeProfileLoading,
+		error: modeProfileError,
+		fetchModeProfile,
+	} = useFetchModeProfile({ simulationId, numberOfModes });
 	if (!result) {
 		return null;
 	} else {
@@ -131,49 +132,9 @@ export default function DispersionResult({
 						/>
 						<Button
 							variant="contained"
-							onClick={async () => {
-								const mode = parseInt(modeNumber, 10);
-								if (
-									isNaN(mode) ||
-									mode < 0 ||
-									mode >= numberOfModes
-								) {
-									setModeProfileError(
-										`Mode must be between 0 and ${numberOfModes - 1}`,
-									);
-									setModeProfileData(null);
-									return;
-								}
-								setModeProfileError(null);
-								setModeProfileLoading(true);
-								setModeProfileData(null);
-								try {
-									const backendUrl = import.meta.env
-										.VITE_BACKEND_URL;
-									const res = await fetch(
-										`${backendUrl}/get_mode_profile?task_id=${taskId}&mode=${mode}`,
-									);
-									if (!res.ok) {
-										const errData = await res
-											.json()
-											.catch(() => ({}));
-										throw new Error(
-											errData.error ||
-												`HTTP ${res.status}`,
-										);
-									}
-									const data = await res.json();
-									setModeProfileData(data);
-								} catch (err) {
-									setModeProfileError(
-										err instanceof Error
-											? err.message
-											: 'Failed to load mode profile',
-									);
-								} finally {
-									setModeProfileLoading(false);
-								}
-							}}
+							onClick={() =>
+								fetchModeProfile(parseInt(modeNumber, 10))
+							}
 						>
 							Get mode profile
 						</Button>
