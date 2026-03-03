@@ -28,7 +28,7 @@ export default function SimulationResult({
 					<DispersionResult
 						result={result.dispersion}
 						errorId={errorId}
-						taskId={simulationId}
+						simulationId={simulationId}
 						numberOfModes={result.numberOfModes}
 					/>
 				);

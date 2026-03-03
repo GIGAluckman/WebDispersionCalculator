@@ -10,14 +10,14 @@ import { DispersionData } from '../constants/experimentTypes';
 interface DispersionResultProps {
 	result: DispersionData | null;
 	errorId: number | null;
-	taskId: string;
+	simulationId: string;
 	numberOfModes: number;
 }
 
 export default function DispersionResult({
 	result,
 	errorId,
-	taskId,
+	simulationId,
 	numberOfModes,
 }: DispersionResultProps) {
 	const [modeNumber, setModeNumber] = useState('0');
