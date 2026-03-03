@@ -81,7 +81,10 @@ export function useFetchProgressData(
 										await resultResponse.json();
 
 									if (setResult) {
-										setResult(resultData.dispersion);
+										setResult({
+											dispersion: resultData.dispersion,
+											numberOfModes: resultData.numberOfModes ?? 3,
+										});
 									}
 									if (setErrorId) {
 										setErrorId(resultData.errorId);
