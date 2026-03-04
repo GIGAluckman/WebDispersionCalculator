@@ -10,22 +10,24 @@ interface ModeProfilePlotProps {
 	data: ModeProfileData | null;
 	loading: boolean;
 	error: string | null;
+	component?: 'x' | 'y' | 'z';
 }
 
 export default function ModeProfilePlot({
 	data,
 	loading,
 	error,
+	component = 'x',
 }: ModeProfilePlotProps) {
-	if (loading) {
-		return <div style={{ padding: '1rem' }}>Loading mode profile...</div>;
-	}
 	if (error) {
-		return (
-			<div style={{ padding: '1rem', color: 'red' }}>{error}</div>
-		);
+		return <div style={{ padding: '1rem', color: 'red' }}>{error}</div>;
 	}
 	if (!data) {
+		if (loading) {
+			return (
+				<div style={{ padding: '1rem' }}>Loading mode profile...</div>
+			);
+		}
 		return null;
 	}
 
@@ -42,17 +44,19 @@ export default function ModeProfilePlot({
 		zmin: -maxAbs,
 		zmax: maxAbs,
 		colorbar: {
-			title: { text: 'm_x (a.u.)' },
+			title: { text: `m<sub>${component}</sub> (a.u.)` },
 			thickness: 15,
-			len: 0.6,
+			len: 0.95,
 		},
 	};
 
 	const layout = {
-		title: { text: 'Mode profile (m_x, k=0)' },
+		title: {
+			text: `Mode profile (m<sub>${component}</sub>, <i>k</i> = 0)`,
+		},
 		autosize: true,
-		height: 400,
-		margin: { t: 50, b: 50, l: 50, r: 80 },
+		height: 250,
+		margin: { t: 30, b: 50, l: 50, r: 80 },
 		xaxis: { title: { text: 'Width (nm)' } },
 		yaxis: { title: { text: 'Thickness (nm)' } },
 		dragmode: false as const,
@@ -62,12 +66,10 @@ export default function ModeProfilePlot({
 		<div
 			style={{
 				width: '100%',
-				maxWidth: 1200,
-				height: 400,
-				minHeight: 400,
+				maxWidth: 800,
+				height: 250,
+				minHeight: 200,
 				margin: '0 auto',
-				border: '1px solid #ccc',
-				borderRadius: 4,
 				overflow: 'hidden',
 			}}
 		>
