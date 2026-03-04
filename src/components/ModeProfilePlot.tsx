@@ -4,6 +4,7 @@ export interface ModeProfileData {
 	x: number[];
 	y: number[];
 	z: number[][];
+	geometry_type?: 'Waveguide' | 'Plane Film' | 'Wire';
 }
 
 interface ModeProfilePlotProps {
@@ -35,6 +36,10 @@ export default function ModeProfilePlot({
 	const flatZ = z.flat();
 	const maxAbs = Math.max(...flatZ.map((v) => Math.abs(v)), 1e-10);
 
+	const geo = data.geometry_type ?? 'Waveguide';
+	const isWire = geo === 'Wire';
+	const isPlaneFilm = geo === 'Plane Film';
+
 	const trace = {
 		type: 'heatmap' as const,
 		x,
@@ -53,26 +58,27 @@ export default function ModeProfilePlot({
 	const layout = {
 		title: {
 			text: `Mode profile (m<sub>${component}</sub>, <i>k</i> = 0)`,
+			y: 0.9,
+			x: 0.45,
 		},
 		autosize: true,
-		height: 250,
-		margin: { t: 30, b: 50, l: 50, r: 80 },
+		height: 300,
+		margin: { t: 50, b: 50, l: 50, r: 80 },
 		xaxis: { title: { text: 'Width (nm)' } },
 		yaxis: { title: { text: 'Thickness (nm)' } },
 		dragmode: false as const,
 	};
 
+	const containerStyle = {
+		maxWidth: isWire ? 350 : isPlaneFilm ? 300 : 800,
+		height: 280,
+		minHeight: 230,
+		margin: 0,
+		overflow: 'hidden' as const,
+	};
+
 	return (
-		<div
-			style={{
-				width: '100%',
-				maxWidth: 800,
-				height: 250,
-				minHeight: 200,
-				margin: '0 auto',
-				overflow: 'hidden',
-			}}
-		>
+		<div style={containerStyle}>
 			<Plot
 				data={[trace]}
 				layout={layout}
