@@ -64,14 +64,20 @@ export default function ModeProfilePlot({
 		autosize: true,
 		height: 300,
 		margin: { t: 50, b: 50, l: 50, r: 80 },
-		xaxis: { title: { text: 'Width (nm)' } },
+		xaxis: isPlaneFilm
+			? {
+					title: { text: '' },
+					showticklabels: false,
+					ticks: '' as const,
+				}
+			: { title: { text: 'Width (nm)' } },
 		yaxis: { title: { text: 'Thickness (nm)' } },
 		dragmode: false as const,
 	};
 
 	const containerStyle = {
 		maxWidth: isWire ? 350 : isPlaneFilm ? 300 : 800,
-		height: 280,
+		height: 300,
 		minHeight: 230,
 		margin: 0,
 		overflow: 'hidden' as const,
