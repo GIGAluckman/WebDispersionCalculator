@@ -1,6 +1,6 @@
 import SimplePlot from './SimplePlot';
 import DownloadCSVButton from './DownloadCSVButton';
-import ModeProfilePlot from './ModeProfilePlot';
+import GridPlot from './GridPlot';
 import ModeProfileForm from './ModeProfileForm';
 import { useFetchModeProfile } from '../hooks/useFetchModeProfile';
 import './styles/DispersionResult.css';
@@ -127,11 +127,30 @@ export default function DispersionResult({
 					modeProfileData ||
 					modeProfileError) && (
 					<div className="modeProfilePlotCol p-2">
-						<ModeProfilePlot
+						<GridPlot
 							data={modeProfileData}
 							loading={modeProfileLoading}
 							error={modeProfileError}
-							component={modeProfileComponent}
+							xLabel="Width (nm)"
+							yLabel="Thickness (nm)"
+							colorbarLabel={`m<tspan baseline-shift="sub" font-size="13.5px">${modeProfileComponent}</tspan> (a.u.)`}
+							plotTitle={`Mode profile (m<tspan baseline-shift="sub" font-size="15px">${modeProfileComponent}</tspan>, <tspan font-style="italic">k</tspan> = ${modeProfileData?.closest_k ?? ''} rad/\u00b5m)`}
+							hideXAxis={modeProfileData?.geometry_type === 'Plane Film'}
+							maxPlotWidth={
+								modeProfileData?.geometry_type === 'Wire'
+									? 250
+									: modeProfileData?.geometry_type === 'Plane Film'
+										? 200
+										: 500
+							}
+							maxContainerWidth={
+								modeProfileData?.geometry_type === 'Wire'
+									? 350
+									: modeProfileData?.geometry_type === 'Plane Film'
+										? 300
+										: 800
+							}
+							loadingMessage="Loading mode profile..."
 						/>
 					</div>
 				)}

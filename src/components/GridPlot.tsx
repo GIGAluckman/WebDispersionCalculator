@@ -2,43 +2,53 @@ import { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import { fontSize } from '../constants/axisNames';
 
-export interface ModeProfileMeshData {
+export interface GridMeshData {
 	points: [number, number][];
 	triangles: [number, number, number][];
 	values: number[];
-	geometry_type: 'Waveguide' | 'Plane Film' | 'Wire';
-	closest_k: number;
 }
 
-interface ModeProfilePlotProps {
-	data: ModeProfileMeshData | null;
+interface GridPlotProps {
+	data: GridMeshData | null;
 	loading: boolean;
 	error: string | null;
-	component?: 'x' | 'y' | 'z';
+	xLabel?: string;
+	yLabel?: string;
+	colorbarLabel?: string;
+	plotTitle?: string;
+	hideXAxis?: boolean;
+	maxPlotWidth?: number;
+	plotHeight?: number;
+	maxContainerWidth?: number;
+	loadingMessage?: string;
 }
 
 const COLORBAR_WIDTH = 15;
 const COLORBAR_PAD = 10;
 const COLORBAR_LABEL_PAD = 70;
 
-export default function ModeProfilePlot({
+export default function GridPlot({
 	data,
 	loading,
 	error,
-	component = 'x',
-}: ModeProfilePlotProps) {
+	xLabel = '',
+	yLabel = '',
+	colorbarLabel = '',
+	plotTitle = '',
+	hideXAxis = false,
+	maxPlotWidth = 500,
+	plotHeight = 200,
+	maxContainerWidth = 800,
+	loadingMessage = 'Loading...',
+}: GridPlotProps) {
 	const svgRef = useRef<SVGSVGElement>(null);
-
-	const geo = data?.geometry_type;
-	const isWire = geo === 'Wire';
-	const isPlaneFilm = geo === 'Plane Film';
 
 	useEffect(() => {
 		const svg = d3.select(svgRef.current);
 		svg.selectAll('*').remove();
 
 		if (!data) return;
-		const { points, triangles, values, closest_k } = data;
+		const { points, triangles, values } = data;
 		if (points.length === 0 || triangles.length === 0) return;
 
 		const xs = points.map((p) => p[0]);
@@ -56,12 +66,12 @@ export default function ModeProfilePlot({
 			left: 55,
 			right: COLORBAR_PAD + COLORBAR_WIDTH + COLORBAR_LABEL_PAD,
 		};
-		const maxPlotW = isWire ? 250 : isPlaneFilm ? 200 : 500;
-		const plotH = 200;
-		const plotW = isPlaneFilm ? plotH : Math.min(maxPlotW, plotH * aspect);
+		const plotW = hideXAxis
+			? plotHeight
+			: Math.min(maxPlotWidth, plotHeight * aspect);
 
 		const totalW = margin.left + plotW + margin.right;
-		const totalH = margin.top + plotH + margin.bottom;
+		const totalH = margin.top + plotHeight + margin.bottom;
 
 		svg.attr('width', totalW).attr('height', totalH);
 
@@ -70,7 +80,10 @@ export default function ModeProfilePlot({
 			.attr('transform', `translate(${margin.left},${margin.top})`);
 
 		const xScale = d3.scaleLinear().domain(xExtent).range([0, plotW]);
-		const yScale = d3.scaleLinear().domain(yExtent).range([plotH, 0]);
+		const yScale = d3
+			.scaleLinear()
+			.domain(yExtent)
+			.range([plotHeight, 0]);
 
 		// Color scale
 		const maxAbs = Math.max(...values.map((v) => Math.abs(v)), 1e-10);
@@ -98,19 +111,19 @@ export default function ModeProfilePlot({
 		});
 
 		// Axes
-		if (!isPlaneFilm) {
+		if (!hideXAxis) {
 			g.append('g')
-				.attr('transform', `translate(0,${plotH})`)
+				.attr('transform', `translate(0,${plotHeight})`)
 				.call(d3.axisBottom(xScale).ticks(5))
 				.selectAll('text')
 				.attr('font-size', fontSize.axis);
 
 			g.append('text')
 				.attr('x', plotW / 2)
-				.attr('y', plotH + 45)
+				.attr('y', plotHeight + 45)
 				.attr('text-anchor', 'middle')
 				.attr('font-size', fontSize.label)
-				.text('Width (nm)');
+				.text(xLabel);
 		}
 
 		g.append('g')
@@ -120,11 +133,11 @@ export default function ModeProfilePlot({
 
 		g.append('text')
 			.attr('transform', 'rotate(-90)')
-			.attr('x', -plotH / 2)
+			.attr('x', -plotHeight / 2)
 			.attr('y', -42)
 			.attr('text-anchor', 'middle')
 			.attr('font-size', fontSize.label)
-			.text('Thickness (nm)');
+			.text(yLabel);
 
 		// Title
 		svg.append('text')
@@ -133,13 +146,11 @@ export default function ModeProfilePlot({
 			.attr('text-anchor', 'middle')
 			.attr('font-size', fontSize.title)
 			.attr('font-weight', '600')
-			.html(
-				`Mode profile (m<tspan baseline-shift="sub" font-size="15px">${component}</tspan>, <tspan font-style="italic">k</tspan> = ${closest_k} rad/µm)`,
-			);
+			.html(plotTitle);
 
 		// Colorbar
 		const cbX = plotW + COLORBAR_PAD;
-		const cbH = plotH;
+		const cbH = plotHeight;
 		const numStops = 64;
 		const defs = svg.append('defs');
 		const gradId = 'cb-grad';
@@ -183,25 +194,30 @@ export default function ModeProfilePlot({
 			)
 			.attr('text-anchor', 'middle')
 			.attr('font-size', fontSize.legend)
-			.html(
-				`m<tspan baseline-shift="sub" font-size="13.5px">${component}</tspan> (a.u.)`,
-			);
-	}, [data, component, geo, isPlaneFilm, isWire]);
+			.html(colorbarLabel);
+	}, [
+		data,
+		xLabel,
+		yLabel,
+		colorbarLabel,
+		plotTitle,
+		hideXAxis,
+		maxPlotWidth,
+		plotHeight,
+	]);
 
 	if (error) {
 		return <div style={{ padding: '1rem', color: 'red' }}>{error}</div>;
 	}
 	if (!data) {
 		if (loading) {
-			return (
-				<div style={{ padding: '1rem' }}>Loading mode profile...</div>
-			);
+			return <div style={{ padding: '1rem' }}>{loadingMessage}</div>;
 		}
 		return null;
 	}
 
 	const containerStyle: React.CSSProperties = {
-		maxWidth: isWire ? 350 : isPlaneFilm ? 300 : 800,
+		maxWidth: maxContainerWidth,
 		minHeight: 230,
 		margin: 0,
 		overflow: 'hidden',

@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import type { ModeProfileMeshData } from '../components/ModeProfilePlot';
+import type { GridMeshData } from '../components/GridPlot';
+
+export type ModeProfileMeshData = GridMeshData & {
+	geometry_type: 'Waveguide' | 'Plane Film' | 'Wire';
+	closest_k: number;
+};
 
 interface UseFetchModeProfileParams {
 	simulationId: string;
