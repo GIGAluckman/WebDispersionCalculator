@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { ModeProfileData } from '../components/ModeProfilePlot';
+import type { ModeProfileMeshData } from '../components/ModeProfilePlot';
 
 interface UseFetchModeProfileParams {
 	simulationId: string;
@@ -8,7 +8,7 @@ interface UseFetchModeProfileParams {
 export function useFetchModeProfile({
 	simulationId,
 }: UseFetchModeProfileParams) {
-	const [data, setData] = useState<ModeProfileData | null>(null);
+	const [data, setData] = useState<ModeProfileMeshData | null>(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [component, setComponent] = useState<'x' | 'y' | 'z'>('x');
@@ -50,7 +50,7 @@ export function useFetchModeProfile({
 						`HTTP ${res.status}`,
 				);
 			}
-			const result = (await res.json()) as ModeProfileData;
+			const result = (await res.json()) as ModeProfileMeshData;
 			setData(result);
 			setComponent(comp);
 		} catch (err) {
