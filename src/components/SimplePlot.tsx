@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
+import { fontSize } from '../constants/axisNames';
 
 interface SimplePlotProps {
 	xData: number[];
@@ -86,19 +87,19 @@ export default function SimplePlot({
 			.attr('transform', `translate(0,${innerH})`)
 			.call(d3.axisBottom(xScale))
 			.selectAll('text')
-			.attr('font-size', '15px');
+			.attr('font-size', fontSize.axis);
 
 		g.append('g')
 			.call(d3.axisLeft(yScale))
 			.selectAll('text')
-			.attr('font-size', '15px');
+			.attr('font-size', fontSize.axis);
 
 		// Axis labels
 		g.append('text')
 			.attr('x', innerW / 2)
 			.attr('y', innerH + 45)
 			.attr('text-anchor', 'middle')
-			.attr('font-size', '19.5px')
+			.attr('font-size', fontSize.label)
 			.text(xLabel);
 
 		g.append('text')
@@ -106,7 +107,7 @@ export default function SimplePlot({
 			.attr('x', -innerH / 2)
 			.attr('y', -50)
 			.attr('text-anchor', 'middle')
-			.attr('font-size', '19.5px')
+			.attr('font-size', fontSize.label)
 			.text(yLabel);
 
 		// Title
@@ -115,7 +116,7 @@ export default function SimplePlot({
 				.attr('x', width / 2)
 				.attr('y', 22)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', '22.5px')
+				.attr('font-size', fontSize.title)
 				.attr('font-weight', '600')
 				.text(plotTitle);
 		}
@@ -158,7 +159,7 @@ export default function SimplePlot({
 			g.append('text')
 				.attr('x', legendX + 23)
 				.attr('y', ly + 8)
-				.attr('font-size', '16.5px')
+				.attr('font-size', fontSize.legend)
 				.text(series.label);
 		});
 
@@ -204,7 +205,10 @@ export default function SimplePlot({
 				}
 
 				const snappedX = xScale(xData[idx]);
-				crosshair.attr('x1', snappedX).attr('x2', snappedX).style('opacity', 1);
+				crosshair
+					.attr('x1', snappedX)
+					.attr('x2', snappedX)
+					.style('opacity', 1);
 
 				let html = `<div style="font-weight:600;margin-bottom:3px">${xLabel}: ${xData[idx].toPrecision(4)}</div>`;
 				yData.forEach((series, i) => {
@@ -214,7 +218,8 @@ export default function SimplePlot({
 						.attr('cx', snappedX)
 						.attr('cy', yScale(val))
 						.style('opacity', 1);
-					html += `<div style="display:flex;align-items:center;gap:4px">` +
+					html +=
+						`<div style="display:flex;align-items:center;gap:4px">` +
 						`<span style="width:10px;height:10px;border-radius:2px;background:${color(String(i))};display:inline-block"></span>` +
 						`${series.label}: ${val.toPrecision(4)}</div>`;
 				});

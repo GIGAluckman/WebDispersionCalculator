@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
+import { fontSize } from '../constants/axisNames';
 
 export interface ModeProfileMeshData {
 	points: [number, number][];
@@ -101,27 +102,27 @@ export default function ModeProfilePlot({
 				.attr('transform', `translate(0,${plotH})`)
 				.call(d3.axisBottom(xScale).ticks(5))
 				.selectAll('text')
-				.attr('font-size', '15px');
+				.attr('font-size', fontSize.axis);
 
 			g.append('text')
 				.attr('x', plotW / 2)
 				.attr('y', plotH + 45)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', '18px')
+				.attr('font-size', fontSize.label)
 				.text('Width (nm)');
 		}
 
 		g.append('g')
 			.call(d3.axisLeft(yScale).ticks(5))
 			.selectAll('text')
-			.attr('font-size', '15px');
+			.attr('font-size', fontSize.axis);
 
 		g.append('text')
 			.attr('transform', 'rotate(-90)')
 			.attr('x', -plotH / 2)
 			.attr('y', -42)
 			.attr('text-anchor', 'middle')
-			.attr('font-size', '18px')
+			.attr('font-size', fontSize.label)
 			.text('Thickness (nm)');
 
 		// Title
@@ -129,7 +130,7 @@ export default function ModeProfilePlot({
 			.attr('x', totalW / 2)
 			.attr('y', 20)
 			.attr('text-anchor', 'middle')
-			.attr('font-size', '19.5px')
+			.attr('font-size', fontSize.title)
 			.attr('font-weight', '600')
 			.html(
 				`Mode profile (m<tspan baseline-shift="sub" font-size="15px">${component}</tspan>, <tspan font-style="italic">k</tspan> = 0)`,
@@ -172,7 +173,7 @@ export default function ModeProfilePlot({
 			.attr('transform', `translate(${cbX + COLORBAR_WIDTH},0)`)
 			.call(d3.axisRight(cbScale).ticks(5))
 			.selectAll('text')
-			.attr('font-size', '15px');
+			.attr('font-size', fontSize.axis);
 
 		g.append('text')
 			.attr(
@@ -180,7 +181,7 @@ export default function ModeProfilePlot({
 				`translate(${cbX + COLORBAR_WIDTH + 50},${cbH / 2}) rotate(90)`,
 			)
 			.attr('text-anchor', 'middle')
-			.attr('font-size', '16.5px')
+			.attr('font-size', fontSize.legend)
 			.html(
 				`m<tspan baseline-shift="sub" font-size="13.5px">${component}</tspan> (a.u.)`,
 			);
