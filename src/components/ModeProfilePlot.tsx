@@ -6,7 +6,8 @@ export interface ModeProfileMeshData {
 	points: [number, number][];
 	triangles: [number, number, number][];
 	values: number[];
-	geometry_type?: 'Waveguide' | 'Plane Film' | 'Wire';
+	geometry_type: 'Waveguide' | 'Plane Film' | 'Wire';
+	closest_k: number;
 }
 
 interface ModeProfilePlotProps {
@@ -28,7 +29,7 @@ export default function ModeProfilePlot({
 }: ModeProfilePlotProps) {
 	const svgRef = useRef<SVGSVGElement>(null);
 
-	const geo = data?.geometry_type ?? 'Waveguide';
+	const geo = data?.geometry_type;
 	const isWire = geo === 'Wire';
 	const isPlaneFilm = geo === 'Plane Film';
 
@@ -37,7 +38,7 @@ export default function ModeProfilePlot({
 		svg.selectAll('*').remove();
 
 		if (!data) return;
-		const { points, triangles, values } = data;
+		const { points, triangles, values, closest_k } = data;
 		if (points.length === 0 || triangles.length === 0) return;
 
 		const xs = points.map((p) => p[0]);
@@ -133,7 +134,7 @@ export default function ModeProfilePlot({
 			.attr('font-size', fontSize.title)
 			.attr('font-weight', '600')
 			.html(
-				`Mode profile (m<tspan baseline-shift="sub" font-size="15px">${component}</tspan>, <tspan font-style="italic">k</tspan> = 0)`,
+				`Mode profile (m<tspan baseline-shift="sub" font-size="15px">${component}</tspan>, <tspan font-style="italic">k</tspan> = ${closest_k} rad/µm)`,
 			);
 
 		// Colorbar

@@ -25,13 +25,9 @@ export function useFetchModeProfile({
 			string
 		>;
 		formJson['id'] = simulationId;
+		console.log('Asked for mode profile:', formJson);
 
 		const comp = (formJson.component ?? 'x') as 'x' | 'y' | 'z';
-		if (!['x', 'y', 'z'].includes(comp)) {
-			setError('Component must be x, y, or z');
-			setLoading(false);
-			return;
-		}
 
 		try {
 			const backendUrl = import.meta.env.VITE_BACKEND_URL;

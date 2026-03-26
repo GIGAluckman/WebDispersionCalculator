@@ -21,7 +21,8 @@ export default function ModeProfileForm({
 		modeProfileParameters[ModeProfileParameterNames.modeNumber];
 	const componentParam =
 		modeProfileParameters[ModeProfileParameterNames.component];
-
+	const wavevectorParam =
+		modeProfileParameters[ModeProfileParameterNames.wavevector];
 	return (
 		<form method="post" onSubmit={onSubmit}>
 			<div>
@@ -35,7 +36,16 @@ export default function ModeProfileForm({
 						pattern: `^[0-${maxModeNumber - 1}]$`,
 						title: `Please enter a valid mode number between 0 and ${maxModeNumber - 1}.`,
 					}}
-					unit=""
+					unit={modeNumberParam.unit}
+				/>
+				<TextInput
+					name={wavevectorParam.name}
+					label={wavevectorParam.label}
+					optional={false}
+					defaultValue={wavevectorParam.defaultValue}
+					placeholder={wavevectorParam.placeholder}
+					pattern={wavevectorParam.pattern}
+					unit={wavevectorParam.unit}
 				/>
 				<RadioInput
 					name={componentParam.name}
