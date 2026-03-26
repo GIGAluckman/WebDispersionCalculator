@@ -64,7 +64,12 @@ export default function MainForm({
 				</div>
 			</div>
 			<div className="d-flex justify-content-center">
-				<div className={styles.colbut + ' p-2 align-self-start d-flex gap-2 flex-wrap'}>
+				<div
+					className={
+						styles.colbut +
+						' p-2 align-self-start d-flex gap-2 flex-wrap'
+					}
+				>
 					<Button type="reset" variant="contained" color="primary">
 						Reset Data
 					</Button>
