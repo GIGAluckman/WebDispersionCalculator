@@ -23,6 +23,7 @@ export default function SimplePlot({
 	plotTitle,
 }: SimplePlotProps) {
 	const svgRef = useRef<SVGSVGElement>(null);
+	const tooltipRef = useRef<HTMLDivElement>(null);
 
 	const ifYDataIsEmpty = yData.every((item) =>
 		item.data.every((d) => d === null),
@@ -160,6 +161,83 @@ export default function SimplePlot({
 				.attr('font-size', '16.5px')
 				.text(series.label);
 		});
+
+		// --- Interactive hover ---
+		const crosshair = g
+			.append('line')
+			.attr('y1', 0)
+			.attr('y2', innerH)
+			.attr('stroke', '#666')
+			.attr('stroke-width', 1)
+			.attr('stroke-dasharray', '4,3')
+			.style('opacity', 0);
+
+		const dots = yData.map((_, i) =>
+			g
+				.append('circle')
+				.attr('r', 4.5)
+				.attr('fill', color(String(i)))
+				.attr('stroke', '#fff')
+				.attr('stroke-width', 1.5)
+				.style('opacity', 0),
+		);
+
+		const tooltip = d3.select(tooltipRef.current);
+		const bisect = d3.bisector((d: number) => d).left;
+
+		g.append('rect')
+			.attr('width', innerW)
+			.attr('height', innerH)
+			.attr('fill', 'none')
+			.attr('pointer-events', 'all')
+			.on('mousemove', (event: MouseEvent) => {
+				const [mx] = d3.pointer(event);
+				const xVal = xScale.invert(mx);
+				let idx = bisect(xData, xVal);
+				// snap to nearest point
+				if (idx > 0 && idx < xData.length) {
+					const dLeft = Math.abs(xData[idx - 1] - xVal);
+					const dRight = Math.abs(xData[idx] - xVal);
+					if (dLeft < dRight) idx = idx - 1;
+				} else if (idx >= xData.length) {
+					idx = xData.length - 1;
+				}
+
+				const snappedX = xScale(xData[idx]);
+				crosshair.attr('x1', snappedX).attr('x2', snappedX).style('opacity', 1);
+
+				let html = `<div style="font-weight:600;margin-bottom:3px">${xLabel}: ${xData[idx].toPrecision(4)}</div>`;
+				yData.forEach((series, i) => {
+					const val = series.data[idx];
+					if (val === null) return;
+					dots[i]
+						.attr('cx', snappedX)
+						.attr('cy', yScale(val))
+						.style('opacity', 1);
+					html += `<div style="display:flex;align-items:center;gap:4px">` +
+						`<span style="width:10px;height:10px;border-radius:2px;background:${color(String(i))};display:inline-block"></span>` +
+						`${series.label}: ${val.toPrecision(4)}</div>`;
+				});
+
+				// hide dots for null values
+				yData.forEach((series, i) => {
+					if (series.data[idx] === null) dots[i].style('opacity', 0);
+				});
+
+				tooltip.html(html).style('opacity', 1);
+
+				// position tooltip relative to container
+				const tooltipX = snappedX + margin.left + 12;
+				const tooltipY = margin.top;
+				tooltip
+					.style('left', `${tooltipX}px`)
+					.style('top', `${tooltipY}px`);
+			})
+			.on('mouseleave', () => {
+				crosshair.style('opacity', 0);
+				dots.forEach((d) => d.style('opacity', 0));
+				tooltip.style('opacity', 0);
+			});
 	}, [xData, yData, xLabel, yLabel, plotTitle, ifYDataIsEmpty]);
 
 	const downloadAsPNG = () => {
@@ -194,7 +272,7 @@ export default function SimplePlot({
 	};
 
 	return (
-		<div>
+		<div style={{ position: 'relative', display: 'inline-block' }}>
 			<button
 				className="btn btn-outline-secondary btn-sm float-end me-5"
 				onClick={downloadAsPNG}
@@ -206,6 +284,22 @@ export default function SimplePlot({
 				width={width}
 				height={height}
 				style={{ fontFamily: 'sans-serif' }}
+			/>
+			<div
+				ref={tooltipRef}
+				style={{
+					position: 'absolute',
+					pointerEvents: 'none',
+					opacity: 0,
+					background: 'rgba(255,255,255,0.95)',
+					border: '1px solid #ccc',
+					borderRadius: '4px',
+					padding: '6px 10px',
+					fontSize: '12px',
+					fontFamily: 'sans-serif',
+					boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+					whiteSpace: 'nowrap',
+				}}
 			/>
 		</div>
 	);
