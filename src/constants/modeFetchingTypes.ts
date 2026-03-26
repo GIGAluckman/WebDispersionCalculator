@@ -15,6 +15,11 @@ export interface ModeProfileParameter {
 	label: string;
 	defaultValue: string;
 	placeholder?: string;
+	pattern?: {
+		pattern: string;
+		title: string;
+	};
+	unit?: string;
 }
 
 export const modeProfileParameters: Record<
@@ -26,6 +31,7 @@ export const modeProfileParameters: Record<
 		label: ModeProfileParameterLabels.modeNumber,
 		defaultValue: '0',
 		placeholder: 'e.g., 0, 1, 2',
+		unit: '',
 	},
 	[ModeProfileParameterNames.component]: {
 		name: ModeProfileParameterNames.component,

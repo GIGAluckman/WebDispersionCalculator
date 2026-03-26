@@ -6,7 +6,7 @@ interface TextInputProps {
 	label: string;
 	optional: boolean;
 	defaultValue: string;
-	unit: string;
+	unit?: string;
 	placeholder?: string;
 	pattern?: PatternProperties;
 }
@@ -34,7 +34,7 @@ export default function TextInput({
 				placeholder={placeholder || 'e.g., 84, 3.4, -2.56'}
 				title={pattern?.title}
 			/>{' '}
-			{unit}
+			{unit || ''}
 		</p>
 	);
 }
