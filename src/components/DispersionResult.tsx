@@ -23,6 +23,7 @@ interface DispersionResultProps {
 	errorId: number | null;
 	simulationId: string;
 	numberOfModes: number;
+	simulationLoading: boolean;
 }
 
 export default function DispersionResult({
@@ -30,6 +31,7 @@ export default function DispersionResult({
 	errorId,
 	simulationId,
 	numberOfModes,
+	simulationLoading,
 }: DispersionResultProps) {
 	const {
 		data: modeProfileData,
@@ -163,7 +165,7 @@ export default function DispersionResult({
 				<div className="modeProfileFormCol p-2">
 					<ModeProfileForm
 						onSubmit={handleModeProfileSubmit}
-						loading={modeProfileLoading}
+						loading={modeProfileLoading || simulationLoading}
 						maxModeNumber={numberOfModes}
 					/>
 				</div>
@@ -204,7 +206,7 @@ export default function DispersionResult({
 				<div className="modeProfileFormCol p-2">
 					<FieldProfileForm
 						onSubmit={handleFieldProfileSubmit}
-						loading={fieldProfileLoading}
+						loading={fieldProfileLoading || simulationLoading}
 						chosenFieldName={chosenFieldName}
 						setChosenFieldName={setChosenFieldName}
 					/>

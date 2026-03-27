@@ -75,6 +75,7 @@ function App() {
 				chosenExperiment={chosenExperiment}
 				errorId={errorId}
 				simulationId={simulationId.current}
+				simulationLoading={loading}
 			/>
 			<hr />
 			<Credits />

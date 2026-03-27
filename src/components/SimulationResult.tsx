@@ -11,6 +11,7 @@ interface SimulationResultProps {
 	chosenExperiment: ExperimentType;
 	errorId: number | null;
 	simulationId: string;
+	simulationLoading: boolean;
 }
 
 export default function SimulationResult({
@@ -18,6 +19,7 @@ export default function SimulationResult({
 	chosenExperiment,
 	errorId,
 	simulationId,
+	simulationLoading,
 }: SimulationResultProps) {
 	if (!result?.dispersion || errorId === 99 || errorId === 100) {
 		return null;
@@ -30,6 +32,7 @@ export default function SimulationResult({
 						errorId={errorId}
 						simulationId={simulationId}
 						numberOfModes={result.numberOfModes}
+						simulationLoading={simulationLoading}
 					/>
 				);
 			default:
