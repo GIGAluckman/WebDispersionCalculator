@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
+import { Button } from '@mui/material';
 import { fontSize } from '../constants/axisNames';
 
 interface SimplePlotProps {
@@ -147,7 +148,7 @@ export default function SimplePlot({
 		// Legend
 		const legendX = innerW + 15;
 		yData.forEach((series, i) => {
-			const ly = i * 25;
+			const ly = i * 25 + 10;
 			g.append('line')
 				.attr('x1', legendX)
 				.attr('y1', ly + 3)
@@ -278,12 +279,23 @@ export default function SimplePlot({
 
 	return (
 		<div style={{ position: 'relative', display: 'inline-block' }}>
-			<button
-				className="btn btn-outline-secondary btn-sm float-end me-5"
+			<Button
+				variant="outlined"
+				sx={{
+					color: 'grey.700',
+					borderColor: 'grey.700',
+					position: 'absolute',
+					top: 0,
+					right: 50,
+					zIndex: 1,
+					minWidth: 'auto',
+					padding: '2px 8px',
+					fontSize: '0.9rem',
+				}}
 				onClick={downloadAsPNG}
 			>
 				PNG
-			</button>
+			</Button>
 			<svg
 				ref={svgRef}
 				width={width}
