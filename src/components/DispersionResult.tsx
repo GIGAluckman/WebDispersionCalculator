@@ -221,7 +221,7 @@ export default function DispersionResult({
 							error={fieldProfileError}
 							xLabel="Width (nm)"
 							yLabel="Thickness (nm)"
-							colorbarLabel={`H<tspan baseline-shift="sub" font-size="13.5px">${fieldProfileComponent}</tspan> (T)`}
+							colorbarLabel={`H<tspan baseline-shift="sub" font-size="13.5px">${fieldProfileComponent}</tspan> (mT)`}
 							plotTitle={`${fieldProfileName} profile`}
 							hideXAxis={
 								fieldProfileData?.geometry_type === 'Plane Film'
