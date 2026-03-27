@@ -5,6 +5,10 @@ import ModeProfileForm from './ModeProfileForm';
 import { useFetchModeProfile } from '../hooks/useFetchModeProfile';
 import './styles/DispersionResult.css';
 import { DispersionData } from '../constants/experimentTypes';
+import FieldProfileForm from './FieldProfileForm';
+import { useFetchFieldProfile } from '../hooks/useFetchFieldProfile';
+import { useState } from 'react';
+import { FieldNames } from '../constants/fieldFetchingTypes';
 
 interface DispersionResultProps {
 	result: DispersionData | null;
@@ -26,6 +30,18 @@ export default function DispersionResult({
 		component: modeProfileComponent,
 		handleSubmit: handleModeProfileSubmit,
 	} = useFetchModeProfile({ simulationId });
+
+	const {
+		data: fieldProfileData,
+		loading: fieldProfileLoading,
+		error: fieldProfileError,
+		component: fieldProfileComponent,
+		handleSubmit: handleFieldProfileSubmit,
+	} = useFetchFieldProfile({ simulationId });
+
+	const [chosenFieldName, setChosenFieldName] = useState<FieldNames>(
+		FieldNames.DemagField,
+	);
 
 	if (!result) {
 		return null;
@@ -135,22 +151,72 @@ export default function DispersionResult({
 							yLabel="Thickness (nm)"
 							colorbarLabel={`m<tspan baseline-shift="sub" font-size="13.5px">${modeProfileComponent}</tspan> (a.u.)`}
 							plotTitle={`Mode profile (m<tspan baseline-shift="sub" font-size="15px">${modeProfileComponent}</tspan>, <tspan font-style="italic">k</tspan> = ${modeProfileData?.closest_k ?? ''} rad/\u00b5m)`}
-							hideXAxis={modeProfileData?.geometry_type === 'Plane Film'}
+							hideXAxis={
+								modeProfileData?.geometry_type === 'Plane Film'
+							}
 							maxPlotWidth={
 								modeProfileData?.geometry_type === 'Wire'
 									? 250
-									: modeProfileData?.geometry_type === 'Plane Film'
+									: modeProfileData?.geometry_type ===
+										  'Plane Film'
 										? 200
 										: 500
 							}
 							maxContainerWidth={
 								modeProfileData?.geometry_type === 'Wire'
 									? 350
-									: modeProfileData?.geometry_type === 'Plane Film'
+									: modeProfileData?.geometry_type ===
+										  'Plane Film'
 										? 300
 										: 800
 							}
 							loadingMessage="Loading mode profile..."
+						/>
+					</div>
+				)}
+			</div>
+			<hr />
+			<div className="modeProfileContainer">
+				<div className="modeProfileFormCol p-2">
+					<FieldProfileForm
+						onSubmit={handleFieldProfileSubmit}
+						loading={fieldProfileLoading}
+						chosenFieldName={chosenFieldName}
+						setChosenFieldName={setChosenFieldName}
+					/>
+				</div>
+				{(fieldProfileLoading ||
+					fieldProfileData ||
+					fieldProfileError) && (
+					<div className="modeProfilePlotCol p-2">
+						<GridPlot
+							data={fieldProfileData}
+							loading={fieldProfileLoading}
+							error={fieldProfileError}
+							xLabel="Width (nm)"
+							yLabel="Thickness (nm)"
+							colorbarLabel={`H<tspan baseline-shift="sub" font-size="13.5px">${fieldProfileComponent}</tspan> (T)`}
+							plotTitle={`${chosenFieldName} profile`}
+							hideXAxis={
+								fieldProfileData?.geometry_type === 'Plane Film'
+							}
+							maxPlotWidth={
+								fieldProfileData?.geometry_type === 'Wire'
+									? 250
+									: fieldProfileData?.geometry_type ===
+										  'Plane Film'
+										? 200
+										: 500
+							}
+							maxContainerWidth={
+								fieldProfileData?.geometry_type === 'Wire'
+									? 350
+									: fieldProfileData?.geometry_type ===
+										  'Plane Film'
+										? 300
+										: 800
+							}
+							loadingMessage="Loading field profile..."
 						/>
 					</div>
 				)}
