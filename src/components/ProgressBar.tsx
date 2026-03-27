@@ -31,7 +31,7 @@ export default function ProgressBar({
 	return (
 		<Box sx={{ display: 'flex', justifyContent: 'center' }}>
 			<Box sx={{ width: 980 }}>
-				<Typography sx={{ mb: 0.5 }}>
+				<Typography sx={{ mb: 0.1, mt: 0.9 }}>
 					Simulation status: {status}
 				</Typography>
 				<Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
