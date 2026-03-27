@@ -1,5 +1,5 @@
+import { Box, LinearProgress, Typography } from '@mui/material';
 import { useFetchProgressData } from '../hooks/useFetchProgressData';
-import styles from './styles/ProgressBar.module.css';
 
 interface ProgressBarProps {
 	simulationId: string;
@@ -22,28 +22,55 @@ export default function ProgressBar({
 		setErrorId,
 		setResult,
 		setLoading,
-		simulationId
+		simulationId,
 	);
 
+	const isDeterminate =
+		status === 'Dispersion calculation in progress' && progress !== 1;
+
 	return (
-		<div className="d-flex justify-content-center">
-			<div className={styles.colprogress}>
-				Simulation status: {status}
-				<div
-					className="progress"
-					role="progressbar"
-					aria-valuenow={progress}
-					aria-valuemin={0}
-					aria-valuemax={1}
-				>
-					<div
-						className="progress-bar"
-						style={{ width: `${progress * 100}%` }}
+		<Box sx={{ display: 'flex', justifyContent: 'center' }}>
+			<Box sx={{ width: 980 }}>
+				<Typography sx={{ mb: 0.5 }}>
+					Simulation status: {status}
+				</Typography>
+				<Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+					<Box sx={{ flexGrow: 1, position: 'relative', height: 13 }}>
+						<LinearProgress
+							variant="indeterminate"
+							sx={{
+								position: 'absolute',
+								inset: 0,
+								height: 13,
+								borderRadius: 5,
+								opacity: isDeterminate ? 0 : 1,
+							}}
+						/>
+						<LinearProgress
+							variant="determinate"
+							value={progress * 100}
+							sx={{
+								position: 'absolute',
+								inset: 0,
+								height: 13,
+								borderRadius: 5,
+								opacity: isDeterminate ? 1 : 0,
+							}}
+						/>
+					</Box>
+					<Typography
+						variant="body2"
+						sx={{
+							minWidth: 35,
+							textAlign: 'right',
+							fontSize: '1.1rem',
+							visibility: isDeterminate ? 'visible' : 'hidden',
+						}}
 					>
-						{(progress * 100).toFixed(0)}%
-					</div>
-				</div>
-			</div>
-		</div>
+						{`${(progress * 100).toFixed(0)}%`}
+					</Typography>
+				</Box>
+			</Box>
+		</Box>
 	);
 }
