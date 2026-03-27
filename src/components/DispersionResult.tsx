@@ -7,8 +7,16 @@ import './styles/DispersionResult.css';
 import { DispersionData } from '../constants/experimentTypes';
 import FieldProfileForm from './FieldProfileForm';
 import { useFetchFieldProfile } from '../hooks/useFetchFieldProfile';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FieldNames } from '../constants/fieldFetchingTypes';
+import {
+	modeProfileParameters,
+	ModeProfileParameterNames,
+} from '../constants/modeFetchingTypes';
+import {
+	fieldProfileParameters,
+	FieldProfileParameterNames,
+} from '../constants/fieldFetchingTypes';
 
 interface DispersionResultProps {
 	result: DispersionData | null;
@@ -29,6 +37,7 @@ export default function DispersionResult({
 		error: modeProfileError,
 		component: modeProfileComponent,
 		handleSubmit: handleModeProfileSubmit,
+		fetchWithParams: fetchModeProfile,
 	} = useFetchModeProfile({ simulationId });
 
 	const {
@@ -37,11 +46,27 @@ export default function DispersionResult({
 		error: fieldProfileError,
 		component: fieldProfileComponent,
 		handleSubmit: handleFieldProfileSubmit,
+		fetchWithParams: fetchFieldProfile,
 	} = useFetchFieldProfile({ simulationId });
 
 	const [chosenFieldName, setChosenFieldName] = useState<FieldNames>(
 		FieldNames.DemagField,
 	);
+
+	useEffect(() => {
+		const modeDefaults: Record<string, string> = {};
+		for (const key of Object.values(ModeProfileParameterNames)) {
+			modeDefaults[key] = modeProfileParameters[key].defaultValue;
+		}
+		fetchModeProfile(modeDefaults);
+
+		const fieldDefaults: Record<string, string> = {};
+		for (const key of Object.values(FieldProfileParameterNames)) {
+			fieldDefaults[key] = fieldProfileParameters[key].defaultValue;
+		}
+		fetchFieldProfile(fieldDefaults);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	if (!result) {
 		return null;
