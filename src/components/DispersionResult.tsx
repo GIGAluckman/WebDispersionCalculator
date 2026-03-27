@@ -45,6 +45,7 @@ export default function DispersionResult({
 		loading: fieldProfileLoading,
 		error: fieldProfileError,
 		component: fieldProfileComponent,
+		fieldName: fieldProfileName,
 		handleSubmit: handleFieldProfileSubmit,
 		fetchWithParams: fetchFieldProfile,
 	} = useFetchFieldProfile({ simulationId });
@@ -221,7 +222,7 @@ export default function DispersionResult({
 							xLabel="Width (nm)"
 							yLabel="Thickness (nm)"
 							colorbarLabel={`H<tspan baseline-shift="sub" font-size="13.5px">${fieldProfileComponent}</tspan> (T)`}
-							plotTitle={`${chosenFieldName} profile`}
+							plotTitle={`${fieldProfileName} profile`}
 							hideXAxis={
 								fieldProfileData?.geometry_type === 'Plane Film'
 							}
