@@ -1,3 +1,10 @@
+import {
+	FormControl,
+	InputLabel,
+	Select as MuiSelect,
+	MenuItem,
+} from '@mui/material';
+
 interface SelectProps {
 	name: string;
 	allOptions: string[];
@@ -14,21 +21,21 @@ export default function Select({
 	label,
 }: SelectProps) {
 	return (
-		<label>
-			{label}
-			<select
+		<FormControl size="small" sx={{ mb: 1, minWidth: 160 }}>
+			<InputLabel>{label}</InputLabel>
+			<MuiSelect
 				name={name}
 				defaultValue={defaultValue}
+				label={label}
 				onChange={(e) => setChosenOption(e.target.value)}
 				key={`${name}-${defaultValue}`}
-				className="form-select"
 			>
 				{allOptions.map((option) => (
-					<option key={option} value={option}>
+					<MenuItem key={option} value={option}>
 						{option}
-					</option>
+					</MenuItem>
 				))}
-			</select>
-		</label>
+			</MuiSelect>
+		</FormControl>
 	);
 }
