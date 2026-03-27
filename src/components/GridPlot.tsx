@@ -80,10 +80,7 @@ export default function GridPlot({
 			.attr('transform', `translate(${margin.left},${margin.top})`);
 
 		const xScale = d3.scaleLinear().domain(xExtent).range([0, plotW]);
-		const yScale = d3
-			.scaleLinear()
-			.domain(yExtent)
-			.range([plotHeight, 0]);
+		const yScale = d3.scaleLinear().domain(yExtent).range([plotHeight, 0]);
 
 		// Color scale
 		const maxAbs = Math.max(...values.map((v) => Math.abs(v)), 1e-10);
@@ -142,7 +139,7 @@ export default function GridPlot({
 		// Title
 		svg.append('text')
 			.attr('x', totalW / 2)
-			.attr('y', 20)
+			.attr('y', 30)
 			.attr('text-anchor', 'middle')
 			.attr('font-size', fontSize.title)
 			.attr('font-weight', '600')
@@ -183,7 +180,7 @@ export default function GridPlot({
 			.range([0, cbH]);
 		g.append('g')
 			.attr('transform', `translate(${cbX + COLORBAR_WIDTH},0)`)
-			.call(d3.axisRight(cbScale).ticks(5))
+			.call(d3.axisRight(cbScale).ticks(5).tickFormat(d3.format('.2g')))
 			.selectAll('text')
 			.attr('font-size', fontSize.axis);
 
