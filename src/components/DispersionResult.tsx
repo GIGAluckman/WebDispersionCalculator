@@ -55,6 +55,8 @@ export default function DispersionResult({
 	);
 
 	useEffect(() => {
+		if (!result) return;
+
 		const modeDefaults: Record<string, string> = {};
 		for (const key of Object.values(ModeProfileParameterNames)) {
 			modeDefaults[key] = modeProfileParameters[key].defaultValue;
@@ -67,7 +69,7 @@ export default function DispersionResult({
 		}
 		fetchFieldProfile(fieldDefaults);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [result]);
 
 	if (!result) {
 		return null;
@@ -184,13 +186,13 @@ export default function DispersionResult({
 								modeProfileData?.geometry_type === 'Wire' ||
 								modeProfileData?.geometry_type === 'Plane Film'
 									? 250
-										: 500
+									: 500
 							}
 							maxContainerWidth={
 								modeProfileData?.geometry_type === 'Wire' ||
 								modeProfileData?.geometry_type === 'Plane Film'
 									? 350
-										: 800
+									: 800
 							}
 							loadingMessage="Loading mode profile..."
 						/>
@@ -226,13 +228,13 @@ export default function DispersionResult({
 								fieldProfileData?.geometry_type === 'Wire' ||
 								fieldProfileData?.geometry_type === 'Plane Film'
 									? 250
-										: 500
+									: 500
 							}
 							maxContainerWidth={
 								fieldProfileData?.geometry_type === 'Wire' ||
 								fieldProfileData?.geometry_type === 'Plane Film'
 									? 350
-										: 800
+									: 800
 							}
 							loadingMessage="Loading field profile..."
 						/>
