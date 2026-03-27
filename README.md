@@ -62,6 +62,8 @@ If you use the dispersion calculator for your publication, make sure to cite the
 -   **Material presets** for quick selection: **YIG, GaYIG, and Py**.
 -   **Experiment configuration** panel (currently supports **dispersion curve calculation**).
 -   **Backend processing** with Flask, powered by the **TetraX package**.
+-   **Magnetization distribution calculation** for different modes.
+-   **Visualization of magnetic field contributions** (exchange, demagnetizing, external, etc.).
 -   **Comprehensive result visualization** including:
     -   Dispersion relation (f vs k)
     -   Group velocity (v vs k)
