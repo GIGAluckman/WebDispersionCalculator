@@ -181,19 +181,15 @@ export default function DispersionResult({
 								modeProfileData?.geometry_type === 'Plane Film'
 							}
 							maxPlotWidth={
-								modeProfileData?.geometry_type === 'Wire'
+								modeProfileData?.geometry_type === 'Wire' ||
+								modeProfileData?.geometry_type === 'Plane Film'
 									? 250
-									: modeProfileData?.geometry_type ===
-										  'Plane Film'
-										? 200
 										: 500
 							}
 							maxContainerWidth={
-								modeProfileData?.geometry_type === 'Wire'
+								modeProfileData?.geometry_type === 'Wire' ||
+								modeProfileData?.geometry_type === 'Plane Film'
 									? 350
-									: modeProfileData?.geometry_type ===
-										  'Plane Film'
-										? 300
 										: 800
 							}
 							loadingMessage="Loading mode profile..."
@@ -227,19 +223,15 @@ export default function DispersionResult({
 								fieldProfileData?.geometry_type === 'Plane Film'
 							}
 							maxPlotWidth={
-								fieldProfileData?.geometry_type === 'Wire'
+								fieldProfileData?.geometry_type === 'Wire' ||
+								fieldProfileData?.geometry_type === 'Plane Film'
 									? 250
-									: fieldProfileData?.geometry_type ===
-										  'Plane Film'
-										? 200
 										: 500
 							}
 							maxContainerWidth={
-								fieldProfileData?.geometry_type === 'Wire'
+								fieldProfileData?.geometry_type === 'Wire' ||
+								fieldProfileData?.geometry_type === 'Plane Film'
 									? 350
-									: fieldProfileData?.geometry_type ===
-										  'Plane Film'
-										? 300
 										: 800
 							}
 							loadingMessage="Loading field profile..."
