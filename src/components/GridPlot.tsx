@@ -185,10 +185,8 @@ export default function GridPlot({
 			.attr('font-size', fontSize.axis);
 
 		g.append('text')
-			.attr(
-				'transform',
-				`translate(${cbX + COLORBAR_WIDTH + 50},${cbH / 2}) rotate(90)`,
-			)
+			.attr('x', cbX + COLORBAR_WIDTH / 2 + 20)
+			.attr('y', -15)
 			.attr('text-anchor', 'middle')
 			.attr('font-size', fontSize.legend)
 			.html(colorbarLabel);
