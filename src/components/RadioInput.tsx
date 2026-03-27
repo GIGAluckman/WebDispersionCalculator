@@ -1,5 +1,11 @@
+import {
+	FormControl,
+	FormLabel,
+	RadioGroup,
+	FormControlLabel,
+	Radio,
+} from '@mui/material';
 import { AxisNames } from '../constants/axisNames';
-import styles from './styles/RadioInput.module.css';
 
 interface RadioInputProps {
 	name: string;
@@ -14,30 +20,34 @@ export default function RadioInput({
 }: RadioInputProps) {
 	const availableAxisNames = Object.values(AxisNames);
 	return (
-		<>
-			<div className={styles.radioContainer}>
-				{label}{' '}
-				{availableAxisNames.map((key) => {
-					return (
-						<div className="form-check form-check-inline" key={key}>
-							<input
-								type="radio"
-								name={name}
-								value={key}
-								defaultChecked={defaultValue === key}
-								key={`${name}-${key}-${defaultValue}`}
-								className={'form-check-input'}
-							/>{' '}
-							<label
-								key={`label-${key}-${name}`}
-								className={'form-check-label'}
-							>
-								{key}
-							</label>
-						</div>
-					);
-				})}
-			</div>
-		</>
+		<FormControl
+			sx={{ mb: 1, flexDirection: 'row', alignItems: 'center', gap: 1 }}
+		>
+			<FormLabel
+				sx={{
+					whiteSpace: 'nowrap',
+					color: 'black',
+					'&.Mui-focused': { color: 'black' },
+				}}
+			>
+				{label}
+			</FormLabel>
+			<RadioGroup
+				row
+				name={name}
+				defaultValue={defaultValue}
+				key={`${name}-${defaultValue}`}
+				sx={{ gap: 0.6, '& .MuiFormControlLabel-root': { mr: 1 } }}
+			>
+				{availableAxisNames.map((key) => (
+					<FormControlLabel
+						key={key}
+						value={key}
+						control={<Radio size="small" sx={{ p: 0.5, ml: 1 }} />}
+						label={key}
+					/>
+				))}
+			</RadioGroup>
+		</FormControl>
 	);
 }
