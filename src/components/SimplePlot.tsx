@@ -11,7 +11,7 @@ interface SimplePlotProps {
 	plotTitle?: string;
 }
 
-const margin = { top: 40, right: 130, bottom: 50, left: 65 };
+const margin = { top: 40, right: 130, bottom: 50, left: 67 };
 const width = 520;
 const height = 400;
 const innerW = width - margin.left - margin.right;
@@ -106,7 +106,7 @@ export default function SimplePlot({
 		g.append('text')
 			.attr('transform', 'rotate(-90)')
 			.attr('x', -innerH / 2)
-			.attr('y', -50)
+			.attr('y', -53)
 			.attr('text-anchor', 'middle')
 			.attr('font-size', fontSize.label)
 			.text(yLabel);
