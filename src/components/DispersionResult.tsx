@@ -190,6 +190,12 @@ export default function DispersionResult({
 									? 250
 									: 500
 							}
+							titleYOffset={
+								modeProfileData?.geometry_type === 'Wire' ||
+								modeProfileData?.geometry_type === 'Plane Film'
+									? 15
+									: 30
+							}
 							maxContainerWidth={
 								modeProfileData?.geometry_type === 'Wire' ||
 								modeProfileData?.geometry_type === 'Plane Film'
@@ -231,6 +237,12 @@ export default function DispersionResult({
 								fieldProfileData?.geometry_type === 'Plane Film'
 									? 250
 									: 500
+							}
+							titleYOffset={
+								fieldProfileData?.geometry_type === 'Wire' ||
+								fieldProfileData?.geometry_type === 'Plane Film'
+									? 15
+									: 30
 							}
 							maxContainerWidth={
 								fieldProfileData?.geometry_type === 'Wire' ||

@@ -21,6 +21,7 @@ interface GridPlotProps {
 	plotHeight?: number;
 	maxContainerWidth?: number;
 	loadingMessage?: string;
+	titleYOffset?: number;
 }
 
 const COLORBAR_WIDTH = 15;
@@ -40,6 +41,7 @@ export default function GridPlot({
 	plotHeight = 200,
 	maxContainerWidth = 800,
 	loadingMessage = 'Loading...',
+	titleYOffset = 15,
 }: GridPlotProps) {
 	const svgRef = useRef<SVGSVGElement>(null);
 
@@ -139,7 +141,7 @@ export default function GridPlot({
 		// Title
 		svg.append('text')
 			.attr('x', totalW / 2)
-			.attr('y', 30)
+			.attr('y', titleYOffset)
 			.attr('text-anchor', 'middle')
 			.attr('font-size', fontSize.title)
 			.attr('font-weight', '600')
