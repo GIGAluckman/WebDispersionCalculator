@@ -54,13 +54,15 @@ const MaterialParameterPatterns: MaterialParameterPatterns = {
 	},
 };
 
-enum MaterialParameterUnits {
-	Ms = 'A/m',
-	A = 'pJ/m',
-	Ku = 'J/m³',
-	Ku_a = '',
-	alpha = '',
-}
+// Plain object instead of an enum: two members share the value '' which
+// trips @typescript-eslint/no-duplicate-enum-values
+const MaterialParameterUnits = {
+	Ms: 'A/m',
+	A: 'pJ/m',
+	Ku: 'J/m³',
+	Ku_a: '',
+	alpha: '',
+} as const;
 
 export enum DefaultValuesForYIG {
 	Ms = 140000,

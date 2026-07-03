@@ -7,11 +7,11 @@ import Select from './Select';
 import styles from './styles/MainSelect.module.css';
 
 interface MainSelectProps {
-	chosenGeometry: string;
+	chosenGeometry: GeometryType;
 	setChosenGeometry: (option: GeometryType) => void;
-	chosenMaterial: string;
+	chosenMaterial: MaterialType;
 	setChosenMaterial: (option: MaterialType) => void;
-	chosenExperiment: string;
+	chosenExperiment: ExperimentType;
 	setChosenExperiment: (option: ExperimentType) => void;
 }
 
@@ -51,7 +51,6 @@ export function MainSelect({
 					setChosenOption={setChosenExperiment}
 					label="Select an experiment: "
 				/>
-				<div className="col"></div>
 			</div>
 		</div>
 	);

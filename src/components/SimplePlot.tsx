@@ -211,7 +211,14 @@ export default function SimplePlot({
 					.attr('x2', snappedX)
 					.style('opacity', 1);
 
-				let html = `<div style="font-weight:600;margin-bottom:3px">${xLabel}: ${xData[idx].toPrecision(4)}</div>`;
+				// Build the tooltip via .text() — series labels derive from
+				// backend column names and must not be parsed as HTML
+				tooltip.selectAll('*').remove();
+				tooltip
+					.append('div')
+					.style('font-weight', '600')
+					.style('margin-bottom', '3px')
+					.text(`${xLabel}: ${xData[idx].toPrecision(4)}`);
 				yData.forEach((series, i) => {
 					const val = series.data[idx];
 					if (val === null) return;
@@ -219,10 +226,20 @@ export default function SimplePlot({
 						.attr('cx', snappedX)
 						.attr('cy', yScale(val))
 						.style('opacity', 1);
-					html +=
-						`<div style="display:flex;align-items:center;gap:4px">` +
-						`<span style="width:10px;height:10px;border-radius:2px;background:${color(String(i))};display:inline-block"></span>` +
-						`${series.label}: ${val.toPrecision(4)}</div>`;
+					const row = tooltip
+						.append('div')
+						.style('display', 'flex')
+						.style('align-items', 'center')
+						.style('gap', '4px');
+					row.append('span')
+						.style('width', '10px')
+						.style('height', '10px')
+						.style('border-radius', '2px')
+						.style('background', color(String(i)))
+						.style('display', 'inline-block');
+					row.append('span').text(
+						`${series.label}: ${val.toPrecision(4)}`,
+					);
 				});
 
 				// hide dots for null values
@@ -230,7 +247,7 @@ export default function SimplePlot({
 					if (series.data[idx] === null) dots[i].style('opacity', 0);
 				});
 
-				tooltip.html(html).style('opacity', 1);
+				tooltip.style('opacity', 1);
 
 				// position tooltip relative to container
 				const tooltipX = snappedX + margin.left + 12;

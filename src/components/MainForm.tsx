@@ -10,7 +10,7 @@ import { useFormSubmit } from '../hooks/useFormSubmit';
 import { Button } from '@mui/material';
 
 interface MainFormProps {
-	simulationId: string;
+	startNewSimulation: () => string;
 	loading: boolean;
 	chosenGeometry: GeometryType;
 	chosenMaterial: MaterialType;
@@ -22,7 +22,7 @@ interface MainFormProps {
 }
 
 export default function MainForm({
-	simulationId,
+	startNewSimulation,
 	loading,
 	chosenGeometry,
 	chosenMaterial,
@@ -34,7 +34,7 @@ export default function MainForm({
 }: MainFormProps) {
 	const [showAdvanced, setShowAdvanced] = useState(false);
 	const { handleSubmit } = useFormSubmit({
-		simulationId,
+		startNewSimulation,
 		chosenGeometry,
 		chosenMaterial,
 		chosenExperiment,

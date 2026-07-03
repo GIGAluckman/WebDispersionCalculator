@@ -1,11 +1,12 @@
 import { Box, LinearProgress, Typography } from '@mui/material';
 import { useFetchProgressData } from '../hooks/useFetchProgressData';
+import { SimulationResultData } from '../constants/experimentTypes';
 
 interface ProgressBarProps {
 	simulationId: string;
 	setAlertToggle: (input: boolean) => void;
 	setErrorId: (input: number | null) => void;
-	setResult?: (result: any) => void;
+	setResult?: (result: SimulationResultData) => void;
 	setLoading?: (loading: boolean) => void;
 }
 

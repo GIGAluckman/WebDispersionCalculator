@@ -7,6 +7,11 @@ export enum ExperimentType {
 
 export type DispersionData = Record<string, Record<string, number>>;
 
+export interface SimulationResultData {
+	dispersion: DispersionData;
+	numberOfModes: number;
+}
+
 interface ExperimentProperties {
 	name: string;
 	label: string;

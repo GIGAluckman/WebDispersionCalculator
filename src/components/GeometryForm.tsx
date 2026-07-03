@@ -26,28 +26,26 @@ export default function GeometryForm({
 				<div className="mt-3">
 					{Object.values(
 						geometryParameters[chosenGeometry].properties
-					).map((property) => {
-						if (property.required || showAdvanced) {
-							return (
-								<TextInput
-									key={property.name}
-									name={property.name}
-									label={property.label}
-									unit={property.unit}
-									optional={!property.required}
-									defaultValue={
-										property.required
-											? property.defaultValue
-											: property.defaultValue[
-													chosenMaterial
-											  ]
-									}
-									placeholder={property.placeholder}
-									pattern={property.pattern}
-								/>
-							);
-						}
-					})}
+					)
+						.filter(
+							(property) => property.required || showAdvanced
+						)
+						.map((property) => (
+							<TextInput
+								key={property.name}
+								name={property.name}
+								label={property.label}
+								unit={property.unit}
+								optional={!property.required}
+								defaultValue={
+									property.required
+										? property.defaultValue
+										: property.defaultValue[chosenMaterial]
+								}
+								placeholder={property.placeholder}
+								pattern={property.pattern}
+							/>
+						))}
 				</div>
 			</div>
 		</div>

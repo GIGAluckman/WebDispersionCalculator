@@ -16,21 +16,17 @@ export default function ExpSetupForm({
 }: ExpSetupFormProps) {
 	return (
 		<div>
-			{Object.values(
-				experimentParameters[chosenExperiment].parameters
-			).map((parameter) => {
-				if (parameter.required || showAdvanced) {
-					if (parameter.radio) {
-						return (
-							<RadioInput
-								key={parameter.name}
-								name={parameter.name}
-								label={parameter.label}
-								defaultValue={parameter.defaultValue.toString()}
-							/>
-						);
-					}
-					return (
+			{Object.values(experimentParameters[chosenExperiment].parameters)
+				.filter((parameter) => parameter.required || showAdvanced)
+				.map((parameter) =>
+					parameter.radio ? (
+						<RadioInput
+							key={parameter.name}
+							name={parameter.name}
+							label={parameter.label}
+							defaultValue={parameter.defaultValue.toString()}
+						/>
+					) : (
 						<TextInput
 							key={parameter.name}
 							name={parameter.name}
@@ -41,9 +37,8 @@ export default function ExpSetupForm({
 							placeholder={parameter.placeholder}
 							pattern={parameter.pattern}
 						/>
-					);
-				}
-			})}
+					)
+				)}
 		</div>
 	);
 }

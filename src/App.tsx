@@ -1,14 +1,16 @@
 import { MaterialType } from './constants/materialTypes';
 import { GeometryType } from './constants/geometryTypes';
-import { ExperimentType } from './constants/experimentTypes';
+import {
+	ExperimentType,
+	SimulationResultData,
+} from './constants/experimentTypes';
 import ProgressBar from './components/ProgressBar';
 import SimulationResult from './components/SimulationResult';
 import Header from './components/Header';
 import MainForm from './components/MainForm';
 import Credits from './components/Credits';
 import Alert from './components/Alert';
-import { useState, useRef } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { useState } from 'react';
 import { MainSelect } from './components/MainSelect';
 
 function App() {
@@ -23,11 +25,24 @@ function App() {
 	);
 
 	const [loading, setLoading] = useState(false);
-	const simulationId = useRef(uuidv4());
-	const [result, setResult] = useState(null);
+	const [simulationId, setSimulationId] = useState<string>(() =>
+		crypto.randomUUID(),
+	);
+	const [result, setResult] = useState<SimulationResultData | null>(null);
 	const [errorId, setErrorId] = useState<number | null>(null);
 
 	const [alertToggle, setAlertToggle] = useState(false);
+
+	// Each submission gets a fresh id so a rerun can never pick up the
+	// previous run's status or result.
+	const startNewSimulation = (): string => {
+		const newId = crypto.randomUUID();
+		setSimulationId(newId);
+		setResult(null);
+		setErrorId(null);
+		setAlertToggle(false);
+		return newId;
+	};
 
 	return (
 		<div>
@@ -43,7 +58,7 @@ function App() {
 			/>
 			<hr />
 			<MainForm
-				simulationId={simulationId.current}
+				startNewSimulation={startNewSimulation}
 				loading={loading}
 				chosenGeometry={chosenGeometry}
 				chosenMaterial={chosenMaterial}
@@ -58,7 +73,7 @@ function App() {
 			/>
 			{loading ? (
 				<ProgressBar
-					simulationId={simulationId.current}
+					simulationId={simulationId}
 					setAlertToggle={setAlertToggle}
 					setErrorId={setErrorId}
 					setResult={setResult}
@@ -74,7 +89,7 @@ function App() {
 				result={result}
 				chosenExperiment={chosenExperiment}
 				errorId={errorId}
-				simulationId={simulationId.current}
+				simulationId={simulationId}
 				simulationLoading={loading}
 			/>
 			<hr />

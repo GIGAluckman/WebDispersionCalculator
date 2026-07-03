@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { PatternProperties } from '../constants/materialTypes';
 import styles from './styles/TextInput.module.css';
 
@@ -20,10 +21,12 @@ export default function TextInput({
 	placeholder,
 	pattern,
 }: TextInputProps) {
+	const id = useId();
 	return (
 		<p className={optional ? styles.labelOptional : styles.labelMain}>
-			{label}{' '}
+			<label htmlFor={id}>{label}</label>{' '}
 			<input
+				id={id}
 				required={true}
 				name={name}
 				defaultValue={defaultValue || ''}

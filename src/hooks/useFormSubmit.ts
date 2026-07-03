@@ -3,7 +3,7 @@ import { GeometryType } from '../constants/geometryTypes';
 import { ExperimentType } from '../constants/experimentTypes';
 
 interface UseFormSubmitProps {
-	simulationId: string;
+	startNewSimulation: () => string;
 	chosenGeometry: GeometryType;
 	chosenMaterial: MaterialType;
 	chosenExperiment: ExperimentType;
@@ -13,7 +13,7 @@ interface UseFormSubmitProps {
 }
 
 export const useFormSubmit = ({
-	simulationId,
+	startNewSimulation,
 	chosenGeometry,
 	chosenMaterial,
 	chosenExperiment,
@@ -36,7 +36,7 @@ export const useFormSubmit = ({
 		formJson['chosenGeometry'] = chosenGeometry;
 		formJson['chosenExperiment'] = chosenExperiment;
 		formJson['chosenMaterial'] = chosenMaterial;
-		formJson['id'] = simulationId;
+		formJson['id'] = startNewSimulation();
 
 		try {
 			// Sending the data to the backend to start the simulation

@@ -12,7 +12,7 @@ interface FieldProfileFormProps {
 	onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 	loading: boolean;
 	setChosenFieldName: (fieldName: FieldNames) => void;
-	chosenFieldName: string;
+	chosenFieldName: FieldNames;
 }
 
 export default function FieldProfileForm({

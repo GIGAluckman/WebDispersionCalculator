@@ -5,21 +5,21 @@ import {
 	MenuItem,
 } from '@mui/material';
 
-interface SelectProps {
+interface SelectProps<T extends string> {
 	name: string;
-	allOptions: string[];
-	defaultValue: string;
-	setChosenOption: (option: any) => void;
+	allOptions: T[];
+	defaultValue: T;
+	setChosenOption: (option: T) => void;
 	label: string;
 }
 
-export default function Select({
+export default function Select<T extends string>({
 	name,
 	allOptions,
 	defaultValue,
 	setChosenOption,
 	label,
-}: SelectProps) {
+}: SelectProps<T>) {
 	return (
 		<FormControl size="small" sx={{ mb: 1, minWidth: 160 }}>
 			<InputLabel>{label}</InputLabel>
@@ -27,7 +27,7 @@ export default function Select({
 				name={name}
 				defaultValue={defaultValue}
 				label={label}
-				onChange={(e) => setChosenOption(e.target.value)}
+				onChange={(e) => setChosenOption(e.target.value as T)}
 				key={`${name}-${defaultValue}`}
 			>
 				{allOptions.map((option) => (

@@ -1,13 +1,13 @@
 import SimplePlot from './SimplePlot';
 import DownloadCSVButton from './DownloadCSVButton';
-import GridPlot from './GridPlot';
+import GridPlot, { LabelSegment } from './GridPlot';
 import ModeProfileForm from './ModeProfileForm';
 import { useFetchModeProfile } from '../hooks/useFetchModeProfile';
 import './styles/DispersionResult.css';
 import { DispersionData } from '../constants/experimentTypes';
 import FieldProfileForm from './FieldProfileForm';
 import { useFetchFieldProfile } from '../hooks/useFetchFieldProfile';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { FieldNames } from '../constants/fieldFetchingTypes';
 import {
 	modeProfileParameters,
@@ -25,6 +25,15 @@ interface DispersionResultProps {
 	numberOfModes: number;
 	simulationLoading: boolean;
 }
+
+interface PlotSeries {
+	data: number[];
+	label: string;
+}
+
+// Column names look like 'f10 (GHz)', 'v2 (m/s)', 'lt10 (ns)', 'pl3 (µm)' —
+// the mode index can have more than one digit.
+const modeLabel = (key: string) => `${key.match(/\d+/)?.[0] ?? '?'} mode`;
 
 export default function DispersionResult({
 	result,
@@ -73,45 +82,83 @@ export default function DispersionResult({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [result]);
 
+	// Memoized so unrelated state changes (e.g. profile form toggles) don't
+	// force the d3 plots to fully redraw.
+	const {
+		xData,
+		dispersionData,
+		xDataShifted,
+		groupVelocityData,
+		lifetimeData,
+		propagationLengthData,
+	} = useMemo(() => {
+		const empty = {
+			xData: [] as number[],
+			dispersionData: [] as PlotSeries[],
+			xDataShifted: [] as number[],
+			groupVelocityData: [] as PlotSeries[],
+			lifetimeData: [] as PlotSeries[],
+			propagationLengthData: [] as PlotSeries[],
+		};
+		if (!result) {
+			return empty;
+		}
+
+		const series = (match: (key: string) => boolean): PlotSeries[] =>
+			Object.keys(result)
+				.filter(match)
+				.map((key) => ({
+					data: Object.values(result[key]),
+					label: modeLabel(key),
+				}));
+
+		const derived = {
+			...empty,
+			xData: Object.values(result['k (rad/µm)']),
+			dispersionData: series((key) => key.includes('GHz')),
+		};
+		if (errorId !== 1) {
+			// errorId 1 = NaN in the dispersion: velocity/lifetime columns don't exist
+			derived.xDataShifted = Object.values(result['kshift (rad/µm)']);
+			derived.groupVelocityData = series((key) => key.includes('m/s'));
+			derived.lifetimeData = series((key) => key.includes('lt'));
+			derived.propagationLengthData = series((key) => key.includes('pl'));
+		}
+		return derived;
+	}, [result, errorId]);
+
+	// Memoized structured labels: stable references keep GridPlot's redraw
+	// effect from re-running on unrelated renders
+	const modeColorbarLabel = useMemo<LabelSegment[]>(
+		() => [
+			{ text: 'm' },
+			{ text: modeProfileComponent, sub: true },
+			{ text: ' (a.u.)' },
+		],
+		[modeProfileComponent],
+	);
+	const modeClosestK = modeProfileData?.closest_k;
+	const modePlotTitle = useMemo<LabelSegment[]>(
+		() => [
+			{ text: 'Mode profile (m' },
+			{ text: modeProfileComponent, sub: true },
+			{ text: ', ' },
+			{ text: 'k', italic: true },
+			{ text: ` = ${modeClosestK ?? ''} rad/µm)` },
+		],
+		[modeProfileComponent, modeClosestK],
+	);
+	const fieldColorbarLabel = useMemo<LabelSegment[]>(
+		() => [
+			{ text: 'H' },
+			{ text: fieldProfileComponent, sub: true },
+			{ text: ' (mT)' },
+		],
+		[fieldProfileComponent],
+	);
+
 	if (!result) {
 		return null;
-	}
-
-	const xData = Object.values(result['k (rad/µm)'] as unknown as number[]);
-
-	const dispersionData = Object.keys(result)
-		.filter((key) => key.includes('GHz'))
-		.map((key) => ({
-			data: Object.values(result[key]) as unknown as number[],
-			label: `${key[1]} mode`,
-		}));
-
-	let xDataShifted: number[] = [];
-	let groupVelocityData: { data: number[]; label: string }[] = [];
-	let lifetimeData: { data: number[]; label: string }[] = [];
-	let propagationLengthData: { data: number[]; label: string }[] = [];
-	if (errorId !== 1) {
-		xDataShifted = Object.values(
-			result['kshift (rad/µm)'],
-		) as unknown as number[];
-		groupVelocityData = Object.keys(result)
-			.filter((key) => key.includes('m/s'))
-			.map((key) => ({
-				data: Object.values(result[key]) as unknown as number[],
-				label: `${key[1]} mode`,
-			}));
-		lifetimeData = Object.keys(result)
-			.filter((key) => key.includes('lt'))
-			.map((key) => ({
-				data: Object.values(result[key]) as unknown as number[],
-				label: `${key[2]} mode`,
-			}));
-		propagationLengthData = Object.keys(result)
-			.filter((key) => key.includes('pl'))
-			.map((key) => ({
-				data: Object.values(result[key]) as unknown as number[],
-				label: `${key[2]} mode`,
-			}));
 	}
 
 	return (
@@ -179,8 +226,8 @@ export default function DispersionResult({
 							error={modeProfileError}
 							xLabel="Width (nm)"
 							yLabel="Thickness (nm)"
-							colorbarLabel={`m<tspan baseline-shift="sub" font-size="13.5px">${modeProfileComponent}</tspan> (a.u.)`}
-							plotTitle={`Mode profile (m<tspan baseline-shift="sub" font-size="15px">${modeProfileComponent}</tspan>, <tspan font-style="italic">k</tspan> = ${modeProfileData?.closest_k ?? ''} rad/\u00b5m)`}
+							colorbarLabel={modeColorbarLabel}
+							plotTitle={modePlotTitle}
 							hideXAxis={
 								modeProfileData?.geometry_type === 'Plane Film'
 							}
@@ -227,7 +274,7 @@ export default function DispersionResult({
 							error={fieldProfileError}
 							xLabel="Width (nm)"
 							yLabel="Thickness (nm)"
-							colorbarLabel={`H<tspan baseline-shift="sub" font-size="13.5px">${fieldProfileComponent}</tspan> (mT)`}
+							colorbarLabel={fieldColorbarLabel}
 							plotTitle={`${fieldProfileName} profile`}
 							hideXAxis={
 								fieldProfileData?.geometry_type === 'Plane Film'

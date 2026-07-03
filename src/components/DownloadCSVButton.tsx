@@ -14,6 +14,7 @@ const downloadCSV = (csvContent: string) => {
 	document.body.appendChild(link);
 	link.click();
 	document.body.removeChild(link);
+	URL.revokeObjectURL(csvURL);
 };
 
 export default function DownloadCSVButton({ data }: DownloadCSVButtonProps) {

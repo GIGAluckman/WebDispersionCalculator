@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useId } from 'react';
 import * as d3 from 'd3';
 import { fontSize } from '../constants/axisNames';
 
@@ -8,14 +8,46 @@ export interface GridMeshData {
 	values: number[];
 }
 
+// Structured label segments rendered as <tspan> via .text() — dynamic values
+// (e.g. backend-derived strings) are never parsed as HTML.
+export interface LabelSegment {
+	text: string;
+	sub?: boolean;
+	italic?: boolean;
+}
+
+export type PlotLabel = string | LabelSegment[];
+
+function renderLabel(
+	textSel: d3.Selection<SVGTextElement, unknown, null, undefined>,
+	label: PlotLabel,
+	subFontSize: string,
+) {
+	if (typeof label === 'string') {
+		textSel.text(label);
+		return;
+	}
+	for (const segment of label) {
+		const tspan = textSel.append('tspan').text(segment.text);
+		if (segment.sub) {
+			tspan
+				.attr('baseline-shift', 'sub')
+				.attr('font-size', subFontSize);
+		}
+		if (segment.italic) {
+			tspan.attr('font-style', 'italic');
+		}
+	}
+}
+
 interface GridPlotProps {
 	data: GridMeshData | null;
 	loading: boolean;
 	error: string | null;
 	xLabel?: string;
 	yLabel?: string;
-	colorbarLabel?: string;
-	plotTitle?: string;
+	colorbarLabel?: PlotLabel;
+	plotTitle?: PlotLabel;
 	hideXAxis?: boolean;
 	maxPlotWidth?: number;
 	plotHeight?: number;
@@ -44,6 +76,9 @@ export default function GridPlot({
 	titleYOffset = 15,
 }: GridPlotProps) {
 	const svgRef = useRef<SVGSVGElement>(null);
+	// Unique per component instance: two GridPlots on one page must not
+	// share a gradient element id (url(#...) resolves document-wide)
+	const gradId = `cb-grad-${useId().replace(/:/g, '')}`;
 
 	useEffect(() => {
 		const svg = d3.select(svgRef.current);
@@ -139,20 +174,22 @@ export default function GridPlot({
 			.text(yLabel);
 
 		// Title
-		svg.append('text')
-			.attr('x', totalW / 2)
-			.attr('y', titleYOffset)
-			.attr('text-anchor', 'middle')
-			.attr('font-size', fontSize.title)
-			.attr('font-weight', '600')
-			.html(plotTitle);
+		renderLabel(
+			svg.append('text')
+				.attr('x', totalW / 2)
+				.attr('y', titleYOffset)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', fontSize.title)
+				.attr('font-weight', '600'),
+			plotTitle,
+			'15px',
+		);
 
 		// Colorbar
 		const cbX = plotW + COLORBAR_PAD;
 		const cbH = plotHeight;
 		const numStops = 64;
 		const defs = svg.append('defs');
-		const gradId = 'cb-grad';
 		const grad = defs
 			.append('linearGradient')
 			.attr('id', gradId)
@@ -186,12 +223,15 @@ export default function GridPlot({
 			.selectAll('text')
 			.attr('font-size', fontSize.axis);
 
-		g.append('text')
-			.attr('x', cbX + COLORBAR_WIDTH / 2 + 20)
-			.attr('y', -15)
-			.attr('text-anchor', 'middle')
-			.attr('font-size', fontSize.legend)
-			.html(colorbarLabel);
+		renderLabel(
+			g.append('text')
+				.attr('x', cbX + COLORBAR_WIDTH / 2 + 20)
+				.attr('y', -15)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', fontSize.legend),
+			colorbarLabel,
+			'13.5px',
+		);
 	}, [
 		data,
 		xLabel,
@@ -201,6 +241,8 @@ export default function GridPlot({
 		hideXAxis,
 		maxPlotWidth,
 		plotHeight,
+		titleYOffset,
+		gradId,
 	]);
 
 	if (error) {

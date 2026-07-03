@@ -1,10 +1,8 @@
-import { ExperimentType, DispersionData } from '../constants/experimentTypes';
+import {
+	ExperimentType,
+	SimulationResultData,
+} from '../constants/experimentTypes';
 import DispersionResult from './DispersionResult';
-
-interface SimulationResultData {
-	dispersion: DispersionData;
-	numberOfModes: number;
-}
 
 interface SimulationResultProps {
 	result: SimulationResultData | null;
