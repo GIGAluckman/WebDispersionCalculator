@@ -4,7 +4,7 @@ export interface ErrorInfo {
 	warning?: boolean;
 }
 
-// Codes 0-3 and 99 mirror the backend's helpers.ErrorCode enum — do not renumber.
+// Codes 0-6 and 99 mirror the backend's helpers.ErrorCode enum — do not renumber.
 // 100 is client-side only: the server could not be reached at all.
 export const CONNECTION_ERROR = 100;
 
@@ -27,6 +27,20 @@ const ERROR_CODES: Record<number, ErrorInfo> = {
 	3: {
 		title: 'Not supported',
 		message: 'This experiment type is not supported yet.',
+	},
+	4: {
+		title: 'Time limit reached',
+		message: 'The simulation reached the time limit, retry with softer parameters.',
+	},
+	5: {
+		title: 'Memory limit reached',
+		message:
+			'The simulation hit the memory limit of the container. Retry with softer parameters (coarser mesh, fewer k-points or modes).',
+	},
+	6: {
+		title: 'Simulation failed',
+		message:
+			'The simulation crashed repeatedly, possibly out of memory. Retry with softer parameters.',
 	},
 	99: {
 		title: 'Server error',

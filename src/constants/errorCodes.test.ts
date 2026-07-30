@@ -21,6 +21,24 @@ describe('getErrorInfo', () => {
 		expect(getErrorInfo(2).message).toContain('relax');
 	});
 
+	it('describes the simulation time limit for errorId 4', () => {
+		const info = getErrorInfo(4);
+		expect(info.title).toBe('Time limit reached');
+		expect(info.message).toBe(
+			'The simulation reached the time limit, retry with softer parameters.',
+		);
+	});
+
+	it('describes the container memory limit for errorId 5', () => {
+		const info = getErrorInfo(5);
+		expect(info.title).toBe('Memory limit reached');
+		expect(info.message).toContain('memory limit');
+	});
+
+	it('describes a repeatedly crashed job for errorId 6', () => {
+		expect(getErrorInfo(6).message).toContain('crashed repeatedly');
+	});
+
 	it('falls back to a generic message for unknown ids', () => {
 		expect(getErrorInfo(42).message).toContain('42');
 		expect(getErrorInfo(null).message).toBeTruthy();
