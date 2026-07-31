@@ -7,7 +7,7 @@ import GeometryForm from './GeometryForm';
 import styles from './styles/MainForm.module.css';
 import { useState } from 'react';
 import { useFormSubmit } from '../hooks/useFormSubmit';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 
 interface MainFormProps {
 	startNewSimulation: () => string;
@@ -93,6 +93,14 @@ export default function MainForm({
 							? 'Delete Advanced Settings'
 							: 'Use Advanced Settings'}
 					</Button>
+					<Typography
+						variant="body2"
+						color="text.secondary"
+						sx={{ alignSelf: 'center' }}
+					>
+						Note: simulation time is currently limited to 20
+						minutes.
+					</Typography>
 				</div>
 			</div>
 		</form>
