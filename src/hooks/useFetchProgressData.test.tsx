@@ -176,6 +176,20 @@ describe('useFetchProgressData', () => {
 		expect(setAlertToggle).toHaveBeenCalledWith(true);
 	});
 
+	it('exposes the attempt number, defaulting to 1 when absent', async () => {
+		statusQueue.push(
+			jsonResponse(statusBody()),
+			jsonResponse(statusBody({ attempt: 2 })),
+		);
+
+		const { result } = render();
+		await advance(INITIAL_DELAY + TICK);
+		expect(result.current.attempt).toBe(1);
+
+		await advance(TICK);
+		expect(result.current.attempt).toBe(2);
+	});
+
 	it('tolerates up to three consecutive poll failures', async () => {
 		statusQueue.push(
 			new Error('boom'),

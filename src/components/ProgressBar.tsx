@@ -17,7 +17,7 @@ export default function ProgressBar({
 	setResult,
 	setLoading,
 }: ProgressBarProps) {
-	const { progress, status } = useFetchProgressData(
+	const { progress, status, attempt } = useFetchProgressData(
 		`${import.meta.env.VITE_BACKEND_URL}/status/${simulationId}`,
 		setAlertToggle,
 		setErrorId,
@@ -34,6 +34,7 @@ export default function ProgressBar({
 			<Box sx={{ width: 980 }}>
 				<Typography sx={{ mb: 0.1, mt: 0.9 }}>
 					Simulation status: {status}
+					{attempt > 1 ? ` (attempt #${attempt})` : ''}
 				</Typography>
 				<Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
 					<Box sx={{ flexGrow: 1, position: 'relative', height: 13 }}>

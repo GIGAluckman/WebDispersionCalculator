@@ -18,6 +18,7 @@ export function useFetchProgressData(
 ) {
 	const [progress, setProgress] = useState<number>(0);
 	const [status, setStatus] = useState<string>('Beginning simulation');
+	const [attempt, setAttempt] = useState<number>(1);
 
 	useEffect(() => {
 		const abort = new AbortController();
@@ -89,6 +90,7 @@ export function useFetchProgressData(
 
 				setProgress(data.progress ?? 0);
 				setStatus(data.status ?? '');
+				setAttempt(data.attempt ?? 1);
 
 				if (data.completed) {
 					const outcome = await fetchResult();
@@ -136,5 +138,5 @@ export function useFetchProgressData(
 		setLoading,
 	]);
 
-	return { progress, status };
+	return { progress, status, attempt };
 }
